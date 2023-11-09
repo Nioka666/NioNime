@@ -1,0 +1,845 @@
+/* @font-face {
+  font-family: "Poppins";
+  src: local("./fonts/Poppins/") url("./fonts/Poppins/Poppins-ExtraBold.ttf");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("./fonts/Poppins/") url("./fonts/Poppins/Poppins-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("./fonts/Poppins/") url("./fonts/Poppins/Poppins-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("./fonts/Poppins/") url("./fonts/Poppins/Poppins-Regular.ttf");
+  font-weight: 500;
+} */
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", cursive;
+  scroll-behavior: smooth;
+  font-weight: normal;
+}
+
+body {
+  background-color: #000000;
+  /* background-color: #2c2c2c; */
+  color: white;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* index page */
+nav {
+  margin: auto 0;
+  font-size: 16px;
+  color: white;
+  transition: 0.5s all ease-in-out;
+}
+
+nav#nav {
+  background-color: #00000000;
+  z-index: 999;
+  height: 90px;
+}
+
+nav div.container a.navbar-brand {
+  /* font-family: "Cinzel"; */
+  margin-top: auto 0;
+  margin-left: 15.5px;
+  font-size: 28px;
+  font-weight: 700;
+  /* font-style: italic; */
+}
+
+nav div.container a.navbar-brand img {
+  margin-top: -7px;
+}
+
+nav div.container a.navbar-brand span {
+  /* font-family: "Cinzel"; */
+  color: #ffc106;
+  /* default color */
+  font-weight: 700;
+}
+
+i {
+  color: rgba(255, 255, 255, 0.861);
+  cursor: pointer;
+}
+
+/*  Carousels */
+
+.carousel-item {
+  transition: all 1s ease-in-out;
+  transform: translateY(2);
+}
+
+.carousel-item img {
+  filter: brightness(83%);
+}
+
+.carousel-inner::before {
+  content: "";
+  position: absolute;
+  /* top: 10px; */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(
+    farthest-corner at 790px 270px,
+    rgba(0, 0, 0, 0) 5%,
+    rgb(0, 0, 0) 90%
+  );
+  z-index: 1;
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 125px 0 0 -20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: flex-start;
+  /* border: 1px solid white; */
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  z-index: 2;
+}
+
+.inner-overlay {
+  display: inline-block;
+  backdrop-filter: blur(4px);
+  border-radius: 0 120px 200px 0;
+}
+
+.carousel-overlay h1 {
+  text-align: left;
+  padding: 50px 30px 0px 87px;
+  font-weight: bolder;
+  color: #d9d9d9;
+}
+
+.carousel-overlay p {
+  text-align: left;
+  min-width: 560px;
+  max-width: 560px;
+  /* height: 230px; */
+  padding: 15px 20px 10px 92px;
+  color: #c5c5c5;
+  margin-top: -8px;
+  margin-bottom: 0px;
+  border-radius: 0 0 80px 0;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+/* button */
+.carousel-overlay .btn-group {
+  border-radius: 0;
+  margin: 40px 0 45px -140px;
+  gap: 10px;
+  /* border: 2px solid white; */
+}
+
+.inner-overlay button {
+  /* position: relative; */
+  overflow: hidden;
+  border-radius: 0px;
+  font-size: 16px;
+  padding: 12px 38px;
+  /* background-color: #dbb700; */
+  background-color: #caa800;
+  color: #000000;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
+}
+
+.carousel-overlay i {
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+.carousel-overlay button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  transition: left 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  z-index: -1;
+}
+
+.carousel-overlay button:hover::before {
+  left: 0;
+}
+
+.carousel-overlay button:hover {
+  background-color: #000000;
+  color: #dbb700;
+}
+
+.carousel-overlay button:hover i {
+  color: #dbb700;
+  font-weight: 600;
+}
+
+/* slide */
+.slide-nime {
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: 50px;
+  text-align: left;
+  padding: 20px 20px 20px 20px;
+  height: 400px;
+  box-shadow: 0px -70px 90px #0000002a;
+  /* border: white 2px solid; */
+  background-color: #00000040;
+  position: relative;
+  z-index: 998;
+}
+
+.slide-nime .top-capt {
+  text-align: right;
+  margin-right: 50px;
+}
+
+.slide-nime .left-capt {
+  margin-top: 20px;
+  text-align: left;
+  margin-left: 50px;
+  font-weight: 600;
+}
+
+.slide-nime h3 {
+  margin-top: -115px;
+  font-weight: 600;
+}
+
+.slide-nime h6 {
+  margin-bottom: 20px;
+}
+
+.sss {
+  display: block;
+  width: 100%;
+  height: fit-content;
+  overflow-x: auto;
+  padding: 7px 36px;
+  margin: 0;
+  z-index: 2;
+  white-space: nowrap;
+  border: none;
+  margin-bottom: -150px;
+}
+
+.sss::-webkit-scrollbar {
+  display: none;
+}
+
+.sss {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.item {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  width: 205px;
+  height: 400px;
+  margin: 0 16px;
+  background: #0000000d no-repeat center center;
+  background-size: cover;
+  cursor: pointer;
+  overflow: hidden; /* Menyembunyikan konten yang melebihi batas item */
+}
+
+.item img {
+  height: 299px;
+  /* box-shadow: ; */
+  /* border-radius: 8px; */
+}
+
+.item::before {
+  content: "";
+  position: absolute;
+  top: 200px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* Sesuaikan tinggi vignette sesuai keinginan Anda */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.83), rgba(0, 0, 0, 0));
+  z-index: 1; /* Pastikan vignette memiliki z-index yang lebih rendah dari gambar */
+}
+
+.item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px 20px;
+  background: #000000b6;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.item:hover .overlay {
+  opacity: 1;
+}
+
+.item .overlay h6 {
+  width: 90%;
+  white-space: wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Batasi hingga 3 baris */
+  -webkit-box-orient: vertical;
+}
+
+.item .overlay p {
+  width: 90%;
+  margin: 0;
+  font-size: 13px;
+  white-space: pre-wrap;
+  overflow: hidden;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Batasi hingga 3 baris */
+  -webkit-box-orient: vertical;
+}
+
+.item div.anime-title {
+  margin-top: 10px;
+  display: grid;
+  gap: 8.3px;
+}
+
+.item div.anime-title h6 {
+  width: 80%;
+  margin: 0;
+  font-size: 14.6px;
+  white-space: wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Batasi hingga 3 baris */
+  -webkit-box-orient: vertical;
+}
+
+/* single */
+.single-parent-container {
+  display: grid;
+  gap: 60px;
+  /* background-color: #282828; */
+  padding: 20px 70px;
+  margin: 90px 0;
+}
+
+.single-parent-container .single-wrapper {
+  background-color: black;
+  padding: 50px;
+  display: grid;
+  gap: 40px;
+}
+
+.single-parent-container .single-title {
+  padding: 0 48px;
+}
+
+.single-parent-container .containers {
+  display: flex;
+  /* border: 2px solid white; */
+  padding: 0;
+}
+
+/* foooter */
+footer {
+  margin-top: 200px;
+  color: white;
+}
+
+/* error page */
+.error-main {
+  display: flex;
+  gap: 80px;
+  margin: 27px auto 0 auto;
+}
+
+.error-msg {
+  display: grid;
+}
+
+.error-msg h2 a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.error-h1 {
+  font-size: 50px;
+  margin: 85px 0 0 0;
+}
+
+.error-h1 span {
+  font-weight: 600;
+  font-size: 120px;
+}
+
+/* colors */
+.text-black {
+  /* color: #000000bc; */
+  color: black;
+}
+
+.text-lightgray {
+  color: #aeaeae;
+}
+
+.text-lights {
+  color: #d0d0d0;
+}
+
+.text-gray {
+  color: rgb(147, 147, 147);
+}
+
+.text-willow {
+  color: #dbb700;
+}
+
+/* margin */
+.m-top-50 {
+  margin-top: 50px;
+}
+
+.m-top-60 {
+  margin-top: 60px;
+}
+
+.m-top-80 {
+  margin-top: 80px;
+}
+
+.m-top-30 {
+  margin-top: 99px;
+}
+
+/* effect */
+.vignette {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 200px #000000e6 inset;
+}
+
+/*  */
+
+.bg-gray-blue {
+  background-color: #2c2e32;
+}
+
+/* Login Section */
+.container-login {
+  display: flex;
+  overflow: hidden;
+  width: fit-content;
+  margin: 85px auto;
+  /* border-radius: 18px; */
+  /* box-shadow: 2px 10px 20px #5a5a5a5c; */
+}
+
+.container-login div.header h1 {
+  font-weight: bolder;
+  font-weight: 700;
+  font-size: 48px;
+}
+
+.container-login .login-form h1 {
+  font-weight: 600;
+  font-size: 37px;
+  color: #cecece;
+}
+
+.container-login .header h3 {
+  font-weight: lighter;
+  color: #eaeaea;
+}
+
+/* login form section */
+.container-login .login-form {
+  display: grid;
+  backdrop-filter: blur(2px);
+  /* background-color: #202021; */
+  padding: 41px 72px 70px 72px;
+}
+
+.container-login .login-form form {
+  margin-top: 20px;
+}
+
+.container-login .login-form input[type="text"],
+.container-login .login-form input[type="password"] {
+  width: 400px;
+  height: 55px;
+  padding: 13px 13px 13px 17px;
+  margin-top: 20px;
+  background-color: #eff1f500;
+  border: 2.5px solid #8080805d;
+  color: #e0e0e0;
+  /* border-radius: 16px; */
+  font-size: 16.9px;
+}
+
+button.btn-loginPage {
+  cursor: pointer;
+  width: 400px;
+  background-color: #dbb700;
+  border: none;
+  /* border-radius: 50px; */
+  border-radius: 10px;
+  padding: 11px 20px;
+  margin-top: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  transition: all ease-in-out 0.3s;
+}
+
+button.btn-loginPage:hover {
+  background-color: #5f5f5f;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+td.register-label {
+  padding-top: 10px;
+  text-align: center;
+}
+
+td.register-label a {
+  color: black;
+}
+
+/* Account Page */
+div.profile-page .user-wrapper h4 {
+  color: #e1e1e1;
+  font-size: 23px;
+}
+
+div.profile-detail {
+  margin-top: 10px;
+  margin-left: 25px;
+  gap: 130px;
+}
+
+div.profile-detail .options ul li {
+  margin-top: 21px;
+  /* color: rebeccapurple; */
+}
+
+/* Form */
+form.changePassword {
+  background-color: #1c1c1c;
+  padding: 55px 140px;
+  border-radius: 20px;
+}
+
+form.changePassword input {
+  height: 57px;
+  width: 500px;
+  font-size: 18px;
+  color: #e2e2e2;
+  border-radius: 15px;
+  padding: 5px 5px 5px 19px;
+  /* border: 2px solid gray; */
+  border: none;
+  background-color: #292929;
+}
+
+form.changePassword i {
+  color: #b1b1b1;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+form.changePassword label {
+  color: #b1b1b1;
+  width: 505px;
+  font-size: 14px;
+}
+
+/*  */
+@media only screen and (max-width: 768px) {
+  /* nav {
+    transition: 0.5s all ease-in-out;
+  } */
+
+  nav .container a img {
+    height: 25px;
+  }
+
+  nav .container .navbar-collapse {
+    transition: 0.3s all ease-in-out;
+    text-align: left;
+    background-color: black;
+  }
+
+  .carousel-item {
+    transition: all 1s ease-in-out;
+    transform: translateY(2);
+    background-size: cover;
+  }
+
+  .carousel-item img {
+    filter: brightness(88%);
+    height: 500px;
+    /* transform: scale(170%); */
+  }
+
+  .carousel-overlay {
+    margin: 200px 0 0 -10px;
+    text-align: center;
+  }
+
+  .inner-overlay {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    backdrop-filter: blur(0px);
+    /* border-radius: 0 120px 200px 0; */
+  }
+
+  .carousel-overlay h1 {
+    text-align: center;
+    /* color: transparent; */
+    padding: 30px 15px 0px 37px;
+    font-size: 35px;
+  }
+
+  .carousel-overlay p {
+    text-align: center;
+    /* color: transparent; */
+    min-width: 300px;
+    max-width: 300px;
+    padding: 15px 20px 10px 42px;
+    font-size: 12px;
+  }
+
+  .carousel-overlay .btn-group {
+    margin: 0 auto;
+    margin-top: 25px;
+  }
+
+  .carousel-overlay button {
+    font-size: 18px;
+    padding: 3px 40px;
+    /* margin-left: 50px; */
+  }
+
+  /* Slides */
+  .slide-nime {
+    box-sizing: border-box;
+    width: 100%;
+    margin-right: 50px;
+    text-align: left;
+    padding: 20px 20px 20px 0px;
+    height: 400px;
+    box-shadow: 0px -70px 90px #0000002a;
+    /* border: white 2px solid; */
+    background-color: transparent;
+    position: relative;
+    z-index: 998;
+  }
+
+  .slide-nime .top-capt {
+    text-align: left;
+    margin: 0px 50px 0 20px;
+  }
+
+  .slide-nime .left-capt {
+    margin-top: -180px;
+    text-align: left;
+    margin-left: 20px;
+    font-weight: 600;
+  }
+
+  .slide-nime h3 {
+    margin-top: -115px;
+    font-weight: 600;
+  }
+
+  .slide-nime h6 {
+    margin-bottom: 20px;
+  }
+
+  .sss {
+    display: block;
+    width: 100%;
+    height: fit-content;
+    overflow-x: auto;
+    padding: 7px 7px;
+    margin: 0;
+    z-index: 2;
+    white-space: nowrap;
+    border: none;
+    margin-bottom: -150px;
+  }
+
+  .sss::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sss {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .item {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    width: 158px;
+    height: 400px;
+    margin: 0 10px;
+    background: #0000000d no-repeat center center;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden; /* Menyembunyikan konten yang melebihi batas item */
+  }
+
+  .item img {
+    height: 239px;
+    /* box-shadow: ; */
+    /* border-radius: 8px; */
+  }
+
+  .item::before {
+    content: "";
+    position: absolute;
+    top: 140px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px; /* Sesuaikan tinggi vignette sesuai keinginan Anda */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.83), rgba(0, 0, 0, 0));
+    z-index: 1; /* Pastikan vignette memiliki z-index yang lebih rendah dari gambar */
+  }
+
+  .item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px 20px;
+    background: #000000b6;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .item:hover .overlay {
+    opacity: 1;
+  }
+
+  .item .overlay h6 {
+    width: 90%;
+    white-space: wrap;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Batasi hingga 3 baris */
+    -webkit-box-orient: vertical;
+  }
+
+  .item .overlay p {
+    width: 90%;
+    margin: 0;
+    font-size: 11px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Batasi hingga 3 baris */
+    -webkit-box-orient: vertical;
+  }
+
+  .item div.anime-title {
+    margin-top: 13px;
+    display: grid;
+    gap: 8.3px;
+  }
+
+  .item div.anime-title h6 {
+    width: 80%;
+    margin: 0;
+    font-size: 12.9px;
+    white-space: wrap;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Batasi hingga 3 baris */
+    -webkit-box-orient: vertical;
+  }
+
+  /* Single container */
+  .single-parent-container {
+    display: grid;
+    gap: 10px;
+    /* background-color: #282828; */
+    /* padding: 20px 70px; */
+    margin: 150px 0 90px 0;
+  }
+
+  .single-parent-container .single-wrapper {
+    background-color: black;
+    padding: 50px;
+    display: grid;
+    gap: 40px;
+  }
+
+  .single-parent-container .containers {
+    display: grid;
+    /* border: 2px solid white; */
+    /* padding: 0 100px; */
+  }
+
+  .single-parent-container .containers img {
+    padding: 0;
+    width: 290px;
+  }
+
+  .single-parent-container .single-title {
+    padding: 40px 0px;
+  }
+}
