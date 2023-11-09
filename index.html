@@ -26,25 +26,6 @@
   <!-- video js -->
   <script type="module" src="/src/Main.tsx"></script>
   <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const nav = document.getElementById("nav");
-
-      window.addEventListener("scroll", () => {
-        const scrollPosition = window.scrollY;
-
-        if (scrollPosition > 10) {
-          nav.style.backgroundColor = "#000000a3";
-          nav.style.backdropFilter = "blur(10px)";
-          nav.style.height = "80px";
-        } else {
-          nav.style.backgroundColor = "transparent";
-          nav.style.backdropFilter = "none";
-          nav.style.height = "90px";
-        }
-      });
-    });
-  </script>
 </body>
 
 </html>

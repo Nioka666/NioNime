@@ -13,9 +13,3 @@ const renderWithStrictMode = (element: any, component: any) => {
 };
 
 renderWithStrictMode(rootElement, <App />);
-
-// ReactDOM.createRoot(navElement).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
