@@ -3,9 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "imports": {
-    "@*": "./public/*"
-  },
   "scripts": {
     "dev": "vite",
     "db": "nodemon ./src/databases/server.js",
@@ -26,7 +23,8 @@
     "react-router-dom": "^6.17.0",
     "swr": "^2.2.4",
     "validator": "^13.11.0",
-    "video.js": "^8.6.1"
+    "video.js": "^8.6.1",
+    "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.2.0",

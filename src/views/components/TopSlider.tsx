@@ -19,7 +19,7 @@ export const TopSlider: React.FC = () => {
     data: animeData,
     error: topAnimeError,
     isValidating: isLoadingTopAnime,
-  } = useSWR("topAnime", () => fetchTopAnimeData(2));
+  } = useSWR("topAnime", () => fetchTopAnimeData(1));
 
   const {
     data: animeDetail,
@@ -39,15 +39,22 @@ export const TopSlider: React.FC = () => {
     console.error("Error fetching anime detail:", detailError);
   }
 
+  interface Anime {
+    id: string;
+    title: string;
+    image: string;
+    genres: any;
+  }
+
   return (
     <>
       <div className="slide-nime m-top-80">
         <div className="top-capt">
           <h3>
-            <i
+            {/* <i
               className="fa-solid fa-crown text-warning"
               style={{ marginRight: "10px" }}
-            ></i>
+            ></i> */}
             Top Airing
           </h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
@@ -55,8 +62,8 @@ export const TopSlider: React.FC = () => {
         <div className="sss">
           {isLoadingTopAnime && <Loading />}
           {!isLoadingTopAnime &&
-            animeData?.results.map((anime: any) => (
-              <Link to={`anime-detail/${anime.id}`}>
+            animeData?.results.map((anime: Anime) => (
+              <Link to={`anime-detail/${anime.id}`} key={anime.id}>
                 <div
                   className={`item ${
                     hoveredAnimeId === anime.id ? "hovered" : ""
@@ -74,7 +81,7 @@ export const TopSlider: React.FC = () => {
                   <div className="overlay">
                     {isLoadingDetail && <Loading />}
                     {!isLoadingDetail && hoveredAnimeId === anime.id && (
-                      <div className="anime-detail">
+                      <div className="anime-detail" key={anime.id}>
                         <h6 className="fw-normal">{animeDetail?.title}</h6>
                         <strong>
                           <p className="text-gray fw-bold">

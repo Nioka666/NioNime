@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 const InnerNav = () => {
   return (
     <>
-      <ul
-        className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold"
-        style={{ gap: "25px", margin: "0 0 0 550px" }}
-      >
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
         <li className="nav-item">
           <a className="nav-link fw-medium text-lights" href="/anime-detail">
             Categories
@@ -24,19 +21,15 @@ const InnerNav = () => {
         </li>
       </ul>
       {/*  */}
-      <div className="right-nav-wrapper d-flex" style={{ gap: "38px" }}>
-        <div className="" style={{ gap: "40px", marginTop: "11px" }}>
-          <h6>
-            <i className="fa-solid fa-magnifying-glass fs-5"></i>
-          </h6>
-        </div>
-        <div className="" style={{ gap: "40px", marginTop: "9px" }}>
-          <h6>
-            <a href="/account">
-              <i className="fa-regular fa-circle-user fs-4"></i>
-            </a>
-          </h6>
-        </div>
+      <div className="right-nav-wrapper d-flex">
+        <h6>
+          <i className="fa-solid fa-magnifying-glass fs-5"></i>
+        </h6>
+        <h6>
+          <a href="/account">
+            <i className="fa-regular fa-user fs-5"></i>
+          </a>
+        </h6>
       </div>
     </>
   );

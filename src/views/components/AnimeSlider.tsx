@@ -43,10 +43,10 @@ export const AnimeSlider = () => {
       <div className="slide-nime m-top-30">
         <div className="left-capt">
           <h3 style={{ marginTop: "-100px" }}>
-            <i
+            {/* <i
               className="fa-solid fa-fire-flame-curved text-warning"
               style={{ marginRight: "10px" }}
-            ></i>
+            ></i> */}
             Recent Updates
           </h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>

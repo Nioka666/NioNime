@@ -16,8 +16,6 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<MainLayout />} errorElement={<ErrorPage />}>
             <Route path="/" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
             <Route path="account" element={<Account />} />
             <Route path="about" element={<About />} />
             <Route path="anime-detail/:animeId" element={<AnimeDetail />} />
@@ -26,6 +24,10 @@ export const App = () => {
               element={<AnimeDetail />}
             />
             <Route path="*" element={<ErrorPage />} />
+          </Route>
+          <Route path="/auth/">
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Route>
           <Route
             path="*"

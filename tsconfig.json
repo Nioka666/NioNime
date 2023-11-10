@@ -5,6 +5,10 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./public/img/*", "./src/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -20,6 +24,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "public/style", "src/views/pages/ErrorPage.tsx", "public/img"],
+  "include": [
+    "src/**/*",
+    "public/style",
+    "src/views/pages/ErrorPage.tsx",
+    "public/img"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

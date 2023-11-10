@@ -2,7 +2,7 @@ export const ErrorPage = () => {
   return (
     <>
       <div className="container error-main" style={{ marginTop: "130px" }}>
-        <img src="./img/sus.png" height="400px" />
+        <img src="@img/sus.png" height="400px" />
         <div className="error-msg">
           <h1 className="error-h1 text-gray">
             <span>Oops..</span>
