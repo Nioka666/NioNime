@@ -4,7 +4,7 @@ const InnerNav = () => {
   return (
     <>
       <ul
-        className="navbar-nav me-auto mb-2 mb-lg-0 text-white fw-bold"
+        className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold"
         style={{ gap: "25px", margin: "0 0 0 550px" }}
       >
         <li className="nav-item">
@@ -85,7 +85,7 @@ export const Nav: React.FC = () => {
       >
         <div className="container">
           <a className="navbar-brand" href="/">
-            <img src="../../../public/img/logo.png" height="27.9px" />
+            <img src="./img/logo.png" height="27.9px" />
           </a>
           <button
             className="navbar-toggler"

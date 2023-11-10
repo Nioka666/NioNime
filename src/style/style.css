@@ -76,13 +76,12 @@ nav div.container a.navbar-brand span {
   font-weight: 700;
 }
 
-i {
-  color: rgba(255, 255, 255, 0.861);
+nav i {
+  color: #e3e3e3c2;
   cursor: pointer;
 }
 
 /*  Carousels */
-
 .carousel-item {
   transition: all 1s ease-in-out;
   transform: translateY(2);
@@ -421,7 +420,7 @@ footer {
 }
 
 .text-lights {
-  color: #d0d0d0;
+  color: #c6c6c6;
 }
 
 .text-gray {

@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "public/style", "src/views/pages/ErrorPage.tsx"],
+  "include": ["src", "public/style", "src/views/pages/ErrorPage.tsx", "public/img"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

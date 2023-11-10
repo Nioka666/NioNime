@@ -14,15 +14,24 @@ export const App = () => {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<MainLayout />} errorElement={<ErrorPage />}>
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="account" element={<Account />} />
             <Route path="about" element={<About />} />
             <Route path="anime-detail/:animeId" element={<AnimeDetail />} />
+            <Route
+              path="anime-detail/watch/:animeId"
+              element={<AnimeDetail />}
+            />
             <Route path="*" element={<ErrorPage />} />
           </Route>
+          <Route
+            path="*"
+            element={<ErrorPage />}
+            errorElement={<ErrorPage />}
+          />
         </Routes>
       </Router>
     </>
