@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { About } from "./views/pages/About";
-import { ErrorPage } from "./views/pages/ErrorPage";
-import { Home } from "./views/pages/Home";
-import { Login } from "./views/pages/Login";
-import { Register } from "./views/pages/Register";
-import { Account } from "./views/pages/Account";
-import { AnimeDetail } from "./views/pages/AnimeDetail";
-import { MainLayout } from "./views/layouts/MainLayout";
+import { About } from "@pages/About";
+import { ErrorPage } from "@pages/ErrorPage";
+import { Home } from "@pages/Home";
+import { Login } from "@pages/Login";
+import { Register } from "@pages/Register";
+import { Account } from "@pages/Account";
+import { AnimeDetail } from "@pages/AnimeDetail";
+import { MainLayout } from "@views/layouts/MainLayout";
 
 export const App = () => {
   return (
@@ -23,17 +23,25 @@ export const App = () => {
               path="anime-detail/watch/:animeId"
               element={<AnimeDetail />}
             />
-            <Route path="*" element={<ErrorPage />} />
+            <Route
+              path="*"
+              element={<ErrorPage />}
+              errorElement={<ErrorPage />}
+            />
           </Route>
-          <Route path="/auth/">
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+          {/* auth paths */}
+          <Route path="/auth/" errorElement={<ErrorPage />}>
+            <Route
+              path="login"
+              element={<Login />}
+              errorElement={<ErrorPage />}
+            />
+            <Route
+              path="register"
+              element={<Register />}
+              errorElement={<ErrorPage />}
+            />
           </Route>
-          <Route
-            path="*"
-            element={<ErrorPage />}
-            errorElement={<ErrorPage />}
-          />
         </Routes>
       </Router>
     </>

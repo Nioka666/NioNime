@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import ViteTsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
   server: {
@@ -14,8 +15,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "/@img/": "./public/img/",
-      "/@utils/": "./src/utils/",
+      "@img/*": path.resolve(__dirname, "./public/img"),
+      // "/@utils/": "./src/utils/",
     },
   },
 });

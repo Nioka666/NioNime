@@ -29,6 +29,28 @@ export const Carousels: React.FC = () => {
   return (
     <>
       <CarouselHeader>
+        <div className="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleSlidesOnly"
+            data-bs-slide-to="0"
+            className="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleSlidesOnly"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
         {/* Items */}
         <div className="carousel-item">
           <div className="hero-bg">
@@ -96,24 +118,26 @@ export const Carousels: React.FC = () => {
                 srcSet="./img/aikane_potrait.jpeg"
                 media="(max-width: 760px)"
               />
-              <ImgCarousel src="./img/aiai.png" />
+              <ImgCarousel src="./img/vind.jpeg" />
             </picture>
             <picture>
-              <ImgCarousel src="./img/aikane_potrait.jpeg" />
+              <ImgCarousel src="./img/vinland.jpg" />
             </picture>
           </div>
-          
+
           {/* overlay */}
           <div className="carousel-overlay">
             <div className="inner-overlay">
               <h1 className="display-3 fw-bold">
-                [ 推しの子 ]<br /> Oshi no Ko.
+                Vinland Saga
+                <br /> Season 2
               </h1>
               <p>
-                "Oshi no Ko - Official Released Coming for 2024
+                "Vinland Saga - Official Released <br />
+                Coming for 2024
               </p>
               <p>
-                <span className="text-warning fw-bold">Genres</span> Mystery,
+                <span className="text-warning fw-bold">Genres: </span> War,
                 Drama
               </p>
 

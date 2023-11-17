@@ -1,6 +1,6 @@
-import { CarouselHeader } from "../components/Carousels";
-import { Features } from "../components/Features";
-import { Pricing } from "../components/Pricing";
+import { CarouselHeader } from "@components/Carousels";
+import { Features } from "@components/Features";
+import { Pricing } from "@components/Pricing";
 
 export const About = () => {
   return (
@@ -23,7 +23,7 @@ export const About = () => {
                 className="display-3 fw-bold text-gray"
                 style={{ textAlign: "center", textShadow: "0 0 80px black" }}
               >
-               a Free Place <br /> Anime Stream Collections
+                a Free Place <br /> Anime Stream Collections
               </h1>
               {/* <p>
                 Attack On Titan - Official Released

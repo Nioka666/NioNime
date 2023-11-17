@@ -40,7 +40,8 @@ nav {
 }
 
 nav#nav {
-  background-color: #00000000;
+  /* background-color: #00000000; */
+  background-color: #000000a3;
   z-index: 999;
   height: 90px;
 }
@@ -74,10 +75,16 @@ nav .right-nav-wrapper {
   gap: 38px;
 }
 
-nav .right-nav-wrapper h6 {
-  margin-top: 10px;
+nav .right-nav-wrapper ul {
+  list-style-type: none;
+  display: flex;
+  margin-top: 17px;
   gap: 40px;
 }
+/* nav .right-nav-wrapper li {
+  margin-top: 10px;
+  gap: 40px;
+} */
 
 nav ul.navbar-nav {
   gap: 25px;
@@ -114,7 +121,7 @@ nav ul.navbar-nav {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 115px 0 0 -20px;
+  margin: 100px 0 0 -20px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -158,7 +165,7 @@ nav ul.navbar-nav {
 .carousel-overlay .btn-group {
   border-radius: 0;
   margin: 40px 0 45px -140px;
-  gap: 10px;
+  gap: 15px;
   /* border: 2px solid white; */
 }
 
@@ -205,6 +212,13 @@ nav ul.navbar-nav {
 .carousel-overlay button:hover i {
   color: #dbb700;
   font-weight: 600;
+}
+
+.carousel-indicators {
+  position: absolute;
+  top: 560px;
+  left: -800px;
+  z-index: 3;
 }
 
 /* slide */
@@ -389,33 +403,34 @@ footer {
 /* error page */
 .error-main {
   display: flex;
-  gap: 80px;
-  margin: 27px auto 0 auto;
+  gap: 67px;
+  margin: 130px 0 0 145px;
 }
 
 .error-msg {
-  display: grid;
+  /* display: grid;  */
+  /* gap: 0px; */
+  /* border: 2px solid white; */
+  width: 500px;
 }
 
-.error-msg h2 a {
-  font-weight: 600;
-  text-decoration: none;
+.error-msg h2 {
+  margin-top: 20px;
+  font-size: 26px;
 }
 
 .error-h1 {
-  font-size: 50px;
+  /* line-height: 74px; */
   margin: 85px 0 0 0;
-}
-
-.error-h1 span {
   font-weight: 600;
-  font-size: 120px;
+  font-size: 100px;
 }
 
 /* colors */
 .text-black {
   /* color: #000000bc; */
   color: black;
+  /* color: #00000082; */
 }
 
 .text-lightgray {
@@ -432,6 +447,10 @@ footer {
 
 .text-willow {
   color: #dbb700;
+}
+
+.text-darkgray {
+  color: #686868;
 }
 
 /* margin */
@@ -461,9 +480,13 @@ footer {
 }
 
 /*  */
-
 .bg-gray-blue {
   background-color: #2c2e32;
+}
+
+/* font size */
+.font-nav-icon {
+  font-size: 18px;
 }
 
 /* Login Section */

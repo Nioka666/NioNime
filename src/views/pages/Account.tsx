@@ -195,7 +195,7 @@ export const Account = () => {
       <div
         className="p-5 text-center bg-black"
         style={{
-          marginTop: "88px",
+          // marginTop: "88px",
           backgroundImage: "url(./img/sky1.jpg)",
           backgroundSize: "cover",
           // backgroundPosition: "0px",

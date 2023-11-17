@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import useSWR from "swr";
-import { fetchTopAnimeData, fetchAnimeDetail } from "../../utils/anime";
+import { fetchTopAnimeData, fetchAnimeDetail } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ export const TopSlider: React.FC = () => {
     data: animeData,
     error: topAnimeError,
     isValidating: isLoadingTopAnime,
-  } = useSWR("topAnime", () => fetchTopAnimeData(1));
+  } = useSWR("topAnime", () => fetchTopAnimeData(11));
 
   const {
     data: animeDetail,

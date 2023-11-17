@@ -19,28 +19,59 @@ const InnerNav = () => {
             About
           </a>
         </li>
-      </ul>
-      {/*  */}
-      <div className="right-nav-wrapper d-flex">
-        <h6>
-          <i className="fa-solid fa-magnifying-glass fs-5"></i>
-        </h6>
-        <h6>
-          <a href="/account">
-            <i className="fa-regular fa-user fs-5"></i>
+        <li className="nav-item">
+          <a href="/search" className="nav-link">
+            <i className="fa-solid fa-magnifying-glass font-nav-icon"></i>
           </a>
-        </h6>
-      </div>
+        </li>
+        {/* dropdown */}
+        <li className="nav-item dropstart">
+          <a
+            className="nav-link dropdown"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="fa-regular fa-user font-nav-icon"></i>
+          </a>
+          <ul
+            className="dropdown-menu dropdown-menu-dark bg-dark"
+            style={{ border: "2px solid white" }}
+          >
+            <li>
+              <a className="dropdown-item text-lights" href="#">
+                <i className="fa-solid fa-arrow-right-to-bracket"></i>
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item text-lights" href="#">
+                <i
+                  className="fa-solid fa-arrow-right-to-bracket"
+                  style={{ transform: "rotate(180deg)" }}
+                ></i>
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item text-lights" href="#">
+                Som
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </>
   );
 };
 
 export const Nav: React.FC = () => {
   const currentPath = window.location.pathname;
+  const paths: string[] = ["/account", "anime-detail"];
+  const isDisabledPath = paths.includes(currentPath);
   const [navStyles, setNavStyles] = useState({
-    backgroundColor: "transparent",
-    backdropFilter: "none",
-    height: "90px",
+    backgroundColor: isDisabledPath ? "#000000a3" : "transparent",
+    backdropFilter: isDisabledPath ? "blur(5px)" : "none",
+    height: isDisabledPath ? "80px" : "90px",
   });
 
   useEffect(() => {
@@ -53,7 +84,7 @@ export const Nav: React.FC = () => {
           backdropFilter: "blur(10px)",
           height: "80px",
         });
-      } else {
+      } else if (currentPath !== "/account") {
         setNavStyles({
           backgroundColor: "transparent",
           backdropFilter: "none",
@@ -67,7 +98,7 @@ export const Nav: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [currentPath]);
 
   return (
     <>
@@ -78,7 +109,7 @@ export const Nav: React.FC = () => {
       >
         <div className="container">
           <a className="navbar-brand" href="/">
-            <img src="./img/logo.png" height="27.9px" />
+            <img src="../../img/logo.png" height="27.9px" />
           </a>
           <button
             className="navbar-toggler"
@@ -92,9 +123,8 @@ export const Nav: React.FC = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            {currentPath !== "/login" && currentPath !== "/register" && (
-              <InnerNav />
-            )}
+            {/* {currentPath !== "/account" && <InnerNav />} */}
+            <InnerNav />
           </div>
         </div>
       </nav>

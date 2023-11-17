@@ -7,7 +7,12 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./public/img/*", "./src/*"]
+      "@img/*": ["./public/img/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@views/*": ["./src/views/*"],
+      "@pages/*": ["./src/views/pages/*"],
+      "@components/*": ["./src/views/components/*"],
+      "@style/*": ["./src/style/*"]
     },
 
     /* Bundler mode */
@@ -25,10 +30,10 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/**/*",
+    "src",
     "public/style",
     "src/views/pages/ErrorPage.tsx",
-    "public/img"
+    "src/utils/paths.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

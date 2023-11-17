@@ -3,18 +3,31 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectID = Schema.ObjectId;
 
+export const AdminsModel = mongoose.model("Admins", {
+    id: ObjectID,
+    username: String,
+    email: String,
+    password: String,
+});
+
 export const UsersModel = mongoose.model("Users", {
     id: ObjectID,
     username: String,
     email: String,
     password: String,
     phone_number: String,
-    role: {
-        enum: ['admin', 'user'],
-    },
     membership_level: String,
     date_joined: Date
 });
+
+// export const AnimeModel = mongoose.model("Animes", {
+//     id: ObjectID,
+//     judul: String,
+//     episode: Number,
+//     status: String,
+//     genres: [String],
+//     release_date: Date,
+// });
 
 export const TransactionsModel = mongoose.model("Transactions", {
     id: ObjectID,
@@ -32,7 +45,7 @@ export const TransactionsModel = mongoose.model("Transactions", {
         enum: ['pending', 'success', 'failed']
     },
     // invoice: String,
-    date: Date,
+    date_transaction: Date,
 });
 
 export const MembershipsModel = mongoose.model("Memberships", {
@@ -49,7 +62,7 @@ export const MembershipsModel = mongoose.model("Memberships", {
     features: [String],
 });
 
-export const AnimeHistory = mongoose.model("AnimeHistory", {
+export const UsersHistory = mongoose.model("Users_History", {
     id: ObjectID,
     judul: String,
 });

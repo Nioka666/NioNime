@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useSWR from "swr";
-import { fetchAnimeDetail, fetchRecentAnime } from "../../utils/anime";
+import { fetchAnimeDetail, fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 
