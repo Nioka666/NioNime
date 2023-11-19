@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <>
-      <footer className="container py-5" style={{ padding: "0 60px" }}>
+      <footer className="container py-5" style={{ padding: "0 55px" }}>
         <div className="row">
           {/* <div className="col-12 col-md">
             <img src="./img/logo.png" height="20px" />
@@ -97,6 +97,7 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
+        <br />
         <hr />
         <h6 className="text-lights">&copy; 2023 Nioka666.</h6>
       </footer>

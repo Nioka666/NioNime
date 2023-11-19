@@ -415,7 +415,7 @@ nav ul li.dropstart ul li a{
 .single-parent-container .single-title .btn-group button {
   padding: 10px 15px;
   border-radius: 0px;
-  font-size: 17px;
+  font-size: 16px;
   border: 2px solid #a3a3a3;
 }
 .single-parent-container .single-title .btn-group button i {
@@ -434,7 +434,7 @@ nav ul li.dropstart ul li a{
 
 /* foooter */
 footer {
-  margin-top: 200px;
+  margin-top: 90px;
   color: white;
 }
 
@@ -489,6 +489,10 @@ footer {
 
 .text-darkgray {
   color: #686868;
+}
+
+.color-darkgray {
+  color: #4c4c4c;
 }
 
 /* margin */
@@ -628,6 +632,21 @@ div.profile-detail .options ul li {
   margin-top: 21px;
   /* color: rebeccapurple; */
 }
+
+/* Re Usable Componnents */
+
+button.nionime-button {
+  padding: 10px 15px;
+  border-radius: 0px;
+  font-size: 16px;
+  border: 2px solid #a3a3a3;
+}
+
+button.nionime-button i {
+  margin-right: 12px;
+}
+
+/*  */
 
 /* Form */
 form.changePassword {

@@ -3,6 +3,7 @@ import { AnimeSlider } from "@components/AnimeSlider";
 import { BigAnimeCard } from "@components/BigAnimeCard";
 import { Carousels } from "@components/Carousels";
 import { TopSlider } from "@components/TopSlider";
+import { PremiumHero } from "@views/components/PremiumHero";
 
 export const Home = () => {
   return (
@@ -12,6 +13,7 @@ export const Home = () => {
       <AnimeSlider />
       <BigAnimeCard />
       <AnimeSlider />
+      <PremiumHero />
     </>
   );
 };
