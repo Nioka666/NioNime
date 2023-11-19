@@ -89,7 +89,7 @@ export const Nav: React.FC = () => {
           backdropFilter: "blur(10px)",
           height: "80px",
         });
-      } else if (currentPath !== "/account") {
+      } else if (currentPath !== "/account" && currentPath !== "/watch") {
         setNavStyles({
           backgroundColor: "transparent",
           backdropFilter: "none",
@@ -114,7 +114,7 @@ export const Nav: React.FC = () => {
       >
         <div className="container">
           <a className="navbar-brand" href="/">
-            <img src="../../img/logo.png" height="27.9px" />
+            <img src="../../img/logo.png" height="27px" />
           </a>
           <button
             className="navbar-toggler"
