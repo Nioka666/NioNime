@@ -8,6 +8,7 @@ import { Register } from "@pages/Register";
 import { Account } from "@pages/Account";
 import { AnimeDetail } from "@pages/AnimeDetail";
 import { MainLayout } from "@views/layouts/MainLayout";
+import { Watch } from "@views/pages/Watch";
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ export const App = () => {
               path="anime-detail/watch/:animeId"
               element={<AnimeDetail />}
             />
+            <Route path="watch" element={<Watch />} />
             <Route
               path="*"
               element={<ErrorPage />}

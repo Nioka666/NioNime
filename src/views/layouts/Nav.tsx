@@ -5,11 +5,6 @@ const InnerNav = () => {
     <>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
         <li className="nav-item">
-          <a className="nav-link fw-medium text-lights" href="/anime-detail">
-            Categories
-          </a>
-        </li>
-        <li className="nav-item">
           <a className="nav-link fw-medium text-lights" href="/categories">
             News
           </a>
@@ -76,7 +71,7 @@ const InnerNav = () => {
 
 export const Nav: React.FC = () => {
   const currentPath = window.location.pathname;
-  const paths: string[] = ["/account", "anime-detail"];
+  const paths: string[] = ["/account", "/watch"];
   const isDisabledPath = paths.includes(currentPath);
   const [navStyles, setNavStyles] = useState({
     backgroundColor: isDisabledPath ? "#000000a3" : "transparent",

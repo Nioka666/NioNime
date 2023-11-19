@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "main": "./src/Main.tsx",
   "scripts": {
     "dev": "vite",
     "db": "nodemon ./src/databases/server.js",
