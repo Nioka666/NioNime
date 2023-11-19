@@ -71,6 +71,10 @@ nav i {
   cursor: pointer;
 }
 
+nav ul.navbar-nav li {
+  text-shadow: 0px 2px 30px black;
+}
+
 nav .right-nav-wrapper {
   gap: 38px;
 }
@@ -81,14 +85,26 @@ nav .right-nav-wrapper ul {
   margin-top: 17px;
   gap: 40px;
 }
-/* nav .right-nav-wrapper li {
-  margin-top: 10px;
-  gap: 40px;
-} */
 
 nav ul.navbar-nav {
-  gap: 25px;
+  gap: 23px;
   margin: 0 0 0 550px;
+}
+
+nav ul li.dropstart ul{
+  width: 230px;
+  height: fit-content;
+  overflow: hidden;
+  padding: 0;
+}
+
+nav ul li.dropstart ul{
+  padding: 15px 0;
+}
+
+nav ul li.dropstart ul li a{
+  transition: 0.25s all ease-in-out;
+  padding: 13px 20px;
 }
 
 /*  Carousels */
@@ -227,7 +243,7 @@ nav ul.navbar-nav {
   width: 100%;
   margin-right: 60px;
   text-align: left;
-  padding: 10px 40px 20px 15px;
+  padding: 10px 55px 20px 15px;
   height: 400px;
   box-shadow: 0px -70px 90px #0000002a;
   /* border: white 2px solid; */
@@ -371,21 +387,43 @@ nav ul.navbar-nav {
 /* single */
 .single-parent-container {
   display: grid;
-  gap: 60px;
+  gap: 51px;
   /* background-color: #282828; */
   padding: 20px 70px;
-  margin: 90px 0;
+  margin: 60px 0;
 }
 
-.single-parent-container .single-wrapper {
-  background-color: black;
-  padding: 50px;
-  display: grid;
-  gap: 40px;
+.single-parent-container img {
+  cursor: pointer;
+  width: 530px;
+  height: 310px;
+  transition: 0.3s all ease-in-out;
+}
+
+.single-parent-container img:hover {
+  filter: brightness(47%);
+  cursor: pointer;
+  /* width: 540px;
+  height: 315px; */
 }
 
 .single-parent-container .single-title {
-  padding: 0 48px;
+  margin: auto 0;
+  padding: 0 34px;
+}
+
+.single-parent-container .single-title .btn-group button {
+  padding: 10px 15px;
+  border-radius: 0px;
+  font-size: 17px;
+  border: 2px solid #a3a3a3;
+}
+.single-parent-container .single-title .btn-group button i {
+  margin-right: 12px;
+}
+
+.single-parent-container .single-title h2 {
+  font-size: 28px;
 }
 
 .single-parent-container .containers {
@@ -867,4 +905,10 @@ form.changePassword label {
   .single-parent-container .single-title {
     padding: 40px 0px;
   }
+}
+
+/* Value */
+/* Margins */
+.ml-12 {
+  margin-left: 12px;
 }

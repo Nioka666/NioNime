@@ -50,13 +50,7 @@ export const TopSlider: React.FC = () => {
     <>
       <div className="slide-nime m-top-80">
         <div className="top-capt">
-          <h3>
-            {/* <i
-              className="fa-solid fa-crown text-warning"
-              style={{ marginRight: "10px" }}
-            ></i> */}
-            Top Airing
-          </h3>
+          <h3>Top Airing</h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">

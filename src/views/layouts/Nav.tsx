@@ -37,11 +37,25 @@ const InnerNav = () => {
           </a>
           <ul
             className="dropdown-menu dropdown-menu-dark bg-dark"
-            style={{ border: "2px solid white" }}
+            style={{ position: "absolute", top: "50px", right: "-10px" }}
           >
-            <li>
+            {/* <li>
               <a className="dropdown-item text-lights" href="#">
+                <span className="ml-12">Register</span>
+              </a>
+            </li> */}
+            {/* Profile */}
+            <li>
+              <a className="dropdown-item text-lights" href="/account">
+                <i className="fa-solid fa-id-badge"></i>
+                <span className="ml-12">Profile</span>
+              </a>
+            </li>
+            {/* Sign in */}
+            <li>
+              <a className="dropdown-item text-lights" href="/auth/login">
                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                <span className="ml-12">Sign in</span>
               </a>
             </li>
             <li>
@@ -50,11 +64,7 @@ const InnerNav = () => {
                   className="fa-solid fa-arrow-right-to-bracket"
                   style={{ transform: "rotate(180deg)" }}
                 ></i>
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item text-lights" href="#">
-                Som
+                <span className="ml-12">Sign out</span>
               </a>
             </li>
           </ul>
