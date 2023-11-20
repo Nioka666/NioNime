@@ -8,10 +8,11 @@ export const VideoPlayer = () => {
           controls
           preload="auto"
           data-setup="{}"
-          style={{ width: "100%" }}
+          width="1100px"
+          height="440px"
         >
           <source
-            src="https://www002.vipanicdn.net/streamhls/0789fd4f049c3ca2a49b860ea5d1f456/ep.1.1677591537.360.m3u8"
+            src="https://www041.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.1.1696001423.720.m3u8"
             type="application/x-mpegURL"
           />
         </video>

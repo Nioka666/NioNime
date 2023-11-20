@@ -91,18 +91,18 @@ nav ul.navbar-nav {
   margin: 0 0 0 690px;
 }
 
-nav ul li.dropstart ul{
+nav ul li.dropstart ul {
   width: 230px;
   height: fit-content;
   overflow: hidden;
   padding: 0;
 }
 
-nav ul li.dropstart ul{
+nav ul li.dropstart ul {
   padding: 15px 0;
 }
 
-nav ul li.dropstart ul li a{
+nav ul li.dropstart ul li a {
   transition: 0.25s all ease-in-out;
   padding: 13px 20px;
 }
@@ -496,6 +496,18 @@ footer {
 }
 
 /* margin */
+.m-top-10 {
+  margin-top: 10px;
+}
+
+.m-top-20 {
+  margin-top: 20px;
+}
+
+.m-top-25 {
+  margin-top: 30px;
+}
+
 .m-top-50 {
   margin-top: 50px;
 }
@@ -677,6 +689,18 @@ form.changePassword label {
   color: #b1b1b1;
   width: 505px;
   font-size: 14px;
+}
+
+/* Watch Page */
+.ep-square {
+  text-align: center;
+  background-color: #353535;
+  padding: 15px 10px;
+  transition: 0.2s all ease-in-out;
+}
+
+.ep-square:hover {
+  background-color: #2d2d2d;
 }
 
 /*  */

@@ -1,4 +1,12 @@
-export const userSeeder = [
+export const AdminsSeeder = [
+    {
+        username: "nioka",
+        email: "niokagi@gmail.com",
+        password: "nioka666"
+    }
+]
+
+export const UsersSeeder = [
     {
         username: "adhimNiokagi",
         email: "niokagi@gmail.com",
@@ -31,6 +39,20 @@ export const TransactionsSeeder = [
     },
 ];
 
+export const AnimesSeeder = [
+    {
+        api_key: "spy-x-family",
+        title: "Spy x Family",
+        episodes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        image: "img/tf.jpg",
+        genres: "comedy",
+        description: "test",
+        status: "finished",
+        type: "Sub",
+        release_date: "2023"
+    }
+]
+
 export const MembershipsSeeder = [
     {
         level: 'free',
@@ -56,4 +78,10 @@ export const MembershipsSeeder = [
         },
         features: ['Basic feature 1', 'Basic feature 2', 'Premium feature 1', 'Premium feature 2'],
     },
+]
+
+export const BookmarksSeeder = [
+    {
+        created_at: new Date()
+    }
 ]

@@ -20,9 +20,9 @@ export const UsersModel = mongoose.model("Users", {
     date_joined: Date
 });
 
-export const AnimeModel = mongoose.model("Animes", {
+export const AnimesModel = mongoose.model("Animes", {
     id: ObjectID,
-    api_key: String,
+    api_key: String,    
     title: String,
     episodes: [Number],
     image: String,
@@ -30,13 +30,12 @@ export const AnimeModel = mongoose.model("Animes", {
     description: String,
     status: String,
     type: String,
-    sub_or_dub: String,
     release_date: Date,
 });
 
 export const TransactionsModel = mongoose.model("Transactions", {
     id: ObjectID,
-    user_id: {
+    users_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
     },
@@ -67,7 +66,15 @@ export const MembershipsModel = mongoose.model("Memberships", {
     features: [String],
 });
 
-export const UsersHistory = mongoose.model("Users_History", {
+export const BookmarksModel = mongoose.model("Bookmarks", {
     id: ObjectID,
-    judul: String,
+    users_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+    },
+    animes_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Animes',
+    },
+    created_at: Date,
 });

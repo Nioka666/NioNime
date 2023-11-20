@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import chalk from "chalk";
 import mongoose from "mongoose";
-import { UsersModel } from "./models.js";
+import { AdminsModel, AnimesModel, BookmarksModel, UsersModel } from "./models.js";
 import { Conn } from "./connection.js";
-import { userSeeder } from "./seeders.js";
+import { AdminsSeeder, AnimesSeeder, BookmarksSeeder, MembershipsSeeder, TransactionsSeeder, UsersSeeder } from "./seeders.js";
 
 export const insertMany = async (modelDefined, seeder) => {
     try {
@@ -36,16 +36,18 @@ export const FindCollection = async (modelDefined, key) => {
 };
 
 // block running
-const runOperation = async (operation, key, seeder) => {
+const runOperation = async (operation, modelss, key, seeder) => {
     try {
-        await operation(UsersModel, key, seeder);
+        await operation(modelss, key, seeder);
     } catch (error) {
         console.log(chalk.red.bold);
     }
 };
 
-// await runOperation(insertMany, userSeeder);
-// await runOperation(deleteMany, 'adhimNiokagi');
-// await runOperation(deleteMany, 'Beta');
-// await runOperation(deleteMany, 'Alpha');
+// await runOperation(insertMany, UsersSeeder);
+// await runOperation(insertMany, AdminsSeeder);
+// await runOperation(insertMany, TransactionsSeeder);
+// await runOperation(insertMany, AnimesModel, AnimesSeeder);
+// await runOperation(insertMany, MembershipsSeeder);
+await runOperation(insertMany, BookmarksModel, BookmarksSeeder);
 await mongoose.connection.close();

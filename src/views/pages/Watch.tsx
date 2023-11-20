@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { VideoPlayer } from "@views/components/VideoPlayer";
 
 export const Watch = () => {
+  const episodeAmount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
     <>
       <div className="container" style={{ marginTop: "55px" }}>
@@ -11,65 +14,90 @@ export const Watch = () => {
         className="container content-wrappers"
         style={{ display: "flex", margin: "38px 80px", gap: "50px" }}
       >
-        <section style={{ width: "700px" }}>
-          <h4 className="text-light">Spy x Family | EP 01</h4>
-          <h5 className="text-gray">Operation Strix</h5>
-          <br />
-          <h6 className="text-gray">
+        <section style={{ width: "690px" }}>
+          <div className="d-flex" style={{ gap: "450px" }}>
+            <h4 className="text-light">Sousou no Frieren</h4>
+            <i className="fa-regular fa-bookmark fs-4 m-top-10"></i>
+          </div>
+          <h5 className="text-gray">EP 1 - Victory Day</h5>
+          <h6 className="text-gray m-top-20" style={{ lineHeight: "23px" }}>
             Twilight is an agent that works htmlFor WISE, Westalis's
             intelligence agency, and he is tasked with investigating Desmond,
             who is in Ostania and planning to start a war. Twilight disguises
             himself as the psychiatrist Loid htmlForger and adopts a girl named
-            Anya so that he can enroll her into the prestigious Eden College to
-            get closer to his target. Unbeknownst to him, Anya is actually a
-            telepath who can read people's minds. One day, members of a mafia
-            group that is after Twilight kidnaps Anya. Loid realizes that he
-            needs to reconsider his priorities and...
+            Anya so that he can enroll her into the prestigious Eden College.
+            Unbeknownst to him, Anya is actually a telepathad people's minds.
+            One day, members of a mafia needs to reconsider his priorities
+            and...
           </h6>
-          <br /><br />
+          <br />
+          <br />  
+          <table style={{ borderCollapse: "collapse", border: "none" }}>
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  style={{
+                    borderBottom: "1px solid gray",
+                    padding: "10px 188.3px 0 0",
+                  }}
+                >
+                  Studio
+                </th>
+                <th
+                  scope="col"
+                  style={{
+                    borderBottom: "1px solid gray",
+                    padding: "10px 10px 10px 365px",
+                  }}
+                >
+                  MAPPA
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  scope="row"
+                  style={{
+                    borderBottom: "1px solid gray",
+                    padding: "10px 188.3px 0 0",
+                  }}
+                >
+                  Subtitles
+                </td>
+                <td
+                  style={{
+                    borderBottom: "1px solid gray",
+                    padding: "10px 10px 10px 365px",
+                  }}
+                >
+                  English
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <br />
           <h4>Downloads</h4>
         </section>
-        <section>
+
+        {/* right section */}
+        <section style={{ width: "390px" }}>
           <h4>Next Episode</h4>
-          <div className="d-flex flex-column flex-md-row gap-4 py-md-5 align-items-center justify-content-center">
-            <div className="list-group list-group-checkable d-grid gap-2 border-0">
-              <label
-                className="list-group-item rounded-3 py-3"
-                htmlFor="listGroupCheckableRadios1"
+          <h5 className="text-gray">List of Episodes...</h5>
+          <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
+            {episodeAmount.map((episode) => (
+              <div
+                className="ep-square rounded-2"
+                style={{
+                  cursor: "pointer",
+                  width: "70px",
+                }}
               >
-                First radio
-                <span className="d-block small opacity-50">
-                  With support text underneath to add more detail
-                </span>
-              </label>
-              <label
-                className="list-group-item rounded-3 py-3"
-                htmlFor="listGroupCheckableRadios2"
-              >
-                Second radio
-                <span className="d-block small opacity-50">
-                  Some other text goes here
-                </span>
-              </label>
-              <label
-                className="list-group-item rounded-3 py-3"
-                htmlFor="listGroupCheckableRadios3"
-              >
-                Third radio
-                <span className="d-block small opacity-50">
-                  And we end with another snippet of text
-                </span>
-              </label>
-              <label
-                className="list-group-item rounded-3 py-3"
-                htmlFor="listGroupCheckableRadios4"
-              >
-                Fourth disabled radio
-                <span className="d-block small opacity-50">
-                  This option is disabled
-                </span>
-              </label>
-            </div>
+                <h6 style={{ margin: "0px" }}>EP. {episode}</h6>
+              </div>
+            ))}
           </div>
         </section>
       </div>
