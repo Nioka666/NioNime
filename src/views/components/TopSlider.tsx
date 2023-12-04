@@ -19,7 +19,7 @@ export const TopSlider: React.FC = () => {
     data: animeData,
     error: topAnimeError,
     isValidating: isLoadingTopAnime,
-  } = useSWR("topAnime", () => fetchTopAnimeData(11));
+  } = useSWR("topAnime", () => fetchTopAnimeData());
 
   const {
     data: animeDetail,
@@ -39,12 +39,12 @@ export const TopSlider: React.FC = () => {
     console.error("Error fetching anime detail:", detailError);
   }
 
-  interface Anime {
-    id: string;
-    title: string;
-    image: string;
-    genres: any;
-  }
+  // interface Anime {
+  //   id: string;
+  //   title: string;
+  //   image: string;
+  //   genres: any;
+  // }
 
   return (
     <>
@@ -56,7 +56,7 @@ export const TopSlider: React.FC = () => {
         <div className="sss">
           {isLoadingTopAnime && <Loading />}
           {!isLoadingTopAnime &&
-            animeData?.results.map((anime: Anime) => (
+            animeData?.top.map((anime: any) => (
               <Link to={`anime-detail/${anime.id}`} key={anime.id}>
                 <div
                   className={`item ${
@@ -67,19 +67,21 @@ export const TopSlider: React.FC = () => {
                   onMouseOver={() => handleMouseOver(anime.id)}
                 >
                   <img
-                    src={anime.image}
+                    src={anime.coverImage}
                     className="card-img-top"
-                    alt={anime.title}
+                    alt={anime.title.romaji}
                   />
                   {/* Overlay */}
                   <div className="overlay">
                     {isLoadingDetail && <Loading />}
                     {!isLoadingDetail && hoveredAnimeId === anime.id && (
                       <div className="anime-detail" key={anime.id}>
-                        <h6 className="fw-normal">{animeDetail?.title}</h6>
+                        <h6 className="fw-normal">
+                          {animeDetail?.title.romaji}
+                        </h6>
                         <strong>
-                          <p className="text-gray fw-bold">
-                            {animeDetail?.totalEpisodes} Episodes
+                          <p className="text-lights fw-bold">
+                            Rating: {animeDetail?.rating.anilist}
                           </p>
                           <p className="text-gray fw-bold">
                             {animeDetail?.status}
@@ -91,7 +93,7 @@ export const TopSlider: React.FC = () => {
                     )}
                   </div>
                   <div className="anime-title">
-                    <h6>{anime.title}</h6>
+                    <h6>{anime.title.romaji}</h6>
                     <h6 className="text-gray">
                       {anime.genres.slice(0, 2).join(", ")}
                     </h6>

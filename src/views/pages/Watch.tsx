@@ -12,7 +12,7 @@ export const Watch = () => {
       </div>
       <div
         className="container content-wrappers"
-        style={{ display: "flex", margin: "38px 80px", gap: "50px" }}
+        style={{ display: "flex", margin: "38px 90px", gap: "65px" }}
       >
         <section style={{ width: "690px" }}>
           <div className="d-flex" style={{ gap: "450px" }}>
@@ -31,7 +31,7 @@ export const Watch = () => {
             and...
           </h6>
           <br />
-          <br />  
+          <br />
           <table style={{ borderCollapse: "collapse", border: "none" }}>
             <thead>
               <tr>
@@ -39,7 +39,8 @@ export const Watch = () => {
                   scope="col"
                   style={{
                     borderBottom: "1px solid gray",
-                    padding: "10px 188.3px 0 0",
+                    padding: "10px 188.3px 10px 5px",
+                    fontSize: "16px",
                   }}
                 >
                   Studio
@@ -49,6 +50,8 @@ export const Watch = () => {
                   style={{
                     borderBottom: "1px solid gray",
                     padding: "10px 10px 10px 365px",
+                    fontSize: "14px",
+                    color: "lightgray"
                   }}
                 >
                   MAPPA
@@ -61,7 +64,9 @@ export const Watch = () => {
                   scope="row"
                   style={{
                     borderBottom: "1px solid gray",
-                    padding: "10px 188.3px 0 0",
+                    padding: "17px 188.3px 10px 5px",
+                    fontSize: "16px",
+
                   }}
                 >
                   Subtitles
@@ -70,6 +75,8 @@ export const Watch = () => {
                   style={{
                     borderBottom: "1px solid gray",
                     padding: "10px 10px 10px 365px",
+                    fontSize: "14px",
+                    color: "lightgray"
                   }}
                 >
                   English
@@ -85,7 +92,7 @@ export const Watch = () => {
         {/* right section */}
         <section style={{ width: "390px" }}>
           <h4>Next Episode</h4>
-          <h5 className="text-gray">List of Episodes...</h5>
+          <h6 className="text-gray">List of Episodes...</h6>
           <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
             {episodeAmount.map((episode) => (
               <div

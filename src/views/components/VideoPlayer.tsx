@@ -1,18 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const VideoPlayer = () => {
   return (
     <>
       <div className="container">
         <video
           id="my-video"
-          className="video-js vjs-default-skin"
+          className="video-js vjs-theme-forest"
           controls
           preload="auto"
+          poster="./img/sus.png"
           data-setup="{}"
           width="1100px"
-          height="440px"
+          height="420px"
         >
           <source
-            src="https://www041.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.1.1696001423.720.m3u8"
+            src="https://www052.vipanicdn.net/streamhls/ecc2755b350b6e32b2db08131e1f921e/ep.10.1686088923.720.m3u8"
             type="application/x-mpegURL"
           />
         </video>

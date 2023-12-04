@@ -25,7 +25,7 @@ export const RegisterForm = () => {
 
     try {
       setLoadingBtn(true);
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const response = await axios.post(
         "http://localhost:3000/api/login",
@@ -48,67 +48,74 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div className="container-login">
-      <div className="login-form">
-        <h1>Sign Up</h1>
-        <form onSubmit={handleLogin}>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Enter Username"
-                    autoFocus
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="email"
-                    placeholder="Enter Username"
-                    autoFocus
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button
-                    type="submit"
-                    className="btn-loginPage"
-                    disabled={loadingBtn}
-                  > 
-                    {loadingBtn ? <LoadingButton /> : "SIGN IN"}
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+    <>
+      <center>
+        <br />
+        <br />
+        <img src="../../../public/img/logo.png" width={130} />
+      </center>
+      <div className="container-login">
+        <div className="login-form">
+          <h1>Sign Up for free</h1>
+          <form onSubmit={handleLogin}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Enter Username"
+                      autoFocus
+                      required
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="Enter Email"
+                      autoFocus
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button
+                      type="submit"
+                      className="btn-loginPage"
+                      disabled={loadingBtn}
+                    >
+                      {loadingBtn ? <LoadingButton /> : "SIGN UP"}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
 
-        <LoginFailModal showModal={loginError} closeModal={closeModal} />
+          <LoginFailModal showModal={loginError} closeModal={closeModal} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

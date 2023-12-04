@@ -47,54 +47,79 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="container-login">
-      <div className="login-form">
-        <h1>Sign in</h1>
-        <form onSubmit={handleLogin}>
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Enter Username"
-                    autoFocus
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button
-                    type="submit"
-                    className="btn-loginPage"
-                    disabled={loadingBtn}
-                  >
-                    {loadingBtn ? <LoadingButton /> : "SIGN IN"}
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+    <>
+      <center>
+        <br />
+        <br />
+        <img src="../../../public/img/logo.png" width={130} />
+      </center>
+      <div className="container-login">
+        <div className="login-form">
+          <h1>Please Sign in</h1>
+          <form onSubmit={handleLogin}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Enter Username"
+                      autoFocus
+                      required
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div className="form-check text-start my-3">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value="remember-me"
+                        id="flexCheckDefault"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button
+                      type="submit"
+                      className="btn-loginPage"
+                      disabled={loadingBtn}
+                    >
+                      {loadingBtn ? <LoadingButton /> : "SIGN IN"}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
 
-        <LoginFailModal showModal={loginError} closeModal={closeModal} />
+          <LoginFailModal showModal={loginError} closeModal={closeModal} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

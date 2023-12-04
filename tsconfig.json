@@ -33,7 +33,8 @@
     "src",
     "public/style",
     "src/views/pages/ErrorPage.tsx",
-    "src/utils/paths.ts"
+    "src/utils/paths.ts",
+    "srv.js"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

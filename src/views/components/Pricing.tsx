@@ -3,7 +3,7 @@ const PricingHeader = () => {
     <>
       <header>
         <div className="pricing-header p-3 pb-md-4 mx-auto text-center text-white">
-          <h1 className="display-4 fw-normal text-white">Membership Plans</h1>
+          <h1 className="display-5 fw-normal text-white">Membership Plans</h1>
           <p className="fs-5 text-gray mt-4" style={{ padding: "0 100px" }}>
             Quickly build an effective pricing table for your potential
             customers with this Bootstrap example. It’s built with default
@@ -18,7 +18,7 @@ const PricingHeader = () => {
 export const Pricing = () => {
   return (
     <>
-      <div className="container">
+      <div className="container mt-5">
         <PricingHeader />
         <main>
           <div className="row row-cols-1 row-cols-md-3 mb-3 text-center mt-4">
@@ -32,10 +32,9 @@ export const Pricing = () => {
                     $0<small className="text-white fw-light">/mo</small>
                   </h1>
                   <ul className="list-unstyled mt-3 mb-4">
-                    <li>10 users included</li>
-                    <li>2 GB of storage</li>
-                    <li>Email support</li>
-                    <li>Help center access</li>
+                    <li>No Ads</li>
+                    <li>Limit Streams/day</li>
+                    <li>Limit Download/day</li>
                   </ul>
                   <button
                     type="button"
@@ -56,10 +55,9 @@ export const Pricing = () => {
                     $15<small className="text-white fw-light">/mo</small>
                   </h1>
                   <ul className="list-unstyled mt-3 mb-4">
-                    <li>20 users included</li>
-                    <li>10 GB of storage</li>
-                    <li>Priority email support</li>
-                    <li>Help center access</li>
+                    <li>No Ads</li>
+                    <li>Unlimited Episodes/Day</li>
+                    <li>Unlimited Download/Day</li>
                   </ul>
                   <button
                     type="button"
@@ -77,13 +75,12 @@ export const Pricing = () => {
                 </div>
                 <div className="card-body p-5">
                   <h1 className="card-title pricing-card-title">
-                    $29<small className="text-white fw-light">/mo</small>
+                    $29<small className="text-white fw-light">/lifetime</small>
                   </h1>
                   <ul className="list-unstyled mt-3 mb-4">
-                    <li>30 users included</li>
-                    <li>15 GB of storage</li>
-                    <li>Phone and email support</li>
-                    <li>Help center access</li>
+                    <li>No Ads</li>
+                    <li>Unlimited Streams</li>
+                    <li>Unlimited Downloads</li>
                   </ul>
                   <button
                     type="button"

@@ -1,30 +1,19 @@
 import axios from "axios";
+import chalk from "chalk";
 import { writeFileSync } from "fs";
-const animeSearch =
-    "https://api.consumet.org/anime/gogoanime/{query}?page={number}";
 
-export const fetchSearchAnime = async (query, page) => {
+// const url = `https://api.anify.tv/recent?type=anime&page=1&perPage=1`;
+const url2 = `https://api.anify.tv/seasonal/anime?fields=[id, title, coverImage,genres,rating]`;
+const data = async () => {
     try {
-        const url = animeSearch
-            .replace("{query}", query)
-            .replace("{number}", String(page));
-        const res = await axios.get(
-            url
-        );
-        return res.data;
+        const { data } = await axios.get(url2);
+        const dataBuffer = JSON.stringify(data);
+        writeFileSync("result.json", dataBuffer, "utf-8");
+
+        console.log(chalk.green.bold("success writed"));
     } catch (err) {
-        console.log(err);
+        throw new Error(err.message);
     }
 };
 
-const getAnimeByID = async (page) => {
-    try {
-        const res = await fetchSearchAnime("mushoku", page);
-        const jsonFile = JSON.stringify(res);
-        return writeFileSync("res.json", jsonFile, "utf-8");
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-getAnimeByID(1);
+data();

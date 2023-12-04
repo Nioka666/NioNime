@@ -9,7 +9,7 @@ export const CarouselHeader: React.FC<any> = (props) => {
       id="carouselExampleSlidesOnly"
       className="carousel slide vignette"
       data-bs-ride="carousel"
-      style={{ height: "590px", position: "relative", marginTop: "40px" }}
+      style={{ height: "590px", position: "relative", marginTop: "40px", zIndex: "0" }}
     >
       <div
         className="carousel-inner"

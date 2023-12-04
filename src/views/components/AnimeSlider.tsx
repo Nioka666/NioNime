@@ -18,7 +18,7 @@ export const AnimeSlider = () => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime(1));
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20));
 
   const {
     data: animeDetail,
@@ -42,19 +42,13 @@ export const AnimeSlider = () => {
     <>
       <div className="slide-nime m-top-30">
         <div className="left-capt">
-          <h3 style={{ marginTop: "-100px" }}>
-            {/* <i
-              className="fa-solid fa-fire-flame-curved text-warning"
-              style={{ marginRight: "10px" }}
-            ></i> */}
-            Recent Updates
-          </h3>
+          <h3 style={{ marginTop: "-100px" }}>Recent Updates</h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
           {isLoadingRecentAnime && <Loading />}
           {!isLoadingRecentAnime &&
-            animeData?.results.map((anime: any) => (
+            animeData?.map((anime: any) => (
               <div
                 key={anime.id}
                 className={`item ${
@@ -64,19 +58,22 @@ export const AnimeSlider = () => {
                 onMouseOver={() => handleMouseOver(anime.id)}
               >
                 <img
-                  src={anime.image}
+                  src={anime.coverImage}
                   className="card-img-top"
-                  alt={anime.title}
+                  alt={anime.title.romaji}
                 />
+
                 {/* Overlay */}
                 <div className="overlay">
                   {isLoadingDetail && <Loading />}
                   {!isLoadingDetail && hoveredAnimeId === anime.id && (
                     <div className="anime-detail">
-                      <h6 className="text-normal">{animeDetail?.title}</h6>
+                      <h6 className="text-normal">
+                        {animeDetail?.title.romaji}
+                      </h6>
                       <strong>
                         <p className="text-gray fw-bold">
-                          {animeDetail?.totalEpisodes} Episodes
+                          Rating: {animeDetail?.rating.anilist}
                         </p>
                         <p className="text-gray fw-bold">
                           {animeDetail?.status}
@@ -87,9 +84,10 @@ export const AnimeSlider = () => {
                     </div>
                   )}
                 </div>
+
                 <div className="anime-title">
-                  <h6>{anime.title}</h6>
-                  <h6 className="text-gray">EP. {anime.episodeNumber}</h6>
+                  <h6>{anime.title.romaji}</h6>
+                  <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
                 </div>
               </div>
             ))}

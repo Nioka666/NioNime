@@ -5,12 +5,12 @@ const InnerNav = () => {
     <>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
         <li className="nav-item">
-          <a className="nav-link fw-medium text-lights" href="/categories">
+          <a className="nav-link fw-semibold text-lights" href="/categories">
             News
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link fw-medium text-lights" href="/about">
+          <a className="nav-link fw-semibold text-lights" href="/about">
             About
           </a>
         </li>
@@ -34,11 +34,6 @@ const InnerNav = () => {
             className="dropdown-menu dropdown-menu-dark bg-dark"
             style={{ position: "absolute", top: "50px", right: "-10px" }}
           >
-            {/* <li>
-              <a className="dropdown-item text-lights" href="#">
-                <span className="ml-12">Register</span>
-              </a>
-            </li> */}
             {/* Profile */}
             <li>
               <a className="dropdown-item text-lights" href="/account">
