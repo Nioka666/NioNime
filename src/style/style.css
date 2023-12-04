@@ -654,9 +654,9 @@ div.profile-detail .options ul li {
 span.anime-detail-span {
   font-size: 14px;
   color: lightgray;
-  border: 1px solid lightgray;
+  border: 1.3px solid lightgray;
   border-radius: 5px;
-  padding: 3px 8px;
+  padding: 4px 9px;
 }
 
 /* Re Usable Componnents */
@@ -968,4 +968,5 @@ form.changePassword label {
 /* Margins */
 .ml-12 {
   margin-left: 12px;
+  color: rgba(0, 0, 0, 0.689);
 }
