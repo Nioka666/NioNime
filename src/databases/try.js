@@ -1,5 +1,5 @@
 import axios from "axios";
-import chalk from "chalk";
+import { greenBold } from "../utils/fxFactories.js"
 import { writeFileSync } from "fs";
 
 // const url = `https://api.anify.tv/recent?type=anime&page=1&perPage=1`;
@@ -10,7 +10,7 @@ const data = async () => {
         const dataBuffer = JSON.stringify(data);
         writeFileSync("result.json", dataBuffer, "utf-8");
 
-        console.log(chalk.green.bold("success writed"));
+        console.log(greenBold("success writed"));
     } catch (err) {
         throw new Error(err.message);
     }

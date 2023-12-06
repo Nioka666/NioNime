@@ -66,15 +66,16 @@ export const AnimeDetail = () => {
             className="anime-detail-content"
             style={{
               display: "grid",
+              marginTop: "-80px",
               height: "50px",
               marginLeft: "30px",
-              gap: "10px",
+              gap: "0px",
             }}
           >
             <h4
               className="anime-detail-title"
               style={{
-                margin: "-65px 0 0 0px",
+                margin: "0px 0 10px 0px",
                 fontWeight: "500",
                 fontSize: "42px",
                 width: "80%",
@@ -107,6 +108,13 @@ export const AnimeDetail = () => {
                 {animeDetail?.rating.anilist}
               </span>
             </div>
+
+            <div className="description mt-4" style={{ width: "80%" }}>
+              <p style={{ fontSize: "15px" }}>
+                {animeDetail?.description.substring(0, 300)}
+              </p>
+            </div>
+
             <div className="btn-groups mt-2">
               <button
                 id="btn-banner"
@@ -145,11 +153,6 @@ export const AnimeDetail = () => {
                 ></i>
                 Watch Now
               </button>
-            </div>
-            <div className="description mt-4" style={{ width: "80%" }}>
-              <p style={{ fontSize: "15px" }}>
-                {animeDetail?.description.substring(0, 300)}
-              </p>
             </div>
           </div>
         </div>
