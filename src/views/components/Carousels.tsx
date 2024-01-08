@@ -9,7 +9,12 @@ export const CarouselHeader: React.FC<any> = (props) => {
       id="carouselExampleSlidesOnly"
       className="carousel slide vignette"
       data-bs-ride="carousel"
-      style={{ height: "590px", position: "relative", marginTop: "40px", zIndex: "0" }}
+      style={{
+        height: "590px",
+        position: "relative",
+        marginTop: "40px",
+        zIndex: "0",
+      }}
     >
       <div
         className="carousel-inner"
@@ -52,6 +57,64 @@ export const Carousels: React.FC = () => {
           ></button>
         </div>
         {/* Items */}
+        <div className="carousel-item active">
+          <div className="hero-bg">
+            <div className="hero-bg">
+              <picture>
+                <source srcSet="./img/peakpx.jpg" media="(min-width: 1920px)" />
+                <source
+                  srcSet="./img/peakpx_potrait.jpg"
+                  media="(max-width: 760px)"
+                />
+                <ImgCarousel src="./img/peakpx.jpg" />
+              </picture>
+              <picture>
+                <ImgCarousel src="./img/peakpx_potrait.jpg" />
+              </picture>
+            </div>
+          </div>
+          {/* overlay */}
+          <div className="carousel-overlay">
+            <div className="inner-overlay">
+              <h1 className="display-3 fw-bold">
+                A.O.T <br /> Final Season
+              </h1>
+              <p>
+                Attack On Titan - Official Released
+                <br /> Coming for 2024
+              </p>
+              <p>
+                <span className="text-warning fw-bold">Genres</span> Mystery,
+                Drama
+              </p>
+              <div className="btn-group">
+                <button
+                  id="btn-banner"
+                  className="btn btn-lg"
+                  type="button"
+                  style={{
+                    padding: "10px 18px",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  <i className="fa-regular fa-bookmark fa-lg text-warning"></i>
+                </button>
+                <button
+                  id="btn-banner"
+                  className="btn btn-lg"
+                  type="button"
+                  style={{}}
+                >
+                  <i
+                    className="fa-solid fa-play"
+                    style={{ marginRight: "14px" }}
+                  ></i>
+                  WATCH NOW
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="carousel-item">
           <div className="hero-bg">
             <picture>
@@ -118,10 +181,10 @@ export const Carousels: React.FC = () => {
                 srcSet="./img/aikane_potrait.jpeg"
                 media="(max-width: 760px)"
               />
-              <ImgCarousel src="./img/vind.jpeg" />
+              <ImgCarousel src="./img/fate_ubw1.png" />
             </picture>
             <picture>
-              <ImgCarousel src="./img/vinland.jpg" />
+              <ImgCarousel src="./img/fate_ubw1.png" />
             </picture>
           </div>
 
@@ -129,8 +192,8 @@ export const Carousels: React.FC = () => {
           <div className="carousel-overlay">
             <div className="inner-overlay">
               <h1 className="display-3 fw-bold">
-                Vinland Saga
-                <br /> Season 2
+                Fate Stay
+                <br /> Night U.B.W
               </h1>
               <p>
                 "Vinland Saga - Official Released <br />
@@ -138,65 +201,6 @@ export const Carousels: React.FC = () => {
               </p>
               <p>
                 <span className="text-warning fw-bold">Genres: </span> War,
-                Drama
-              </p>
-
-              <div className="btn-group">
-                <button
-                  id="btn-banner"
-                  className="btn btn-lg"
-                  type="button"
-                  style={{
-                    padding: "10px 18px",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  <i className="fa-regular fa-bookmark fa-lg text-warning"></i>
-                </button>
-                <button
-                  id="btn-banner"
-                  className="btn btn-lg"
-                  type="button"
-                  style={{}}
-                >
-                  <i
-                    className="fa-solid fa-play"
-                    style={{ marginRight: "14px" }}
-                  ></i>
-                  WATCH NOW
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item active">
-          <div className="hero-bg">
-            <div className="hero-bg">
-              <picture>
-                <source srcSet="./img/peakpx.jpg" media="(min-width: 1920px)" />
-                <source
-                  srcSet="./img/peakpx_potrait.jpg"
-                  media="(max-width: 760px)"
-                />
-                <ImgCarousel src="./img/peakpx.jpg" />
-              </picture>
-              <picture>
-                <ImgCarousel src="./img/peakpx_potrait.jpg" />
-              </picture>
-            </div>
-          </div>
-          {/* overlay */}
-          <div className="carousel-overlay">
-            <div className="inner-overlay">
-              <h1 className="display-3 fw-bold">
-                A.O.T <br /> Final Season
-              </h1>
-              <p>
-                Attack On Titan - Official Released
-                <br /> Coming for 2024
-              </p>
-              <p>
-                <span className="text-warning fw-bold">Genres</span> Mystery,
                 Drama
               </p>
 

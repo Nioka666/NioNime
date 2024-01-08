@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
 const InnerNav = () => {
+  // const [searchActive, setSearchActive] = useState(false);
+
+  // const handleSearchClick = () => {
+  //   setSearchActive(!searchActive);
+  // };
+
   return (
     <>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
@@ -15,11 +21,20 @@ const InnerNav = () => {
           </a>
         </li>
         <li className="nav-item">
+        {/* onClick={handleSearchClick} */}
           <a href="/search" className="nav-link">
             <i className="fa-solid fa-magnifying-glass font-nav-icon"></i>
           </a>
+          {/* {searchActive && (
+            <div className="search-dropdown">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="form-control"
+              />
+            </div>
+          )} */}
         </li>
-        {/* dropdown */}
         <li className="nav-item dropstart">
           <a
             className="nav-link dropdown"
@@ -31,21 +46,19 @@ const InnerNav = () => {
             <i className="fa-regular fa-user font-nav-icon"></i>
           </a>
           <ul
-            className="dropdown-menu dropdown-menu-dark bg-dark"
+            className="dropdown-menu dropdown-menu-dark bg-dark text-lights"
             style={{ position: "absolute", top: "50px", right: "-10px" }}
           >
-            {/* Profile */}
             <li>
               <a className="dropdown-item text-lights" href="/account">
                 <i className="fa-solid fa-id-badge"></i>
-                <span className="ml-12">Profile</span>
+                <span className="ml-12" style={{ color: "#cecece" }}>Profile</span>
               </a>
             </li>
-            {/* Sign in */}
             <li>
               <a className="dropdown-item text-lights" href="/auth/login">
                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                <span className="ml-12">Sign in</span>
+                <span className="ml-12" style={{ color: "#cecece" }}>Sign in</span>
               </a>
             </li>
             <li>
@@ -54,7 +67,7 @@ const InnerNav = () => {
                   className="fa-solid fa-arrow-right-to-bracket"
                   style={{ transform: "rotate(180deg)" }}
                 ></i>
-                <span className="ml-12">Sign out</span>
+                <span className="ml-12" style={{ color: "#cecece" }}>Sign out</span>
               </a>
             </li>
           </ul>

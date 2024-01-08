@@ -2,13 +2,16 @@ import axios from "axios";
 import { greenBold } from "../utils/fxFactories.js"
 import { writeFileSync } from "fs";
 
-// const url = `https://api.anify.tv/recent?type=anime&page=1&perPage=1`;
-const url2 = `https://api.anify.tv/seasonal/anime?fields=[id, title, coverImage,genres,rating]`;
-const data = async () => {
+const url2 = `https://api.anify.tv/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={epNumber}&id={animeId}&subType=sub&server=gogocdn`;
+
+const data = async (watchId, epNumber, animeId) => {
     try {
-        const { data } = await axios.get(url2);
+        const { data } = await axios.get(url2
+            .replace("{watchId}", watchId)
+            .replace("{epNumber}", epNumber)
+            .replace("{animeId}", animeId));
         const dataBuffer = JSON.stringify(data);
-        writeFileSync("result.json", dataBuffer, "utf-8");
+        writeFileSync("res.json", dataBuffer, "utf-8");
 
         console.log(greenBold("success writed"));
     } catch (err) {
@@ -16,4 +19,4 @@ const data = async () => {
     }
 };
 
-data();
+data("sousou-no-frieren-episode-15", 15, 154587);

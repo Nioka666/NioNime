@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import useSWR from "swr";
 import { fetchTopAnimeData, fetchAnimeDetail } from "@utils/anime";
 import { Loading } from "./Loading";
@@ -28,7 +27,9 @@ export const TopSlider: React.FC = () => {
   } = useSWR(
     hoveredAnimeId ? `animeDetail-${hoveredAnimeId}` : null,
     () => fetchAnimeDetail(hoveredAnimeId || ""),
-    { revalidateOnFocus: false }
+    {
+      revalidateOnFocus: false,
+    }
   );
 
   if (topAnimeError) {
@@ -38,13 +39,6 @@ export const TopSlider: React.FC = () => {
   if (detailError) {
     console.error("Error fetching anime detail:", detailError);
   }
-
-  // interface Anime {
-  //   id: string;
-  //   title: string;
-  //   image: string;
-  //   genres: any;
-  // }
 
   return (
     <>
@@ -59,9 +53,8 @@ export const TopSlider: React.FC = () => {
             animeData?.top.map((anime: any) => (
               <Link to={`anime-detail/${anime.id}`} key={anime.id}>
                 <div
-                  className={`item ${
-                    hoveredAnimeId === anime.id ? "hovered" : ""
-                  }`}
+                  className={`item ${hoveredAnimeId === anime.id ? "hovered" : ""
+                    }`}
                   key={anime.id}
                   data-anime-id={anime.id}
                   onMouseOver={() => handleMouseOver(anime.id)}
@@ -71,7 +64,6 @@ export const TopSlider: React.FC = () => {
                     className="card-img-top"
                     alt={anime.title.romaji}
                   />
-                  {/* Overlay */}
                   <div className="overlay">
                     {isLoadingDetail && <Loading />}
                     {!isLoadingDetail && hoveredAnimeId === anime.id && (

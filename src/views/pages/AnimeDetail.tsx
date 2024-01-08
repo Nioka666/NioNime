@@ -3,6 +3,7 @@ import {} from "module";
 import { useParams } from "react-router-dom";
 import { fetchAnimeDetail } from "../../utils/anime";
 import useSWR from "swr";
+import { RecommendSlide } from "@views/components/RecommendSlide";
 
 export const AnimeDetail = () => {
   const { animeId } = useParams();
@@ -157,14 +158,152 @@ export const AnimeDetail = () => {
           </div>
         </div>
         {/* </div> */}
-        <div className="div">
-          <br />
-          <br />
-          <br />
-          <br />
-          <h1>test</h1>
+        <div
+          className="anime-detail-wrapper"
+          style={{ display: "flex", gap: "47px" }}
+        >
+          <div className="more-detail" style={{ width: "730px" }}>
+            <br />
+            <br />
+            <h3>More details</h3>
+            <br />
+            <table style={{ borderCollapse: "collapse", border: "none" }}>
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "10px 188.3px 10px 5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Studio
+                  </th>
+                  <th
+                    scope="col"
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "10px 10px 10px 365px",
+                      fontSize: "14px",
+                      color: "lightgray",
+                    }}
+                  >
+                    MAPPA
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    scope="row"
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "17px 188.3px 10px 5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Subtitles
+                  </td>
+                  <td
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "10px 10px 10px 365px",
+                      fontSize: "14px",
+                      color: "lightgray",
+                    }}
+                  >
+                    English
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    scope="row"
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "17px 188.3px 10px 5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Current Eps
+                  </td>
+                  <td
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "10px 10px 10px 365px",
+                      fontSize: "14px",
+                      color: "lightgray",
+                    }}
+                  >
+                    {animeDetail?.currentEpisode}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    scope="row"
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "17px 188.3px 10px 5px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    Tags
+                  </td>
+                  <td
+                    style={{
+                      borderBottom: "1px solid gray",
+                      padding: "10px 10px 10px 365px",
+                      fontSize: "14px",
+                      color: "lightgray",
+                    }}
+                  >
+                    {animeDetail?.tags.slice(0, 3).join(", ")}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="episodes-wrapper">
+            <br />
+            <br />
+            <h2>Episodes</h2>
+            <br />
+            <br />
+            <div className="ep-thumbnail">
+              <img
+                src={animeDetail?.bannerImage}
+                alt={animeDetail?.title.romaji}
+                width={"338px"}
+                height={"170px"}
+                style={{ backgroundSize: "cover" }}
+              />
+            </div>
+            <div className="btn-groups mt-4">
+              <button
+                id="btn-banner"
+                className="btn btn-lg text-white"
+                type="button"
+                style={{
+                  border: "2px solid #caa800",
+                  borderRadius: "0px",
+                  backgroundColor: "#caa800",
+                  width: "338px",
+                  padding: "10px 10px",
+                  fontSize: "17px",
+                }}
+              >
+                <i
+                  className="fa-solid fa-plus"
+                  style={{ marginRight: "8px" }}
+                ></i>
+                Start Watching EP 1
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+      <br /><br />
+      <RecommendSlide />
     </>
   );
 };

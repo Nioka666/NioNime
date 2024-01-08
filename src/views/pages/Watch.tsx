@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { RecommendSlide } from "@views/components/RecommendSlide";
 import { VideoPlayer } from "@views/components/VideoPlayer";
 
 export const Watch = () => {
@@ -51,7 +52,7 @@ export const Watch = () => {
                     borderBottom: "1px solid gray",
                     padding: "10px 10px 10px 365px",
                     fontSize: "14px",
-                    color: "lightgray"
+                    color: "lightgray",
                   }}
                 >
                   MAPPA
@@ -66,7 +67,6 @@ export const Watch = () => {
                     borderBottom: "1px solid gray",
                     padding: "17px 188.3px 10px 5px",
                     fontSize: "16px",
-
                   }}
                 >
                   Subtitles
@@ -76,7 +76,7 @@ export const Watch = () => {
                     borderBottom: "1px solid gray",
                     padding: "10px 10px 10px 365px",
                     fontSize: "14px",
-                    color: "lightgray"
+                    color: "lightgray",
                   }}
                 >
                   English
@@ -108,6 +108,7 @@ export const Watch = () => {
           </div>
         </section>
       </div>
+      <RecommendSlide />
     </>
   );
 };

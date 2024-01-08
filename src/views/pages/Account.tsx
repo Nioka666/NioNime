@@ -113,7 +113,7 @@ const UserProfile = () => {
         <div className="row d-flex">
           <div className="col-lg-4 d-flex w-100 user-wrapper">
             <img
-              src="./img/ayaka_avatar.png"
+              src="./img/uwin.jpeg"
               width={"150px"}
               className="bd-placeholder-img rounded-circle"
               style={{ border: "0px solid black", cursor: "pointer" }}
@@ -123,7 +123,7 @@ const UserProfile = () => {
               className="profile-username"
               style={{ margin: "85px 0 0 27px", fontWeight: "500" }}
             >
-              Nioka666 (666) <br />
+              Wichibo0_ <br />
               <span style={{ fontSize: "17px", color: "gray" }}>
                 Plain User
               </span>

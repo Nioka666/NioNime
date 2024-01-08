@@ -3,11 +3,12 @@
 // anime.ts
 import axios, { AxiosInstance } from "axios";
 
-const seasonalAnime = "/api/seasonal/anime?fields=[id,title,coverImage,genres]";
+const seasonalAnime = "/api/seasonal/anime?fields=[id,title,coverImage,genres,description]";
 const recentAnime = "/api/recent?type={type}&page={page}&perPage={perPage}";
-const animeSearch = "/api/anime/gogoanime/{query}";
+const animeSearch = "/api/search/anime/{query}/{page}/{perPage}";
 const animeDetails = "/api/info/{id}";
-const animeStreamLink = "/api/anime/gogoanime/watch/{episodeId}";
+const gogoanimeStreamLink =
+  "/api/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub&server=gogocdn";
 
 const axiosInstance: AxiosInstance = axios.create({
   headers: {
@@ -17,13 +18,41 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 // Search anime
-export const fetchSearchAnime = async (query: string, page: number) => {
+export const fetchSearchAnime = async (
+  query: string,
+  page: number,
+  perPage: number
+) => {
   try {
-    const url = `${animeSearch}?query=${query}&page=${page}`;
-    const res = await axiosInstance.get(url);
+    const res = await axiosInstance.get(
+      `${animeSearch
+        .replace("{query}", query)
+        .replace("{page}", page.toString())
+        .replace("{perPage}", perPage.toString())}`
+    );
     return res.data;
   } catch (err) {
     console.error(err);
+    throw err;
+  }
+};
+
+// Fetch Anime Link Streaming
+export const fetchAnimeStreamLink = async (
+  watchId: string,
+  episodeNumber: number,
+  animeId: string
+) => {
+  try {
+    const res = await axiosInstance.get(
+      `${gogoanimeStreamLink
+        .replace("{watchId}", watchId)
+        .replace("{episodeNumber}", episodeNumber.toString())
+        .replace("{animeId}", animeId)}`
+    );
+    return res.data;
+  } catch (err) {
+    console.error("Error fetching Recent anime data:", err);
     throw err;
   }
 };
@@ -92,22 +121,6 @@ export const fetchAllAnimeData = async (_page: any) => {
       ...topAnimeData,
       results: animeDetails,
     };
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-};
-
-// Fetch Anime Link Streaming
-export const fetchAnimeStreamLink = async (
-  episodeId: number,
-  server: string
-) => {
-  try {
-    const res = await axiosInstance.get(
-      `${animeStreamLink}?episodeId=${episodeId}&server=${server}`
-    );
-    return res.data;
   } catch (err) {
     console.error(err);
     throw err;

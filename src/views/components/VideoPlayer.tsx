@@ -16,7 +16,7 @@ export const VideoPlayer = () => {
           height="420px"
         >
           <source
-            src="https://www052.vipanicdn.net/streamhls/ecc2755b350b6e32b2db08131e1f921e/ep.10.1686088923.720.m3u8"
+            src="https://www048.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.15.1702658198.1080.m3u8"
             type="application/x-mpegURL"
           />
         </video>

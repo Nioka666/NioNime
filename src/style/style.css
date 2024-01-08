@@ -66,6 +66,28 @@ nav div.container a.navbar-brand span {
   font-weight: 700;
 }
 
+.search-dropdown {
+  position: absolute;
+  top: 90px; /* Adjust as needed */
+  left: 900px;
+  border-radius: 10px;
+  background-color: #202020a8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.search-dropdown input,
+.search-dropdown.active {
+  background-color: #202020a8;
+  border: none !important;
+}
+
+.search-dropdown input::placeholder,
+.search-dropdown.active {
+  color: white;
+}
+
 nav i {
   color: #e3e3e3c2;
   cursor: pointer;
@@ -286,6 +308,10 @@ nav ul li.dropstart ul li a {
   margin-bottom: -150px;
 }
 
+.display-wraps {
+  white-space: wrap;
+}
+
 .sss::-webkit-scrollbar {
   display: none;
 }
@@ -308,7 +334,26 @@ nav ul li.dropstart ul li a {
   overflow: hidden; /* Menyembunyikan konten yang melebihi batas item */
 }
 
+.small-item {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  width: 205px;
+  height: 400px;
+  margin: 0 15px;
+  background: #0000000d no-repeat center center;
+  background-size: cover;
+  cursor: pointer;
+  overflow: hidden; /* Menyembunyikan konten yang melebihi batas item */
+}
+
 .item img {
+  height: 301px;
+  /* box-shadow: ; */
+  /* border-radius: 8px; */
+}
+
+.small-item img {
   height: 301px;
   /* box-shadow: ; */
   /* border-radius: 8px; */
@@ -326,12 +371,41 @@ nav ul li.dropstart ul li a {
   z-index: 1; /* Pastikan vignette memiliki z-index yang lebih rendah dari gambar */
 }
 
+.small-item::before {
+  content: "";
+  position: absolute;
+  top: 170px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* Sesuaikan tinggi vignette sesuai keinginan Anda */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.83), rgba(0, 0, 0, 0));
+  z-index: 1; /* Pastikan vignette memiliki z-index yang lebih rendah dari gambar */
+}
+
 .item .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 75.5%;
+  padding: 30px 20px;
+  background: #000000b6;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  /* border: 1px solid white; */
+}
+
+.small-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 68%;
   padding: 30px 20px;
   background: #000000b6;
   flex-direction: column;
@@ -346,7 +420,20 @@ nav ul li.dropstart ul li a {
   opacity: 1;
 }
 
+.small-item:hover .overlay {
+  opacity: 1;
+}
+
 .item .overlay h6 {
+  width: 90%;
+  white-space: wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Batasi hingga 3 baris */
+  -webkit-box-orient: vertical;
+}
+
+.small-item .overlay h6 {
   width: 90%;
   white-space: wrap;
   overflow: hidden;
@@ -367,13 +454,42 @@ nav ul li.dropstart ul li a {
   -webkit-box-orient: vertical;
 }
 
+.small-item .overlay p {
+  width: 90%;
+  margin: 0;
+  font-size: 13px;
+  white-space: pre-wrap;
+  overflow: hidden;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Batasi hingga 3 baris */
+  -webkit-box-orient: vertical;
+}
+
 .item div.anime-title {
   margin-top: 10px;
   display: grid;
   gap: 8.3px;
 }
 
+.small-item div.anime-title {
+  margin-top: 10px;
+  display: grid;
+  gap: 8.3px;
+}
+
 .item div.anime-title h6 {
+  width: 80%;
+  margin: 0;
+  font-size: 14.6px;
+  white-space: wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Batasi hingga 3 baris */
+  -webkit-box-orient: vertical;
+}
+
+.small-item div.anime-title h6 {
   width: 80%;
   margin: 0;
   font-size: 14.6px;
@@ -438,6 +554,48 @@ footer {
   color: white;
 }
 
+/* Search Page */
+div.search-attribute {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search-page-wrapper {
+  margin: 120px auto;
+}
+
+input.search-bar {
+  border: none !important;
+  outline: none !important;
+  /* margin: 0 auto; */
+  width: 800px;
+  height: 65px;
+  border-radius: 15px;
+  background-color: #343434;
+  padding-left: 20px;
+  font-size: 22px;
+  color: #ededed;
+}
+
+input.search-bar:focus {
+  background-color: #2a2a2a;
+}
+
+button.search-btn {
+  width: 64px;
+  height: 64px;
+  border: none !important;
+  outline: none !important;
+  border-radius: 15px;
+  font-weight: bolder;
+  background-color: #caa800;
+}
+
+.search-bar:active {
+  border: none;
+}
+
 /* error page */
 .error-main {
   display: flex;
@@ -473,6 +631,10 @@ footer {
 
 .text-lightgray {
   color: #aeaeae;
+}
+
+.text-bright {
+  color: white;
 }
 
 .text-lights {
@@ -969,4 +1131,8 @@ form.changePassword label {
 .ml-12 {
   margin-left: 12px;
   color: rgba(0, 0, 0, 0.689);
+}
+
+.bg-yellow {
+  background-color: #d1b200;
 }

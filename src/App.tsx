@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { About } from "@pages/About";
@@ -9,6 +10,9 @@ import { Account } from "@pages/Account";
 import { AnimeDetail } from "@pages/AnimeDetail";
 import { MainLayout } from "@views/layouts/MainLayout";
 import { Watch } from "@views/pages/Watch";
+import { Dashboard } from "@views/backend/Dashboard";
+import { UserDetail } from "./views/backend/UsersDetail";
+import { Search } from "@views/pages/Search";
 
 export const App = () => {
   return (
@@ -25,6 +29,7 @@ export const App = () => {
               element={<AnimeDetail />}
             />
             <Route path="watch" element={<Watch />} />
+            <Route path="search" element={<Search />} />
             <Route
               path="*"
               element={<ErrorPage />}
@@ -43,6 +48,23 @@ export const App = () => {
               element={<Register />}
               errorElement={<ErrorPage />}
             />
+          </Route>
+          {/* admin path */}
+          <Route
+            path="/admin/"
+            element={<Dashboard />}
+            errorElement={<ErrorPage />}
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="userDetail" element={<UserDetail />} />
+          </Route>
+          {/* user path */}
+          <Route
+            path="/user/"
+            element={<Account />}
+            errorElement={<ErrorPage />}
+          >
+            <Route path="info" element={<UserDetail />} />
           </Route>
         </Routes>
       </Router>
