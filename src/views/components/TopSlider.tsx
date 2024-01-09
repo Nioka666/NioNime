@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useSWR from "swr";
-import { fetchTopAnimeData, fetchAnimeDetail } from "@utils/anime";
+import useSWR, { mutate } from "swr";
+import { fetchTopAnimeData } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -10,8 +10,14 @@ export const TopSlider: React.FC = () => {
     null
   );
 
-  const handleMouseOver = (animeId: string) => {
+  const handleMouseOver = async (animeId: string) => {
     setHoveredAnimeId(animeId);
+    
+    const cacheKey = `animeDetail-${animeId}`;
+    const cachedData = await mutate(cacheKey, fetchTopAnimeData(), false);
+    if (!cachedData) {
+      await mutate(cacheKey);
+    }
   };
 
   const {
@@ -20,24 +26,8 @@ export const TopSlider: React.FC = () => {
     isValidating: isLoadingTopAnime,
   } = useSWR("topAnime", () => fetchTopAnimeData());
 
-  const {
-    data: animeDetail,
-    error: detailError,
-    isValidating: isLoadingDetail,
-  } = useSWR(
-    hoveredAnimeId ? `animeDetail-${hoveredAnimeId}` : null,
-    () => fetchAnimeDetail(hoveredAnimeId || ""),
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
   if (topAnimeError) {
     console.error("Error fetching top anime data:", topAnimeError);
-  }
-
-  if (detailError) {
-    console.error("Error fetching anime detail:", detailError);
   }
 
   return (
@@ -65,22 +55,19 @@ export const TopSlider: React.FC = () => {
                     alt={anime.title.romaji}
                   />
                   <div className="overlay">
-                    {isLoadingDetail && <Loading />}
-                    {!isLoadingDetail && hoveredAnimeId === anime.id && (
+                    {isLoadingTopAnime && <Loading />}
+                    {!isLoadingTopAnime && hoveredAnimeId === anime.id && (
                       <div className="anime-detail" key={anime.id}>
                         <h6 className="fw-normal">
-                          {animeDetail?.title.romaji}
+                          {anime?.title.romaji}
                         </h6>
                         <strong>
                           <p className="text-lights fw-bold">
-                            Rating: {animeDetail?.rating.anilist}
-                          </p>
-                          <p className="text-gray fw-bold">
-                            {animeDetail?.status}
+                            Genres: {anime?.genres[1]}
                           </p>
                           <br />
                         </strong>
-                        <p>{animeDetail?.description}</p>
+                        <p>{anime?.description}</p>
                       </div>
                     )}
                   </div>

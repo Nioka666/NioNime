@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useSWR from "swr";
-import { fetchAnimeDetail, fetchRecentAnime } from "@utils/anime";
+import { fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -19,24 +19,10 @@ export const RecommendSlide = () => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 30));
-
-  const {
-    data: animeDetail,
-    error: detailError,
-    isValidating: isLoadingDetail,
-  } = useSWR(
-    hoveredAnimeId ? `animeDetail-${hoveredAnimeId}` : null,
-    () => fetchAnimeDetail(hoveredAnimeId || ""),
-    { revalidateOnFocus: false }
-  );
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20));
 
   if (RecentAnimeError) {
     console.error("Error fetching Recent anime data:", RecentAnimeError);
-  }
-
-  if (detailError) {
-    console.error("Error fetching anime detail:", detailError);
   }
 
   return (
@@ -53,9 +39,8 @@ export const RecommendSlide = () => {
               <Link to={`http://localhost/anime-detail/${anime.id}`} key={anime.id}>
                 <div
                   key={anime.id}
-                  className={`small-item ${
-                    hoveredAnimeId === anime.id ? "hovered" : ""
-                  }`}
+                  className={`small-item ${hoveredAnimeId === anime.id ? "hovered" : ""
+                    }`}
                   style={{ width: "180px" }}
                   data-anime-id={anime.id}
                   onMouseOver={() => handleMouseOver(anime.id)}
@@ -69,22 +54,19 @@ export const RecommendSlide = () => {
 
                   {/* Overlay */}
                   <div className="overlay">
-                    {isLoadingDetail && <Loading />}
-                    {!isLoadingDetail && hoveredAnimeId === anime.id && (
+                    {isLoadingRecentAnime && <Loading />}
+                    {!isLoadingRecentAnime && hoveredAnimeId === anime.id && (
                       <div className="anime-detail">
                         <h6 className="text-normal">
-                          {animeDetail?.title.romaji}
+                          {anime?.title.romaji}
                         </h6>
                         <strong>
                           <p className="text-gray fw-bold">
-                            Rating: {animeDetail?.rating.anilist}
-                          </p>
-                          <p className="text-gray fw-bold">
-                            {animeDetail?.status}
+                            Genres: {anime?.genres.slice(0, 2).join(", ")}
                           </p>
                           <br />
                         </strong>
-                        <p>{animeDetail?.description}</p>
+                        <p>{anime?.description}</p>
                       </div>
                     )}
                   </div>
