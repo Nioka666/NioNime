@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 
 const InnerNav = () => {
-  // const [searchActive, setSearchActive] = useState(false);
-
-  // const handleSearchClick = () => {
-  //   setSearchActive(!searchActive);
-  // };
-
   return (
     <>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">

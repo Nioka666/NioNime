@@ -19,4 +19,4 @@ const data = async (watchId, epNumber, animeId) => {
     }
 };
 
-data("sousou-no-frieren-episode-15", 15, 154587);
+data("ponyo-on-the-cliff-by-the-sea-episode-1", 1, 2890);

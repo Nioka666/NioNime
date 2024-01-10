@@ -25,8 +25,8 @@ export const App = () => {
             <Route path="about" element={<About />} />
             <Route path="anime-detail/:animeId" element={<AnimeDetail />} />
             <Route
-              path="anime-detail/watch/:animeId"
-              element={<AnimeDetail />}
+              path="watch/:animeId"
+              element={<Watch />}
             />
             <Route path="watch" element={<Watch />} />
             <Route path="search" element={<Search />} />

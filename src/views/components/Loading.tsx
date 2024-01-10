@@ -3,7 +3,7 @@ export const Loading = () => {
     <>
       <div
         className="loading-container d-flex justify-content-center"
-        style={{ marginTop: "150px" }}
+        style={{ marginTop: "100px" }}
       >
         <div
           className="spinner-grow text-secondary"

@@ -79,7 +79,7 @@ export const Search = () => {
             <h6 className="text-lightgray mb-4">anime search result</h6>
           </div>
 
-          <div className="sss display-wraps">
+          <div className="sss display-wraps" style={{ paddingLeft: "60px" }}>
             <div className="search-results">
               {isLoadingSearch && <Loading />}
               {!isLoadingSearch &&
@@ -122,9 +122,9 @@ export const Search = () => {
                         )}
                       </div>
 
-                      <div className="result-title">
-                        <h6>{result.title.romaji}</h6>
-                        <h6 className="text-gray" style={{ marginTop: "-15px" }}>EP. {result.currentEpisode}</h6>
+                      <div className="result-title m-top-10">
+                        <h6 style={{ fontSize: "15px" }}>{result.title.romaji}</h6>
+                        <h6 className="text-gray" style={{ marginTop: "-15px", fontSize: "14px" }}>EP. {result.currentEpisode}</h6>
                       </div>
                     </div>
                   </Link>

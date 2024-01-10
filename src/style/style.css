@@ -340,7 +340,7 @@ nav ul li.dropstart ul li a {
   display: inline-block;
   width: 205px;
   height: 400px;
-  margin: 0 15px;
+  margin: 0 18px;
   background: #0000000d no-repeat center center;
   background-size: cover;
   cursor: pointer;
@@ -374,7 +374,7 @@ nav ul li.dropstart ul li a {
 .small-item::before {
   content: "";
   position: absolute;
-  top: 170px;
+  top: 171px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -793,6 +793,18 @@ td.register-label {
 
 td.register-label a {
   color: black;
+}
+
+/* Anime Detail */
+.banner-wrapper {
+  position: relative;
+  margin-top: 0px;
+  background-size: cover;
+  filter: brightness(38%);
+  height: 550px;
+  z-index: -999;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 /* Account Page */

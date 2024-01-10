@@ -118,26 +118,26 @@ export const Carousels: React.FC = () => {
         <div className="carousel-item">
           <div className="hero-bg">
             <picture>
-              <source srcSet="./img/zom100.jpg" media="(min-width: 1920px)" />
+              <source srcSet="./img/fate_ubw1.png" media="(min-width: 1920px)" />
               <source
-                srcSet="./img/zom100_potrait.jpg"
+                srcSet="./img/fate_ubw1_potrait.png"
                 media="(max-width: 760px)"
               />
-              <ImgCarousel src="./img/zom100.jpg" />
+              <ImgCarousel src="./img/fate_ubw1.png" />
             </picture>
             <picture>
-              <ImgCarousel src="./img/zom100_potrait.jpg" />
+              <ImgCarousel src="./img/fate_ubw1_potrait.png" />
             </picture>
           </div>
           {/* overlay */}
           <div className="carousel-overlay">
             <div className="inner-overlay">
               <h1 className="display-3 fw-bold">
-                Zom 100:
-                <br /> Bucket List..
+                Fate Stay
+                <br /> Night U.B.W
               </h1>
               <p>
-                "Zom 100 - Official Released Announced
+                "Fate Stay Night - Official Released Announced
                 <br /> Coming for 2024
               </p>
               <p>
@@ -181,10 +181,10 @@ export const Carousels: React.FC = () => {
                 srcSet="./img/aikane_potrait.jpeg"
                 media="(max-width: 760px)"
               />
-              <ImgCarousel src="./img/fate_ubw1.png" />
+              <ImgCarousel src="./img/vind.jpeg" />
             </picture>
             <picture>
-              <ImgCarousel src="./img/fate_ubw1.png" />
+              <ImgCarousel src="./img/vind.jpeg" />
             </picture>
           </div>
 
@@ -192,8 +192,8 @@ export const Carousels: React.FC = () => {
           <div className="carousel-overlay">
             <div className="inner-overlay">
               <h1 className="display-3 fw-bold">
-                Fate Stay
-                <br /> Night U.B.W
+                Vinland Saga
+                <br /> Season 2
               </h1>
               <p>
                 "Vinland Saga - Official Released <br />

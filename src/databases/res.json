@@ -1,1 +1,31 @@
-{"sources":[{"url":"https://www048.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.15.1702658198.360.m3u8","quality":"360p"},{"url":"https://www048.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.15.1702658198.480.m3u8","quality":"480p"},{"url":"https://www048.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.15.1702658198.720.m3u8","quality":"720p"},{"url":"https://www048.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.15.1702658198.1080.m3u8","quality":"1080p"},{"url":"https://www048.vipanicdn.net/streamhls/7f8dd00fcdec4483b9ff13f47a3ec4e2/ep.15.1702658198.m3u8","quality":"default"}],"subtitles":[],"audio":[],"intro":{"start":0,"end":0},"outro":{"start":0,"end":0},"headers":{}}
+{
+    "sources": [
+        {
+            "url": "https://www089.vipanicdn.net/streamhls/0d8ef972359afb5c24ede3155eb6e541/ep.1.1703923090.360.m3u8",
+            "quality": "360p"
+        },
+        {
+            "url": "https://www089.vipanicdn.net/streamhls/0d8ef972359afb5c24ede3155eb6e541/ep.1.1703923090.480.m3u8",
+            "quality": "480p"
+        },
+        {
+            "url": "https://www089.vipanicdn.net/streamhls/0d8ef972359afb5c24ede3155eb6e541/ep.1.1703923090.720.m3u8",
+            "quality": "720p"
+        },
+        {
+            "url": "https://www089.vipanicdn.net/streamhls/0d8ef972359afb5c24ede3155eb6e541/ep.1.1703923090.m3u8",
+            "quality": "default"
+        }
+    ],
+    "subtitles": [],
+    "audio": [],
+    "intro": {
+        "start": 0,
+        "end": 0
+    },
+    "outro": {
+        "start": 0,
+        "end": 0
+    },
+    "headers": {}
+}
