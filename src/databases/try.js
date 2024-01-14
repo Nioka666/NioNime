@@ -2,11 +2,13 @@ import axios from "axios";
 import { greenBold } from "../utils/fxFactories.js"
 import { writeFileSync } from "fs";
 
-const url2 = `https://api.anify.tv/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={epNumber}&id={animeId}&subType=sub&server=gogocdn`;
+// const zoroUrl =
+//   "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
+const gogoUrl = `https://api.anify.tv/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={epNumber}&id={animeId}&subType=sub&server=gogocdn`;
 
 const data = async (watchId, epNumber, animeId) => {
     try {
-        const { data } = await axios.get(url2
+        const { data } = await axios.get(gogoUrl
             .replace("{watchId}", watchId)
             .replace("{epNumber}", epNumber)
             .replace("{animeId}", animeId));
@@ -19,4 +21,4 @@ const data = async (watchId, epNumber, animeId) => {
     }
 };
 
-data("shingeki-no-kyojin-ova-episode-1", 1, 2890);
+data("/fategrand-order-zettai-majuu-sensen-babylonia-episode-1", 1, 103275);

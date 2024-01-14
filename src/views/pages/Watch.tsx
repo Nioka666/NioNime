@@ -10,6 +10,7 @@ import Player from 'video.js/dist/types/player';
 import useSWR from "swr";
 import { VideoPlayer } from '@views/components/VideoPlayer';
 import { CommentInfo } from '@views/components/CommentInfo';
+import { ParagraphPlaceholder } from '@views/components/ParagraphPlaceholder';
 
 export interface CustomVideoJsPlayerOptions {
   autoplay: boolean;
@@ -31,10 +32,10 @@ export const Watch = () => {
   };
   const {
     data: animeWatchDetail,
+    isValidating: isLoadingAnimeWatchDetail,
   } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId.animeId), {
     revalidateOnFocus: false,
   });
-
   const episodeProvider = animeWatchDetail?.episodes.data;
   const providerIndex = episodeProvider?.findIndex(
     (episode: any) => episode.providerId === 'zoro'
@@ -42,6 +43,7 @@ export const Watch = () => {
   const currentEpisode = animeWatchDetail?.episodes.data[providerIndex].episodes[0].number;
   const episodeTitle = animeWatchDetail?.episodes.data[providerIndex].episodes[0].title;
   const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[0].id;
+  // const cleanWatchID = watchID?.substring(watchID.indexOf('/') + 1);
   const {
     data: animeStreamLink,
     // error: errorAnimeStreamLink,
@@ -85,7 +87,6 @@ export const Watch = () => {
   console.log(selectedEpisodes);
   return (
     <>
-      {/* Video Player */}
       <div className="container" style={{ marginTop: "55px" }}>
         <br />
         <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
@@ -94,16 +95,22 @@ export const Watch = () => {
         className="container content-wrappers"
         style={{ display: "flex", margin: "38px 70px", gap: "75px" }}
       >
-        {/* Anime Detail (Left Session) */}
         <section style={{ width: "690px" }}>
-          <div className="d-flex">
-            <h3 className="text-light" style={{ width: "3500px" }} key={animeWatchDetail?.title.romaji}>{animeWatchDetail?.title.romaji}</h3>
-            <i className="fa-solid fa-ellipsis-vertical fs-4 m-top-10 text-gray" style={{ width: "100px" }}></i>
-          </div>
-          <h5 className="text-gray" key={episodeTitle}>Title : {episodeTitle}</h5>
-          <h6 className="text-gray m-top-20" style={{ lineHeight: "23px" }}>
-            {animeWatchDetail?.description}
-          </h6>
+          {isLoadingAnimeWatchDetail && (
+            <ParagraphPlaceholder />
+          )}
+          {!isLoadingAnimeWatchDetail && (
+            <>
+              <div className="d-flex">
+                <h3 className="text-light" style={{ width: "3500px" }} key={animeWatchDetail?.title.romaji}>{animeWatchDetail?.title.romaji}</h3>
+                <i className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray" style={{ width: "70px" }}></i>
+              </div>
+              <h5 className="text-gray" key={episodeTitle}>EP {currentEpisode} - {episodeTitle}</h5>
+              <h6 className="text-gray m-top-20" style={{ lineHeight: "23px" }}>
+                {animeWatchDetail?.description}
+              </h6>
+            </>
+          )}
           <br />
           <br />
           <table style={{ borderCollapse: "collapse", border: "none" }}>
@@ -181,10 +188,8 @@ export const Watch = () => {
           </table>
           <CommentInfo />
         </section>
-
-        {/* right section */}
         <section style={{ width: "390px" }}>
-          <h4 className="mt-1">Next Episode</h4>
+          <h4 className="mt-0">Next Episodes</h4>
           <h6 className="text-gray">List of Episodes...</h6>
           <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
             {animeWatchDetail?.episodes.data[providerIndex].episodes?.map((episode: any) => (
