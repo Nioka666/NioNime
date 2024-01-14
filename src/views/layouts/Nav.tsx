@@ -116,7 +116,7 @@ export const Nav: React.FC = () => {
       >
         <div className="container">
           <a className="navbar-brand" href="/">
-            <img src="../../img/logo.png" height="27px" />
+            <img src="../../img/logo.png" height="25px" />
           </a>
           <button
             className="navbar-toggler"

@@ -19,4 +19,4 @@ const data = async (watchId, epNumber, animeId) => {
     }
 };
 
-data("ponyo-on-the-cliff-by-the-sea-episode-1", 1, 2890);
+data("shingeki-no-kyojin-ova-episode-1", 1, 2890);

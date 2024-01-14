@@ -3,12 +3,18 @@
 // anime.ts
 import axios, { AxiosInstance } from "axios";
 
-const seasonalAnime = "/api/seasonal/anime?fields=[id,title,coverImage,genres,description]";
+// URL
+const seasonalAnime =
+  "/api/seasonal/anime?fields=[id,title,coverImage,genres,description]";
 const recentAnime = "/api/recent?type={type}&page={page}&perPage={perPage}";
 const animeSearch = "/api/search/anime/{query}/{page}/{perPage}";
 const animeDetails = "/api/info/{id}";
-const gogoanimeStreamLink =
-  "/api/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub&server=gogocdn";
+// const gogoanimeStreamLink =
+//   "/api/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub&server=gogocdn";
+const zoroStreamLink =
+  "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
+const animeEpisodes = "/api/episodes/{id}";
+// ---------------------------------------------
 
 const axiosInstance: AxiosInstance = axios.create({
   headers: {
@@ -16,6 +22,17 @@ const axiosInstance: AxiosInstance = axios.create({
     "Access-Control-Allow-Origin": "*",
   },
 });
+
+// Anime Episodes
+export const fetchAnimeEpisodes = async (id: any) => {
+  try {
+    const res = await axiosInstance.get(`${animeEpisodes.replace("{id}", id)}`);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
 
 // Search anime
 export const fetchSearchAnime = async (
@@ -40,20 +57,19 @@ export const fetchSearchAnime = async (
 // Fetch Anime Link Streaming
 export const fetchAnimeStreamLink = async (
   watchId: string,
-  episodeNumber: number,
-  animeId: string
+  episodeNumber: any,
+  animeId: any
 ) => {
   try {
     const res = await axiosInstance.get(
-      `${gogoanimeStreamLink
+      `${zoroStreamLink
         .replace("{watchId}", watchId)
         .replace("{episodeNumber}", episodeNumber.toString())
         .replace("{animeId}", animeId)}`
     );
     return res.data;
   } catch (err) {
-    console.error("Error fetching Recent anime data:", err);
-    throw err;
+    throw new Error();
   }
 };
 

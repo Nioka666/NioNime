@@ -1,70 +1,123 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { fetchAnimeDetail } from "@utils/anime";
-import { Loading } from "@views/components/Loading";
+import { useRef, useState } from 'react';
+import { fetchAnimeDetail, fetchAnimeStreamLink } from "@utils/anime";
 import { RecommendSlide } from "@views/components/RecommendSlide";
-import { VideoPlayer } from "@views/components/VideoPlayer";
 import { useParams } from "react-router-dom";
+import videojs from 'video.js';
+import Player from 'video.js/dist/types/player';
 import useSWR from "swr";
+import { VideoPlayer } from '@views/components/VideoPlayer';
+import { CommentInfo } from '@views/components/CommentInfo';
 
 export const Watch = () => {
+  // const [player, setPlayer] = useState(null);
+  const [selectedEpisodes, setSelectedEpisodes] = useState(null);
   const animeId = useParams();
+
+  const handleEpisodeClick = (episodeId: any) => {
+    setSelectedEpisodes(episodeId);
+  };
+
+  console.log(selectedEpisodes);
 
   const {
     data: animeWatchDetail,
-    error: animeWatchDetailError,
-    isValidating: isLoadingAnimeWatchDetail,
-  } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId.animeId));
+  } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId.animeId), {
+    revalidateOnFocus: false,
+  });
 
-  if (animeWatchDetailError) {
-    console.log(animeWatchDetailError)
+  const episodeProvider = animeWatchDetail?.episodes.data;
+  const providerIndex = episodeProvider?.findIndex(
+    (episode: any) => episode.providerId === 'zoro'
+  );
+  console.info(`index ke ${providerIndex} OK`);
+
+  // const animeStreamId = animeWatchDetail?.episodes.data[providerIndex].episodes.map((ep: any) => {
+  //   return ep.id;
+  // });
+  const currentEpisode = animeWatchDetail?.episodes.data[providerIndex].episodes[0].number;
+  const episodeTitle = animeWatchDetail?.episodes.data[providerIndex].episodes[0].title;
+  // console.log(currentEpisode);
+
+  const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[0].id;
+  // console.log(watchID);
+  const {
+    data: animeStreamLink,
+    // error: errorAnimeStreamLink,
+  } = useSWR("animeStreamLink", () => fetchAnimeStreamLink(watchID, currentEpisode, animeId?.animeId), {
+    revalidateOnFocus: false,
+  });
+
+  const resultLink = animeStreamLink?.sources[2].url;
+  // if else store
+  // if (animeWatchDetailError) {
+  //   console.log(animeWatchDetailError);
+  // }
+
+  // if (errorAnimeStreamLink) {
+  //   console.log(errorAnimeStreamLink);
+  // }
+  // Player
+
+  const playerRef = useRef<Player | null>(null);
+
+  interface CustomVideoJsPlayerOptions {
+    autoplay: boolean;
+    controls: boolean;
+    responsive: boolean;
+    fluid: boolean;
+    sources: {
+      src: string;
+      type: string;
+    }[];
   }
 
-  // animeWatchDetail?.episodes.data[0].episodes.map((ep: any) => {
-  //   console.log(ep.title);
-  // });
+  const videoJsOptions: CustomVideoJsPlayerOptions = {
+    autoplay: false,
+    controls: true,
+    responsive: true,
+    fluid: false,
+    sources: [{
+      src: resultLink,
+      type: 'application/x-mpegURL'
+    }]
+  };
 
-  const providerIndex = animeWatchDetail?.episodes.data;
+  const handlePlayerReady = (player: Player) => {
+    playerRef.current = player;
 
-  // manually loops
-  // for (let i = 0; providerIndex && i < providerIndex.length; i++) {
-  //   if (providerIndex[i].providerId === 'gogoanime') {
-  //     console.info(`index ke ${i} OK`);
-  //   }
-  // }
-  // array method
-  const gogoanimeIndex = providerIndex?.findIndex(
-    (episode: any) => episode.providerId === 'gogoanime'
-  );
-  console.info(`index ke ${gogoanimeIndex} OK`);
- 
+    // Anda dapat menangani peristiwa pemutaran di sini, sebagai contoh:
+    player.on('waiting', () => {
+      videojs.log('player is waiting');
+    });
+
+    player.on('dispose', () => {
+      videojs.log('player will dispose');
+    });
+  };
 
   return (
     <>
+      {/* Video Player */}
       <div className="container" style={{ marginTop: "55px" }}>
         <br />
-        <VideoPlayer />
+        <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
       </div>
       <div
         className="container content-wrappers"
-        style={{ display: "flex", margin: "38px 70px", gap: "65px" }}
+        style={{ display: "flex", margin: "38px 70px", gap: "75px" }}
       >
+        {/* Anime Detail (Left Session) */}
         <section style={{ width: "690px" }}>
-          <div className="d-flex" style={{ gap: "450px" }}>
-            <h4 className="text-light">Ponyo on the cliff by the sea</h4>
-            <i className="fa-regular fa-bookmark fs-4 m-top-10"></i>
+          <div className="d-flex">
+            <h3 className="text-light" style={{ width: "3500px" }} key={animeWatchDetail?.title.romaji}>{animeWatchDetail?.title.romaji}</h3>
+            <i className="fa-solid fa-ellipsis-vertical fs-4 m-top-10 text-gray" style={{ width: "100px" }}></i>
           </div>
-          <h5 className="text-gray">EP 1 - Movie Ponyo</h5>
+          <h5 className="text-gray" key={episodeTitle}>Title : {episodeTitle}</h5>
           <h6 className="text-gray m-top-20" style={{ lineHeight: "23px" }}>
-            Twilight is an agent that works htmlFor WISE, Westalis's
-            intelligence agency, and he is tasked with investigating Desmond,
-            who is in Ostania and planning to start a war. Twilight disguises
-            himself as the psychiatrist Loid htmlForger and adopts a girl named
-            Anya so that he can enroll her into the prestigious Eden College.
-            Unbeknownst to him, Anya is actually a telepathad people's minds.
-            One day, members of a mafia needs to reconsider his priorities
-            and...
+            {animeWatchDetail?.description}
           </h6>
           <br />
           <br />
@@ -79,7 +132,7 @@ export const Watch = () => {
                     fontSize: "16px",
                   }}
                 >
-                  Studio
+                  Status
                 </th>
                 <th
                   scope="col"
@@ -89,8 +142,9 @@ export const Watch = () => {
                     fontSize: "14px",
                     color: "lightgray",
                   }}
+                  key={animeWatchDetail?.status}
                 >
-                  MAPPA
+                  {animeWatchDetail?.status}
                 </th>
               </tr>
             </thead>
@@ -104,7 +158,7 @@ export const Watch = () => {
                     fontSize: "16px",
                   }}
                 >
-                  Subtitles
+                  Average Ratings
                 </td>
                 <td
                   style={{
@@ -114,36 +168,54 @@ export const Watch = () => {
                     color: "lightgray",
                   }}
                 >
+                  {animeWatchDetail?.averageRating}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  scope="row"
+                  style={{
+                    padding: "17px 188.3px 10px 5px",
+                    fontSize: "16px",
+                  }}
+                >
+                  Subtitles
+                </td>
+                <td
+                  style={{
+                    padding: "10px 10px 10px 365px",
+                    fontSize: "14px",
+                    color: "lightgray",
+                  }}
+                >
                   English
                 </td>
               </tr>
+
             </tbody>
           </table>
-          <br />
-          <br />
-          <h4>Downloads</h4>
+          <CommentInfo />
         </section>
 
         {/* right section */}
         <section style={{ width: "390px" }}>
-          <h4>Next Episode</h4>
+          <h4 className="mt-1">Next Episode</h4>
           <h6 className="text-gray">List of Episodes...</h6>
-          {/* {!isLoadingAnimeWatchDetail && <Loading />}
-          {isLoadingAnimeWatchDetail && ( */}
           <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
-            {animeWatchDetail?.episodes.data[gogoanimeIndex].episodes?.map((episode: any) => (
-              <div
-                className="ep-square rounded-2"
+            {animeWatchDetail?.episodes.data[providerIndex].episodes?.map((episode: any) => (
+              <button
+                className="btn ep-square rounded-2 text-white"
                 style={{
                   cursor: "pointer",
                   width: "70px",
                 }}
+                key={episode?.id}
+                onClick={() => handleEpisodeClick(episode?.number)}
               >
-                <h6 style={{ margin: "0px" }} key={episode.title}>{episode.title}</h6>
-              </div>
+                <h6 style={{ margin: "0px" }} key={episode.number}>EP {episode.number}</h6>
+              </button>
             ))}
           </div>
-          {/* )} */}
         </section>
       </div>
       <RecommendSlide />

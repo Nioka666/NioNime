@@ -13,32 +13,21 @@ export const AnimeDetail = () => {
     data: animeDetail,
     error: animeDetailError,
     isValidating: isLoadingAnimeDetail,
-  } = useSWR("animeDetail", () => fetchAnimeDetail(animeId));
+  } = useSWR("animeDetail", () => fetchAnimeDetail(animeId), {
+    revalidateOnFocus: false,
+  });
 
-  const episodeMapping = () => {
-    try {
-      // console.log(animeDetail?.episodes.data[1].episodes[10].id);
-      const apiKey = animeDetail?.episodes.data[1].episodes
-      apiKey?.map((ep: any) => {
-        console.log(ep);
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const startFirstEpisode = () => {
-    try {
-      // const apiKey = animeDetail?.episodes.data[1].episodes[0].id;
-      const apiKey = animeDetail?.id;
-      // console.log(apiKey);
-      return apiKey;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const firstEpisodeApiKey = startFirstEpisode();
+  // const episodeMapping = () => {
+  //   try {
+  //     // console.log(animeDetail?.episodes.data[1].episodes[10].id);
+  //     const apiKey = animeDetail?.episodes.data[1].episodes
+  //     apiKey?.map((ep: any) => {
+  //       console.log(ep);
+  //     })
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   if (animeDetailError) {
     console.log(animeDetailError);

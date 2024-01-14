@@ -5,6 +5,7 @@ import { fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ContentDummyLoad } from "./ContentDummyLoad";
 
 export const AnimeSlider = () => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
@@ -19,7 +20,9 @@ export const AnimeSlider = () => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20));
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20), {
+    revalidateOnFocus: false,
+  });
 
   if (RecentAnimeError) {
     console.error("Error fetching Recent anime data:", RecentAnimeError);
@@ -33,7 +36,17 @@ export const AnimeSlider = () => {
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
-          {isLoadingRecentAnime && <Loading />}
+          {isLoadingRecentAnime && <Loading /> && (
+            <>
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+            </>
+          )}
           {!isLoadingRecentAnime &&
             animeData?.map((anime: any) => (
               <Link to={`anime-detail/${anime.id}`} key={anime.id}>

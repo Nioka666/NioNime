@@ -5,6 +5,7 @@ import { fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ContentDummyLoad } from "./ContentDummyLoad";
 
 export const RecommendSlide = () => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
@@ -19,7 +20,10 @@ export const RecommendSlide = () => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20));
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20),
+    {
+      revalidateOnFocus: false,
+    });
 
   if (RecentAnimeError) {
     console.error("Error fetching Recent anime data:", RecentAnimeError);
@@ -27,13 +31,22 @@ export const RecommendSlide = () => {
 
   return (
     <>
-      <div className="slide-nime m-top-30" style={{ marginLeft: "17px" }}>
+      <div className="slide-nime m-top-30" style={{ padding: "0 70px 0 30px" }}>
         <div className="left-capt">
           <h3 style={{ marginTop: "-100px" }}>Recommended for you</h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
-          {isLoadingRecentAnime && <Loading />}
+          {isLoadingRecentAnime && <Loading /> && (
+            <>
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+            </>
+          )}
           {!isLoadingRecentAnime &&
             animeData?.map((anime: any) => (
               <Link to={`http://localhost/anime-detail/${anime.id}`} key={anime.id}>

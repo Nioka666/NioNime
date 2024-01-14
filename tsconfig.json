@@ -34,7 +34,8 @@
     "public/style",
     "src/views/pages/ErrorPage.tsx",
     "src/utils/paths.ts",
-    "srv.js"
+    "srv.js",
+    "node_modules/@types"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

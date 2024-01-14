@@ -4,6 +4,7 @@ import { fetchTopAnimeData } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ContentDummyLoad } from "./ContentDummyLoad";
 
 export const TopSlider: React.FC = () => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
@@ -12,7 +13,7 @@ export const TopSlider: React.FC = () => {
 
   const handleMouseOver = async (animeId: string) => {
     setHoveredAnimeId(animeId);
-    
+
     const cacheKey = `animeDetail-${animeId}`;
     const cachedData = await mutate(cacheKey, fetchTopAnimeData(), false);
     if (!cachedData) {
@@ -24,7 +25,9 @@ export const TopSlider: React.FC = () => {
     data: animeData,
     error: topAnimeError,
     isValidating: isLoadingTopAnime,
-  } = useSWR("topAnime", () => fetchTopAnimeData());
+  } = useSWR("topAnime", () => fetchTopAnimeData(), {
+    revalidateOnFocus: false,
+  });
 
   if (topAnimeError) {
     console.error("Error fetching top anime data:", topAnimeError);
@@ -38,7 +41,17 @@ export const TopSlider: React.FC = () => {
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
-          {isLoadingTopAnime && <Loading />}
+          {isLoadingTopAnime && <Loading /> && (
+            <>
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+              <ContentDummyLoad />
+            </>
+          )}
           {!isLoadingTopAnime &&
             animeData?.top.map((anime: any) => (
               <Link to={`anime-detail/${anime.id}`} key={anime.id}>
