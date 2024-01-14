@@ -22,3 +22,5 @@ const data = async (watchId, epNumber, animeId) => {
 };
 
 data("/fategrand-order-zettai-majuu-sensen-babylonia-episode-1", 1, 103275);
+
+// https://api.anify.tv/sources?providerId=gogoanime&watchId=%2Ffategrand-order-zettai-majuu-sensen-babylonia-episode-1&episodeNumber=1&id=103275&subType=sub&server=gogocdn

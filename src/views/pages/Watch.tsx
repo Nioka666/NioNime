@@ -40,8 +40,10 @@ export const Watch = () => {
   const providerIndex = episodeProvider?.findIndex(
     (episode: any) => episode.providerId === 'zoro'
   );
-  const currentEpisode = animeWatchDetail?.episodes.data[providerIndex].episodes[0].number;
-  const episodeTitle = animeWatchDetail?.episodes.data[providerIndex].episodes[0].title;
+  const episodesStore = animeWatchDetail?.episodes.data[providerIndex]?.episodes;
+  const currentEpisode = episodesStore?.[0]?.number;
+  const episodeTitle = episodesStore?.[0]?.title;
+
   const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[0].id;
   // const cleanWatchID = watchID?.substring(watchID.indexOf('/') + 1);
   const {
@@ -52,6 +54,7 @@ export const Watch = () => {
   });
 
   const resultLink = animeStreamLink?.sources[2].url;
+  console.log(resultLink);
   // if else store
   // if (animeWatchDetailError) {
   //   console.log(animeWatchDetailError);
@@ -192,7 +195,7 @@ export const Watch = () => {
           <h4 className="mt-0">Next Episodes</h4>
           <h6 className="text-gray">List of Episodes...</h6>
           <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
-            {animeWatchDetail?.episodes.data[providerIndex].episodes?.map((episode: any) => (
+            {episodesStore?.map((episode: any) => (
               <button
                 className="btn ep-square rounded-2 text-white"
                 style={{
