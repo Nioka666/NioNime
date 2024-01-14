@@ -11,17 +11,24 @@ import useSWR from "swr";
 import { VideoPlayer } from '@views/components/VideoPlayer';
 import { CommentInfo } from '@views/components/CommentInfo';
 
-export const Watch = () => {
-  // const [player, setPlayer] = useState(null);
-  const [selectedEpisodes, setSelectedEpisodes] = useState(null);
-  const animeId = useParams();
+export interface CustomVideoJsPlayerOptions {
+  autoplay: boolean;
+  controls: boolean;
+  responsive: boolean;
+  fluid: boolean;
+  sources: {
+    src: string;
+    type: string;
+  }[];
+}
 
+export const Watch = () => {
+  const animeId = useParams();
+  const [selectedEpisodes, setSelectedEpisodes] = useState(null);
+  // const [player, setPlayer] = useState(null);
   const handleEpisodeClick = (episodeId: any) => {
     setSelectedEpisodes(episodeId);
   };
-
-  console.log(selectedEpisodes);
-
   const {
     data: animeWatchDetail,
   } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId.animeId), {
@@ -32,17 +39,9 @@ export const Watch = () => {
   const providerIndex = episodeProvider?.findIndex(
     (episode: any) => episode.providerId === 'zoro'
   );
-  console.info(`index ke ${providerIndex} OK`);
-
-  // const animeStreamId = animeWatchDetail?.episodes.data[providerIndex].episodes.map((ep: any) => {
-  //   return ep.id;
-  // });
   const currentEpisode = animeWatchDetail?.episodes.data[providerIndex].episodes[0].number;
   const episodeTitle = animeWatchDetail?.episodes.data[providerIndex].episodes[0].title;
-  // console.log(currentEpisode);
-
   const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[0].id;
-  // console.log(watchID);
   const {
     data: animeStreamLink,
     // error: errorAnimeStreamLink,
@@ -59,21 +58,7 @@ export const Watch = () => {
   // if (errorAnimeStreamLink) {
   //   console.log(errorAnimeStreamLink);
   // }
-  // Player
-
   const playerRef = useRef<Player | null>(null);
-
-  interface CustomVideoJsPlayerOptions {
-    autoplay: boolean;
-    controls: boolean;
-    responsive: boolean;
-    fluid: boolean;
-    sources: {
-      src: string;
-      type: string;
-    }[];
-  }
-
   const videoJsOptions: CustomVideoJsPlayerOptions = {
     autoplay: false,
     controls: true,
@@ -87,8 +72,7 @@ export const Watch = () => {
 
   const handlePlayerReady = (player: Player) => {
     playerRef.current = player;
-
-    // Anda dapat menangani peristiwa pemutaran di sini, sebagai contoh:
+    // video player handle event 
     player.on('waiting', () => {
       videojs.log('player is waiting');
     });
@@ -98,6 +82,7 @@ export const Watch = () => {
     });
   };
 
+  console.log(selectedEpisodes);
   return (
     <>
       {/* Video Player */}
