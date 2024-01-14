@@ -1,0 +1,35 @@
+{
+    "sources": [
+        {
+            "url": "https://anify.anistreme.live/video/pTnn1U2%252FtZurbEZIr5PboIa1NCEeHaZa7yvc%252FtMi6MsQeQL%252FUnghK3jnaggLfMq9R9%252FMKJboEiKiSYfndUJ6VVtiqVyupMRyE9VVG6dIITQuu1JoX%252FuUcP72qEanIRmVdp2dHtDu919lLCvz%252BH00GAjBMhxiKfEr8fhMp7nzXRk%253D/%7B%7D/.m3u8",
+            "quality": "360p"
+        },
+        {
+            "url": "https://anify.anistreme.live/video/UbGF2I5tps5LNULI9RediDxem9GaAJB1T7YJP8V8AseuqwQUuCGUKuEfdr%252FJl4ewIut79MDNfMBXCescZ7sMGRAR4pF%252BIvH2SWulyyoWFMzhA%252Ff2LrNxukf00%252Bsz8mVHn3m1O2fCh0I%252BrX1VnE6MLJo%252BpdMo%252F6TqzqDtFDo6JRQ%253D/%7B%7D/.m3u8",
+            "quality": "480p"
+        },
+        {
+            "url": "https://anify.anistreme.live/video/owM56Byiput9gAF55nxZbOEonnb8wcCooDZ%252FsCh%252Baq7J1CmNk8BtFLxYY4p4MekEVP1NZg2W6Y7Eec%252BHE%252FwHSqrhI8A%252FUSSqwT4Dy%252BN%252FKklAk55qHdZ6P1sTos0JJPSpethyODdk0cNgKaPDk0p6x1vZTPRDdpKpaFHWsyTVtrA%253D/%7B%7D/.m3u8",
+            "quality": "720p"
+        },
+        {
+            "url": "https://anify.anistreme.live/video/561VH3Yw%252FZubAjFNUTA52Jdi1%252BK7WmCv%252FZFdrqveBKYQwcTUIt%252FzRjbejjN7QDzNiPCMFthHSaBL58MXbWtxcyXAeJC418Nt5jQqEms06Ax0ugoYei93N%252Bb7oeMUlyev8Z9VcbO2KdWTDxNIqkA9gbxU61nqfGU%252B6ZYAfekImOU%253D/%7B%7D/.m3u8",
+            "quality": "1080p"
+        },
+        {
+            "url": "https://anify.anistreme.live/video/H5tIsPcXOWu3w9co6KDEI2ddQrlVFetD9EUkYqzMDYDTx1YlYXhVnkymTCjdEVey97SwwBLy9csDeNwttSChl1ywVOunsaU1nz%252BpuW4o1ZrsfVOwBdZwyHFiD7jktbxeyUpBrIV3AjrEhJ61qlfTeQ%253D%253D/%7B%7D/.m3u8",
+            "quality": "default"
+        }
+    ],
+    "subtitles": [],
+    "audio": [],
+    "intro": {
+        "start": 0,
+        "end": 0
+    },
+    "outro": {
+        "start": 0,
+        "end": 0
+    },
+    "headers": {}
+}
