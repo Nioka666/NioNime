@@ -4,11 +4,11 @@ const InnerNav = () => {
   return (
     <>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link fw-semibold text-lights" href="/categories">
             News
           </a>
-        </li>
+        </li> */}
         <li className="nav-item">
           <a className="nav-link fw-semibold text-lights" href="/about">
             About
@@ -37,7 +37,7 @@ const InnerNav = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i className="fa-regular fa-user font-nav-icon"></i>
+            <i className="fa-solid fa-user font-nav-icon"></i>
           </a>
           <ul
             className="dropdown-menu dropdown-menu-dark bg-dark text-lights"
@@ -114,7 +114,7 @@ export const Nav: React.FC = () => {
         className="navbar navbar-expand-lg fixed-top navbar-dark text-white"
         style={navStyles}
       >
-        <div className="container">
+        <div className="container" style={{ gap: "100px" }}>
           <a className="navbar-brand" href="/">
             <img src="../../img/logo.png" height="25px" />
           </a>

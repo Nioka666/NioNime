@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import videojs from 'video.js';
 import Player from 'video.js/dist/types/player';
-import { Loading } from './Loading';
+import { StreamLoading } from './Loading';
 import 'video.js/dist/video-js.css';
 import '../../style/VideoPlayer.css';
 
@@ -24,13 +24,14 @@ export const VideoPlayer: React.FC<VideoJSProps> = (props) => {
       const videoElement = document.createElement("video");
 
       videoElement.classList.add('vjs-big-play-centered');
-      videoElement.classList.add('vjs-theme-fantasy');
+      // videoElement.classList.add('vjs-theme-fantasy');
       videoElement.style.width = "100%";
+      videoElement.style.height = "100%";
       videoRef.current!.appendChild(videoElement);
 
       const player = playerRef.current = videojs(videoElement, {
         ...options,
-        errorDisplay: false, // Menonaktifkan pesan kesalahan dan ikon "X"
+        errorDisplay: false,
       }, () => {
         videojs.log('player is ready');
         onReady && onReady(player);
@@ -65,7 +66,7 @@ export const VideoPlayer: React.FC<VideoJSProps> = (props) => {
 
   return (
     <div data-vjs-player className='video-js vjs-theme-fantasy' style={{ width: "1100px", height: "420px" }}>
-      {loading && <Loading />} {/* Tampilkan Loading jika sedang loading */}
+      {loading && <StreamLoading />}
       <div ref={videoRef} />
     </div>
   );

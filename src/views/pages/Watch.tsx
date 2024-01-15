@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 import { fetchAnimeDetail, fetchAnimeStreamLink } from "@utils/anime";
 import { RecommendSlide } from "@views/components/RecommendSlide";
 import { useParams } from "react-router-dom";
-import videojs from 'video.js';
 import Player from 'video.js/dist/types/player';
 import useSWR from "swr";
 import { VideoPlayer } from '@views/components/VideoPlayer';
@@ -22,48 +21,41 @@ export interface CustomVideoJsPlayerOptions {
     type: string;
   }[];
 }
+interface WatchProps { }
 
-export const Watch = () => {
-  const animeId = useParams();
-  const [selectedEpisodes, setSelectedEpisodes] = useState(null);
-  // const [player, setPlayer] = useState(null);
-  const handleEpisodeClick = (episodeId: any) => {
-    setSelectedEpisodes(episodeId);
-  };
+export const Watch: React.FC<WatchProps> = () => {
+  const { animeId } = useParams();
+  const [selectedEpisode, setSelectedEpisode] = useState(null);
+  console.log(selectedEpisode);
+
   const {
     data: animeWatchDetail,
     isValidating: isLoadingAnimeWatchDetail,
-  } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId.animeId), {
+  } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId), {
     revalidateOnFocus: false,
   });
+
   const episodeProvider = animeWatchDetail?.episodes.data;
   const providerIndex = episodeProvider?.findIndex(
-    (episode: any) => episode.providerId === 'zoro'
+    (episode: any) => episode.providerId === 'gogoanime'
   );
+
   const episodesStore = animeWatchDetail?.episodes.data[providerIndex]?.episodes;
   const currentEpisode = episodesStore?.[0]?.number;
   const episodeTitle = episodesStore?.[0]?.title;
 
   const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[0].id;
-  // const cleanWatchID = watchID?.substring(watchID.indexOf('/') + 1);
+
   const {
     data: animeStreamLink,
-    // error: errorAnimeStreamLink,
-  } = useSWR("animeStreamLink", () => fetchAnimeStreamLink(watchID, currentEpisode, animeId?.animeId), {
+  } = useSWR("animeStreamLink", () => fetchAnimeStreamLink(watchID, currentEpisode, animeId), {
     revalidateOnFocus: false,
   });
 
-  const resultLink = animeStreamLink?.sources[2].url;
-  console.log(resultLink);
-  // if else store
-  // if (animeWatchDetailError) {
-  //   console.log(animeWatchDetailError);
-  // }
-
-  // if (errorAnimeStreamLink) {
-  //   console.log(errorAnimeStreamLink);
-  // }
+  const resultLink = animeStreamLink?.sources[3].url;
+  console.log(animeStreamLink?.sources);
   const playerRef = useRef<Player | null>(null);
+
   const videoJsOptions: CustomVideoJsPlayerOptions = {
     autoplay: false,
     controls: true,
@@ -71,23 +63,65 @@ export const Watch = () => {
     fluid: false,
     sources: [{
       src: resultLink,
-      type: 'application/x-mpegURL'
-    }]
+      type: 'application/x-mpegURL',
+    }],
   };
 
   const handlePlayerReady = (player: Player) => {
     playerRef.current = player;
-    // video player handle event 
+
     player.on('waiting', () => {
-      videojs.log('player is waiting');
+      console.log('player is waiting');
     });
 
     player.on('dispose', () => {
-      videojs.log('player will dispose');
+      console.log('player will dispose');
     });
   };
 
-  console.log(selectedEpisodes);
+  const fetchEpisodeData = async (episodeId: any) => {
+    // Fetch data episode baru berdasarkan episodeId
+    const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[episodeId].id;
+    console.log(watchID);
+    const newEpisodeData = await fetchAnimeStreamLink(watchID, episodeId, animeId);
+    return newEpisodeData?.sources[3]?.url || null;
+  };
+
+  const handleEpisodeClick = async (episodeId: any) => {
+    setSelectedEpisode(episodeId);
+    console.log(episodeId);
+
+    // Fetch data episode baru
+    const newEpisodeSrc = await fetchEpisodeData(episodeId);
+    // console.log(newEpisodeSrc);
+
+    // Perbarui videoJsOptions dengan sumber episode baru
+    const newVideoJsOptions = {
+      ...videoJsOptions,
+      sources: [{
+        src: newEpisodeSrc,
+        type: 'application/x-mpegURL',
+      }],
+    };
+
+    // Perbarui video player dengan episode baru
+    if (playerRef.current) {
+      playerRef.current.src(newVideoJsOptions.sources);
+
+      // Menampilkan loading saat menunggu pembaruan
+      playerRef.current.one('waiting', () => {
+        // Tambahkan tindakan loading di sini, jika diperlukan
+        console.log('player is waiting');
+      });
+
+      // Sembunyikan loading saat pembaruan tersedia
+      playerRef.current.one('canplay', () => {
+        // Tambahkan tindakan loading di sini, jika diperlukan
+        console.log('player can play');
+      });
+    }
+  };
+
   return (
     <>
       <div className="container" style={{ marginTop: "55px" }}>
@@ -195,7 +229,7 @@ export const Watch = () => {
           <h4 className="mt-0">Next Episodes</h4>
           <h6 className="text-gray">List of Episodes...</h6>
           <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
-            {episodesStore?.map((episode: any) => (
+            {animeWatchDetail?.episodes.data[providerIndex]?.episodes?.map((episode: any, index: number) => (
               <button
                 className="btn ep-square rounded-2 text-white"
                 style={{
@@ -203,11 +237,12 @@ export const Watch = () => {
                   width: "70px",
                 }}
                 key={episode?.id}
-                onClick={() => handleEpisodeClick(episode?.number)}
+                onClick={() => handleEpisodeClick(index)}
               >
-                <h6 style={{ margin: "0px" }} key={episode.number}>EP {episode.number}</h6>
+                <h6 style={{ margin: "0px" }} key={episode.id}>EP {episode.number}</h6>
               </button>
             ))}
+
           </div>
         </section>
       </div>

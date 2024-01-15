@@ -9,8 +9,8 @@ const seasonalAnime =
 const recentAnime = "/api/recent?type={type}&page={page}&perPage={perPage}";
 const animeSearch = "/api/search/anime/{query}/{page}/{perPage}";
 const animeDetails = "/api/info/{id}";
-// const gogoanimeStreamLink =
-//   "/api/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub&server=gogocdn";
+const gogoanimeStreamLink =
+  "/api/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub&server=gogocdn";
 const zoroStreamLink =
   "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
 const animeEpisodes = "/api/episodes/{id}";
@@ -62,7 +62,7 @@ export const fetchAnimeStreamLink = async (
 ) => {
   try {
     const res = await axiosInstance.get(
-      `${zoroStreamLink
+      `${gogoanimeStreamLink
         .replace("{watchId}", watchId)
         .replace("{episodeNumber}", episodeNumber.toString())
         .replace("{animeId}", animeId)}`
@@ -142,3 +142,5 @@ export const fetchAllAnimeData = async (_page: any) => {
     throw err;
   }
 };
+
+console.log(zoroStreamLink);
