@@ -91,11 +91,9 @@ export const Watch: React.FC<WatchProps> = () => {
     setSelectedEpisode(episodeId);
     console.log(episodeId);
 
-    // Fetch data episode baru
     const newEpisodeSrc = await fetchEpisodeData(episodeId);
     // console.log(newEpisodeSrc);
 
-    // Perbarui videoJsOptions dengan sumber episode baru
     const newVideoJsOptions = {
       ...videoJsOptions,
       sources: [{
@@ -104,19 +102,15 @@ export const Watch: React.FC<WatchProps> = () => {
       }],
     };
 
-    // Perbarui video player dengan episode baru
     if (playerRef.current) {
       playerRef.current.src(newVideoJsOptions.sources);
 
-      // Menampilkan loading saat menunggu pembaruan
       playerRef.current.one('waiting', () => {
         // Tambahkan tindakan loading di sini, jika diperlukan
         console.log('player is waiting');
       });
 
-      // Sembunyikan loading saat pembaruan tersedia
       playerRef.current.one('canplay', () => {
-        // Tambahkan tindakan loading di sini, jika diperlukan
         console.log('player can play');
       });
     }

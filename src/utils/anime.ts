@@ -143,4 +143,26 @@ export const fetchAllAnimeData = async (_page: any) => {
   }
 };
 
-console.log(zoroStreamLink);
+// Database Route
+export const fetchUserData = async () => {
+  try {
+    const userData = await axios.get("http://localhost:3000/api/user", {
+      withCredentials: true,
+    });
+    return userData.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchUserMembershipData = async () => {
+  try {
+    const membership = await axios.get("http://localhost:3000/api/membership-list", {
+      withCredentials: true,
+    });
+    return membership.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+

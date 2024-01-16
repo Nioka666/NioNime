@@ -82,6 +82,9 @@ export const AnimeDetail = () => {
                 gap: "0px",
               }}
             >
+              <h6 className="text-gray" style={{ fontWeight: "bold", marginTop: "3px" }}>
+                {animeDetail?.type} - {animeDetail?.format}
+              </h6>
               <h4
                 className="anime-detail-title"
                 style={{
@@ -105,7 +108,7 @@ export const AnimeDetail = () => {
                 <span className="anime-detail-span">{animeDetail?.season}</span>
                 <span
                   className="anime-detail-span"
-                  style={{ color: "yellow", border: "1px solid yellow" }}
+                  style={{ color: "#caa800", border: "1px solid #caa800" }}
                 >
                   <i
                     className="fa-solid fa-star"
@@ -125,7 +128,7 @@ export const AnimeDetail = () => {
                 </p>
               </div>
 
-              <div className="btn-groups mt-2">
+              <div className="btn-groups mt-3">
                 <button
                   id="btn-banner"
                   className="btn btn-lg text-white"
@@ -135,6 +138,7 @@ export const AnimeDetail = () => {
                     width: "215px",
                     padding: "10px 10px",
                     fontSize: "17px",
+                    borderRadius: "0px"
                   }}
                 >
                   <i
@@ -156,7 +160,8 @@ export const AnimeDetail = () => {
                       padding: "10px 10px",
                       fontSize: "17px",
                       marginLeft: "10px",
-                      fontWeight: "600"
+                      fontWeight: "500",
+                      borderRadius: "0px"
                     }}
                   >
                     <i
@@ -279,13 +284,26 @@ export const AnimeDetail = () => {
               <br />
               <h2>Episodes</h2>
               <br />
-              <br />
+              {/* <div className="card mb-3 bg-dark text-white" style={{ maxWidth: "540px" }}>
+                <div className="row g-0">
+                  <div className="col-md-4">
+                    <img src={animeDetail?.coverImage} className="img-fluid rounded h-80" alt="..." />
+                  </div>
+                  <div className="col-md-8">
+                    <div className="card-body">
+                      <h5 className="card-title">Card title</h5>
+                      <p className="card-text"><small className="text-white">Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
               <div className="ep-thumbnail">
                 <img
                   src={animeDetail?.bannerImage}
                   alt={animeDetail?.title.romaji}
-                  width={"338px"}
-                  height={"170px"}
+                  width={338}
+                  // width={"338px"}
+                  // height={"170px"}
                   style={{ backgroundSize: "cover" }}
                 />
               </div>
@@ -302,6 +320,7 @@ export const AnimeDetail = () => {
                       width: "338px",
                       padding: "10px 10px",
                       fontSize: "17px",
+                      fontWeight: "500"
                     }}
                   >
                     <i

@@ -9,15 +9,20 @@
     "db": "nodemon ./src/databases/server.js",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "seed": "node ./src/databases/operations.js"
   },
   "dependencies": {
+    "@koa/cors": "^5.0.0",
     "@videojs/vhs-utils": "^4.0.0",
     "axios": "^1.6.2",
     "body-parser": "^1.20.2",
     "chalk": "^5.3.0",
     "connect": "^3.7.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.2",
     "module-alias": "^2.2.3",
     "mongoose": "^8.0.0",
     "node-cache": "^5.1.2",

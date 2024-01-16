@@ -22,7 +22,7 @@ export const UsersModel = mongoose.model("Users", {
 
 export const AnimesModel = mongoose.model("Animes", {
     id: ObjectID,
-    api_key: String,    
+    api_key: String,
     title: String,
     episodes: [Number],
     image: String,
@@ -56,13 +56,10 @@ export const MembershipsModel = mongoose.model("Memberships", {
     id: ObjectID,
     level: {
         type: String,
-        enum: ['free', 'basic', 'premium'],
+        enum: ['Fan', 'Noble Fan'],
         required: true,
     },
-    prices: {
-        Monthly: Number,
-        Yearly: Number,
-    },
+    prices: Number,
     features: [String],
 });
 

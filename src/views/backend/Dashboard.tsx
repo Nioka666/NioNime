@@ -1,6 +1,6 @@
 // import "../../style/argon-dashboard.css";
-import "../../../public/assets/css/nucleo-svg.css";
-import "../../../public/assets/css/nucleo-icons.css";
+// import "../../../public/assets/css/nucleo-svg.css";
+// import "../../../public/assets/css/nucleo-icons.css";
 import { Aside } from "./components/Aside";
 
 export const Dashboard = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import chalk from "chalk";
 import mongoose from "mongoose";
-import { AdminsModel, AnimesModel, BookmarksModel, UsersModel } from "./models.js";
+import { AdminsModel, AnimesModel, BookmarksModel, MembershipsModel, UsersModel } from "./models.js";
 import { Conn } from "./connection.js";
 import { AdminsSeeder, AnimesSeeder, BookmarksSeeder, MembershipsSeeder, TransactionsSeeder, UsersSeeder } from "./seeders.js";
 
@@ -36,9 +36,9 @@ export const FindCollection = async (modelDefined, key) => {
 };
 
 // block running
-const runOperation = async (operation, modelss, key, seeder) => {
+const runOperation = async (operation, models, key, seeder) => {
     try {
-        await operation(modelss, key, seeder);
+        await operation(models, key, seeder);
     } catch (error) {
         console.log(chalk.red.bold);
     }
@@ -49,5 +49,6 @@ const runOperation = async (operation, modelss, key, seeder) => {
 // await runOperation(insertMany, TransactionsSeeder);
 // await runOperation(insertMany, AnimesModel, AnimesSeeder);
 // await runOperation(insertMany, MembershipsSeeder);
-await runOperation(insertMany, BookmarksModel, BookmarksSeeder);
+// await runOperation(insertMany, BookmarksModel, BookmarksSeeder);
+await runOperation(insertMany, MembershipsModel, MembershipsSeeder);
 await mongoose.connection.close();

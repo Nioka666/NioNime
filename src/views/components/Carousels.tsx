@@ -18,7 +18,7 @@ export const CarouselHeader: React.FC<any> = (props) => {
     >
       <div
         className="carousel-inner"
-        style={{ height: "700px", marginTop: "-40px", zIndex: "0" }}
+        style={{ height: "650px", marginTop: "-40px", zIndex: "0" }}
       >
         {props.children}
       </div>

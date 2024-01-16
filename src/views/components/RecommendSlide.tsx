@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
-import { Link } from "react-router-dom";
 import { ContentDummyLoad } from "./ContentDummyLoad";
 
 export const RecommendSlide = () => {
@@ -14,6 +13,15 @@ export const RecommendSlide = () => {
 
   const handleMouseOver = (animeId: string) => {
     setHoveredAnimeId(animeId);
+  };
+
+  const handleClick = () => {
+    const pageRefreshed = localStorage.getItem('pageRefreshed') === 'true';
+
+    if (!pageRefreshed) {
+      localStorage.setItem('pageRefreshed', 'true');
+      window.location.reload();
+    }
   };
 
   const {
@@ -37,7 +45,7 @@ export const RecommendSlide = () => {
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
-          {isLoadingRecentAnime && <Loading /> && (
+          {isLoadingRecentAnime && (
             <>
               <ContentDummyLoad />
               <ContentDummyLoad />
@@ -49,7 +57,7 @@ export const RecommendSlide = () => {
           )}
           {!isLoadingRecentAnime &&
             animeData?.map((anime: any) => (
-              <Link to={`http://localhost/anime-detail/${anime.id}`} key={anime.id}>
+              <a href={`http://localhost/anime-detail/${anime.id}`} key={anime.id} onClick={handleClick}>
                 <div
                   key={anime.id}
                   className={`small-item ${hoveredAnimeId === anime.id ? "hovered" : ""
@@ -89,7 +97,7 @@ export const RecommendSlide = () => {
                     <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
                   </div>
                 </div>
-              </Link>
+              </a>
             ))}
         </div>
       </div>

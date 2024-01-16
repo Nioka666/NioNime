@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CarouselHeader } from "@components/Carousels";
 import { Pricing } from "@components/Pricing";
+// import { fetchUserMembershipData } from "@utils/anime";
+// import useSWR from "swr";
 
 const Features = () => {
   return (

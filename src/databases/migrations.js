@@ -23,7 +23,7 @@ const TransactionMigration = (async () => {
     }
 })();
 
-const MembershipMigration = (async () => {
+export const MembershipMigration = (async () => {
     try {
         await Conn();
         await MembershipsModel.insertMany(MembershipsSeeder);

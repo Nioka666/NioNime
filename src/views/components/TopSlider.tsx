@@ -21,6 +21,15 @@ export const TopSlider: React.FC = () => {
     }
   };
 
+  const handleClick = () => {
+    const pageRefreshed = localStorage.getItem('pageRefreshed') === 'true';
+
+    if (!pageRefreshed) {
+      localStorage.setItem('pageRefreshed', 'true');
+      window.location.reload();
+    }
+  };
+
   const {
     data: animeData,
     error: topAnimeError,
@@ -40,7 +49,7 @@ export const TopSlider: React.FC = () => {
           <h3>Top Airing</h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
-        <div className="sss">
+        <div className="sss" style={{ backgroundColor: "#0000008c", boxShadow: "10px -10px 15px #0000008c" }}>
           {isLoadingTopAnime && <Loading /> && (
             <>
               <ContentDummyLoad />
@@ -54,7 +63,7 @@ export const TopSlider: React.FC = () => {
           )}
           {!isLoadingTopAnime &&
             animeData?.top.map((anime: any) => (
-              <Link to={`anime-detail/${anime.id}`} key={anime.id}>
+              <Link to={`anime-detail/${anime.id}`} key={anime.id} onClick={handleClick}>
                 <div
                   className={`item ${hoveredAnimeId === anime.id ? "hovered" : ""
                     }`}
