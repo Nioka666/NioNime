@@ -1,6 +1,3 @@
-// import "../../style/argon-dashboard.css";
-// import "../../../public/assets/css/nucleo-svg.css";
-// import "../../../public/assets/css/nucleo-icons.css";
 import { Aside } from "./components/Aside";
 
 export const Dashboard = () => {
@@ -412,7 +409,7 @@ export const Dashboard = () => {
       <script src="../../../public/assets/js/plugins/smooth-scrollbar.min.js"></script>
       <script src="../../../public/assets/js/plugins/chartjs.min.js"></script>
       <script async defer src="https://buttons.github.io/buttons.js"></script>
-      
+
       <script src="../../../public/assets/js/argon-dashboard.min.js"></script>
       <script src="../../../public/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
     </>
