@@ -5,6 +5,7 @@ import { Loading } from "./Loading";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ContentDummyLoad } from "./ContentDummyLoad";
+import DOMPurify from "dompurify";
 
 export const TopSlider: React.FC = () => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
@@ -89,7 +90,7 @@ export const TopSlider: React.FC = () => {
                           </p>
                           <br />
                         </strong>
-                        <p>{anime?.description}</p>
+                        <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(anime?.description) }}></p>
                       </div>
                     )}
                   </div>

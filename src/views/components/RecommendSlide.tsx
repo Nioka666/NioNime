@@ -5,6 +5,7 @@ import { fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
 import { ContentDummyLoad } from "./ContentDummyLoad";
+import DOMPurify from "dompurify";
 
 export const RecommendSlide = () => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
@@ -87,7 +88,7 @@ export const RecommendSlide = () => {
                           </p>
                           <br />
                         </strong>
-                        <p>{anime?.description}</p>
+                        <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(anime?.description) }}></p>
                       </div>
                     )}
                   </div>

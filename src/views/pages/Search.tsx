@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { fetchSearchAnime } from "@utils/anime";
 import { Loading } from "@views/components/Loading";
 import { Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 interface Anime {
   id: string;
@@ -64,15 +65,16 @@ export const Search = () => {
               name="searchQuery"
               value={searchQuery}
               onChange={handleSearchInputChange}
+              autoFocus
             />
-            <button className="search-btn" type="submit">
-              <i className="fa-solid fa-magnifying-glass fa-xl"></i>
+            <button className="search-btn" type="submit" style={{ backgroundColor: "transparent" }}>
+              <i className="fa-solid fa-magnifying-glass fa-xl text-warning"></i>
             </button>
           </div>
         </form>
       </div>
       {/* Render search results here */}
-      <div className="slide-nime mt-5" style={{ marginBottom: "500px" }}>
+      <div className="slide-nime mt-5" style={{ height: "auto", marginBottom: "230px" }}>
         <center>
           <div>
             <h3 style={{ marginTop: "-95px" }}>Search Result</h3>
@@ -117,7 +119,7 @@ export const Search = () => {
                               </p>
                               <br />
                             </strong>
-                            <p>{result?.description}</p>
+                            <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(result?.description) }}></p>
                           </div>
                         )}
                       </div>

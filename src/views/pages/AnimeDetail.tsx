@@ -5,7 +5,9 @@ import { Link, useParams } from "react-router-dom";
 import { fetchAnimeDetail } from "../../utils/anime";
 import useSWR from "swr";
 import { RecommendSlide } from "@views/components/RecommendSlide";
-import { Loading } from "@views/components/Loading";
+// import { Loading } from "@views/components/Loading";
+import DOMPurify from "dompurify";
+import { ContentDummyLoadXL } from "@views/components/ContentDummyLoad";
 
 export const AnimeDetail = () => {
   const { animeId } = useParams();
@@ -55,7 +57,7 @@ export const AnimeDetail = () => {
           }}
         ></div>
       </div>
-      {isLoadingAnimeDetail && <Loading />}
+      {isLoadingAnimeDetail && <ContentDummyLoadXL />}
       {!isLoadingAnimeDetail && (
         <div
           className="container profile-page"
@@ -123,8 +125,8 @@ export const AnimeDetail = () => {
               </div>
 
               <div className="description mt-4" style={{ width: "80%" }}>
-                <p style={{ fontSize: "15px" }}>
-                  {animeDetail?.description.substring(0, 300)}
+                <p style={{ fontSize: "15px" }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(animeDetail?.description.substring(0, 300)) }}>
                 </p>
               </div>
 
@@ -138,7 +140,8 @@ export const AnimeDetail = () => {
                     width: "215px",
                     padding: "10px 10px",
                     fontSize: "17px",
-                    borderRadius: "0px"
+                    borderRadius: "0px",
+                    zIndex: "999"
                   }}
                 >
                   <i
@@ -178,7 +181,7 @@ export const AnimeDetail = () => {
             className="anime-detail-wrapper"
             style={{ display: "flex", gap: "47px" }}
           >
-            <div className="more-detail" style={{ width: "730px" }}>
+            <div className="more-detail" style={{ width: "730px", zIndex: "-1" }}>
               <br />
               <br />
               <h3>More details</h3>

@@ -7,9 +7,11 @@ import { RecommendSlide } from "@views/components/RecommendSlide";
 import { useParams } from "react-router-dom";
 import Player from 'video.js/dist/types/player';
 import useSWR from "swr";
+import DOMPurify from 'dompurify';
 import { VideoPlayer } from '@views/components/VideoPlayer';
 import { CommentInfo } from '@views/components/CommentInfo';
 import { ParagraphPlaceholder } from '@views/components/ParagraphPlaceholder';
+import EpisodesPagination from '@views/components/EpisodePagination';
 
 export interface CustomVideoJsPlayerOptions {
   autoplay: boolean;
@@ -137,9 +139,11 @@ export const Watch: React.FC<WatchProps> = () => {
                 <i className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray" style={{ width: "70px" }}></i>
               </div>
               <h5 className="text-gray" key={episodeTitle}>EP {currentEpisode} - {episodeTitle}</h5>
-              <h6 className="text-gray m-top-20" style={{ lineHeight: "23px" }}>
-                {animeWatchDetail?.description}
-              </h6>
+              <h6
+                className="text-gray m-top-20"
+                style={{ lineHeight: "23px" }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(animeWatchDetail?.description) }}
+              ></h6>
             </>
           )}
           <br />
@@ -219,26 +223,13 @@ export const Watch: React.FC<WatchProps> = () => {
           </table>
           <CommentInfo />
         </section>
-        <section style={{ width: "390px" }}>
-          <h4 className="mt-0">Next Episodes</h4>
-          <h6 className="text-gray">List of Episodes...</h6>
-          <div className="d-flex gap-3 m-top-25" style={{ flexWrap: "wrap" }}>
-            {animeWatchDetail?.episodes.data[providerIndex]?.episodes?.map((episode: any, index: number) => (
-              <button
-                className="btn ep-square rounded-2 text-white"
-                style={{
-                  cursor: "pointer",
-                  width: "70px",
-                }}
-                key={episode?.id}
-                onClick={() => handleEpisodeClick(index)}
-              >
-                <h6 style={{ margin: "0px" }} key={episode.id}>EP {episode.number}</h6>
-              </button>
-            ))}
-
-          </div>
-        </section>
+        <section style={{ width: '390px' }}>
+        <EpisodesPagination
+          episodes={animeWatchDetail?.episodes.data[providerIndex]?.episodes || []}
+          onEpisodeClick={handleEpisodeClick}
+          currentEpisodeIndex={selectedEpisode} // Mengirimkan currentEpisodeIndex sebagai prop
+        />
+      </section>
       </div>
       <RecommendSlide />
     </>

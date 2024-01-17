@@ -4,11 +4,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { LoginFailModal } from "./Modals";
+// import { LoginFailModal } from "./Modals";
 import { LoadingButton } from "./Loading";
 import { ChangeEvent } from 'react';
 import { useAuth } from "./AuthContext";
 import { Footer } from "@views/layouts/Footer";
+import ErrorToast from "./Toast";
 
 const saveUserDataToLocal = (userData: any) => {
   const userDataString = JSON.stringify(userData);
@@ -18,44 +19,35 @@ const saveUserDataToLocal = (userData: any) => {
 // https://secure.crunchyroll.com/freetrial/checkout
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [loginError, setLoginError] = useState(false);
   const [loadingBtn, setLoadingBtn] = useState(false);
-  const [userData, setUserData] = useState(null);
   const { isLoggedIn, setLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState<string | boolean>('');
 
-  console.log(isLoggedIn)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/user", { withCredentials: true });
+        const response = await axios.get('http://localhost:3000/api/user', { withCredentials: true });
 
         if (response.data) {
-          console.log("User data fetched successfully:", response.data);
-          setUserData(response.data);
+          console.log('User data fetched successfully:', response.data);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     };
 
-    if (isLoggedIn && !userData) {
+    if (isLoggedIn) {
       fetchData();
     }
-  }, [isLoggedIn, userData]);
-
-  // useEffect(() => {
-  //   if (userData) {
-  //     console.log("User data:", userData);
-  //   }
-  // }, [userData]);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/account");
+      navigate('/account');
       window.location.reload();
     }
   }, [isLoggedIn, navigate]);
@@ -67,27 +59,28 @@ export const LoginForm = () => {
       setLoadingBtn(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await axios.post(
-        "http://localhost:3000/api/login",
+        'http://localhost:3000/api/login',
         { email, password },
         { withCredentials: true }
       );
+
       console.log(response.data.message);
 
       setLoggedIn(true);
-      const userData = response.data.userData;
       if (rememberMe) {
-        saveUserDataToLocal(userData);
+        saveUserDataToLocal(response.data.userData);
       }
+
+      // Reset login error on successful login
+      setLoginError('');
     } catch (error) {
-      console.error("Login error:", error);
-      setLoginError(true);
+      console.error('Login error:', error);
+
+      // Set login error message on login failure
+      setLoginError('Invalid email or password. Please try again.');
     } finally {
       setLoadingBtn(false);
     }
-  };
-
-  const closeModal: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setLoginError(false);
   };
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -173,7 +166,8 @@ export const LoginForm = () => {
             </table>
           </form>
 
-          <LoginFailModal showModal={loginError} closeModal={closeModal} />
+          <ErrorToast errorMessage={loginError} />
+
         </div>
         <div className="login-banner">
           <figure style={{ position: "relative" }}>
