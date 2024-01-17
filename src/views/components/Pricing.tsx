@@ -29,6 +29,8 @@ export const Pricing = () => {
     revalidateOnFocus: false,
   });
 
+  // console.log(membershipList);
+
   if (errorMembershipList) {
     console.log(errorMembershipList);
   }

@@ -18,7 +18,6 @@ const ProfileDetails = (props: any) => {
 };
 
 const UserProfile = () => {
-  const navigate = useNavigate();
   const {
     data: userData,
     error: errorUserData,
@@ -30,6 +29,7 @@ const UserProfile = () => {
   if (errorUserData) {
     console.error(errorUserData);
   }
+  const navigate = useNavigate();
   const checkLoginStatus = () => {
     if (userData?.username) {
       return true;
@@ -37,7 +37,12 @@ const UserProfile = () => {
       return false;
     }
   }
+  
   const isLoggedIn = checkLoginStatus();
+
+  if (!isLoggedIn) {
+    navigate("/auth/login");
+  }
 
   return (
     <>

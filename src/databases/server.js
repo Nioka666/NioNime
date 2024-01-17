@@ -155,6 +155,16 @@ app.get("/api/membership-list", async (req, res) => {
     }
 });
 
+app.get("/api/users-list", async (req, res) => {
+    try {
+        const usersList = await UsersModel.find();
+        res.status(200).json(usersList);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

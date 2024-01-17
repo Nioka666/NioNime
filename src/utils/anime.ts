@@ -116,7 +116,7 @@ export const fetchAnimeDetail = async (id: any) => {
 };
 
 // Merge & Fetch All anime data
-export const fetchAllAnimeData = async (_page: any) => {
+export const fetchAllAnimeData = async (page: any) => {
   try {
     const topAnimeData = await fetchTopAnimeData();
 
@@ -157,12 +157,25 @@ export const fetchUserData = async () => {
 
 export const fetchUserMembershipData = async () => {
   try {
-    const membership = await axios.get("http://localhost:3000/api/membership-list", {
-      withCredentials: true,
-    });
+    const membership = await axios.get(
+      "http://localhost:3000/api/membership-list",
+      {
+        withCredentials: true,
+      }
+    );
     return membership.data;
   } catch (error) {
     console.log(error);
   }
 };
 
+export const fetchAllUserData = async () => {
+  try {
+    const user = await axios.get("http://localhost:3000/api/users-list", {
+      withCredentials: true,
+    });
+    return user.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

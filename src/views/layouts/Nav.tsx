@@ -152,7 +152,7 @@ export const Nav: React.FC = () => {
         style={navStyles}
       >
         <div className="container" style={{ gap: "70px" }}>
-          <a className="navbar-brand mt-1" href="/">
+          <a className="navbar-brand" href="/">
             <img src="../../img/logo.png" height="25px" />
           </a>
           <button
