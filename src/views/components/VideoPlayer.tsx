@@ -7,7 +7,6 @@ import { StreamLoading } from './Loading';
 import 'video.js/dist/video-js.css';
 import '../../style/VideoPlayer.css';
 
-
 interface VideoJSProps {
   options: any;
   onReady?: (player: Player) => void;
