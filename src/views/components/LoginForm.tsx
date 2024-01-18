@@ -92,7 +92,7 @@ export const LoginForm = () => {
       <div className="container-login" style={{ gap: "80px" }}>
         <div className="login-form">
           <center>
-            <img src="../../../public/img/logo.png" width={130} />
+            <img src="../../img/logo.png" width={130} />
             <h5 className="text-gray" style={{ fontSize: "18px", marginTop: "18px" }}>Please Login heres</h5>
           </center>
           <form onSubmit={handleLogin}>

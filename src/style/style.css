@@ -248,6 +248,7 @@ nav ul li.dropstart ul li a {
 }
 
 .carousel-overlay button:hover i {
+  /* color: #cf9700; */
   color: #dbb700;
   font-weight: 600;
 }

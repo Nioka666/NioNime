@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // EpisodesPagination.js
 import React, { useState, useEffect } from 'react';
+import { Loading } from './Loading';
 
 interface EpisodesPaginationProps {
     episodes: any[];
@@ -61,7 +62,7 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
                     className={`btn ep-square rounded-2 text-white ${isCurrent ? 'current' : ''} ${isActive ? 'active' : ''}`}
                     onClick={() => onEpisodeClick(indexOfFirstEpisode + i - 1)}
                     style={{
-                        backgroundColor: isCurrent ? 'darkorange' : '',
+                        backgroundColor: isCurrent ? '#cf9700' : '',
                         border: "none"
                     }}
                 >
@@ -78,7 +79,7 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
             <h4 className="mt-0">Next Episodes</h4>
             <h6 className="text-gray">List of Episodes...</h6>
             <div className="d-flex gap-3 m-top-25" style={{ flexWrap: 'wrap' }}>
-                {loading && <div>Loading...</div>}
+                {loading && <Loading />}
                 {!loading &&
                     currentEpisodes.map((episode, index) => (
                         <button
@@ -86,7 +87,7 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
                             style={{
                                 cursor: 'pointer',
                                 width: '70px',
-                                backgroundColor: index === currentEpisodeIndex ? 'darkorange' : '', // Atur warna kuning tua di sini
+                                backgroundColor: index === currentEpisodeIndex ? '#cf9700' : '',
                             }}
                             key={episode.id}
                             onClick={() => onEpisodeClick(indexOfFirstEpisode + index)}
@@ -96,15 +97,15 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
                     ))}
             </div>
             <div className="pagination mt-3 d-flex gap-2 mt-5">
-                <button className="ep-square rounded-2 text-white" onClick={handlePreviousClick} disabled={currentPage === 1 || loading} style={{ border: "none" }}>
+                <button className="ep-square rounded-2 text-white" onClick={handlePreviousClick} disabled={currentPage === 1 || loading} style={{ border: "none", padding: "1px 16px", cursor: "pointer" }}>
                     Previous
                 </button>
                 {renderPagination()}
-                <button className="ep-square rounded-2 text-white" onClick={handleNextClick} disabled={currentPage === totalPages || loading} style={{ border: "none" }}>
+                <button className="ep-square rounded-2 text-white" onClick={handleNextClick} disabled={currentPage === totalPages || loading} style={{ border: "none", padding: "1px 16px", cursor: "pointer" }}>
                     Next
                 </button>
             </div>
-        </div>
+        </div >
     );
 };
 

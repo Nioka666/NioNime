@@ -46,7 +46,8 @@ export const Watch: React.FC<WatchProps> = () => {
   const currentEpisode = episodesStore?.[0]?.number;
   const episodeTitle = episodesStore?.[0]?.title;
 
-  const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[0].id;
+  const watchID = animeWatchDetail?.episodes?.data[providerIndex]?.episodes[0]?.id;
+  console.log(watchID);
 
   const {
     data: animeStreamLink,
@@ -91,7 +92,7 @@ export const Watch: React.FC<WatchProps> = () => {
 
   const handleEpisodeClick = async (episodeId: any) => {
     setSelectedEpisode(episodeId);
-    console.log(episodeId);
+    // console.log(episodeId);
 
     const newEpisodeSrc = await fetchEpisodeData(episodeId);
     // console.log(newEpisodeSrc);
@@ -108,7 +109,6 @@ export const Watch: React.FC<WatchProps> = () => {
       playerRef.current.src(newVideoJsOptions.sources);
 
       playerRef.current.one('waiting', () => {
-        // Tambahkan tindakan loading di sini, jika diperlukan
         console.log('player is waiting');
       });
 
@@ -138,7 +138,7 @@ export const Watch: React.FC<WatchProps> = () => {
                 <h3 className="text-light" style={{ width: "3500px" }} key={animeWatchDetail?.title.romaji}>{animeWatchDetail?.title.romaji}</h3>
                 <i className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray" style={{ width: "70px" }}></i>
               </div>
-              <h5 className="text-gray" key={episodeTitle}>EP {currentEpisode} - {episodeTitle}</h5>
+              <h5 className="text-gray" key={episodeTitle}>EP {selectedEpisode} - {animeWatchDetail?.title.native}</h5>
               <h6
                 className="text-gray m-top-20"
                 style={{ lineHeight: "23px" }}
@@ -224,12 +224,12 @@ export const Watch: React.FC<WatchProps> = () => {
           <CommentInfo />
         </section>
         <section style={{ width: '390px' }}>
-        <EpisodesPagination
-          episodes={animeWatchDetail?.episodes.data[providerIndex]?.episodes || []}
-          onEpisodeClick={handleEpisodeClick}
-          currentEpisodeIndex={selectedEpisode} // Mengirimkan currentEpisodeIndex sebagai prop
-        />
-      </section>
+          <EpisodesPagination
+            episodes={animeWatchDetail?.episodes.data[providerIndex]?.episodes || []}
+            onEpisodeClick={handleEpisodeClick}
+            currentEpisodeIndex={selectedEpisode}
+          />
+        </section>
       </div>
       <RecommendSlide />
     </>

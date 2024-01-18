@@ -11,8 +11,8 @@ const animeSearch = "/api/search/anime/{query}/{page}/{perPage}";
 const animeDetails = "/api/info/{id}";
 const gogoanimeStreamLink =
   "/api/sources?providerId=gogoanime&watchId=%2F{watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub&server=gogocdn";
-const zoroStreamLink =
-  "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
+// const zoroStreamLink =
+//   "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
 const animeEpisodes = "/api/episodes/{id}";
 // ---------------------------------------------
 
@@ -116,11 +116,10 @@ export const fetchAnimeDetail = async (id: any) => {
 };
 
 // Merge & Fetch All anime data
-export const fetchAllAnimeData = async (page: any) => {
+export const fetchAllAnimeData = async (_page: any) => {
   try {
     const topAnimeData = await fetchTopAnimeData();
 
-    // Fetch details for each anime in parallel
     const animeDetailsPromises = topAnimeData.results.map(
       async (anime: { id: any }) => {
         return {
@@ -130,7 +129,6 @@ export const fetchAllAnimeData = async (page: any) => {
       }
     );
 
-    // Wait for all details to be fetched
     const animeDetails = await Promise.all(animeDetailsPromises);
 
     return {
