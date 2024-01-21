@@ -8,6 +8,7 @@ export const AdminsModel = mongoose.model("Admins", {
     username: String,
     email: String,
     password: String,
+    profile_url: String
 });
 
 export const UsersModel = mongoose.model("Users", {
@@ -16,6 +17,7 @@ export const UsersModel = mongoose.model("Users", {
     email: String,
     password: String,
     phone_number: String,
+    profile_url: String,
     membership_level: String,
     date_joined: Date
 });
@@ -42,13 +44,13 @@ export const TransactionsModel = mongoose.model("Transactions", {
     username: String,
     membership_level: {
         type: String,
-        enum: ['free', 'basic', 'premium']
+        enum: ['Fan', 'Noble Fan']
     },
     amount: Number,
     status: {
-        enum: ['pending', 'success', 'failed']
+        type: String,
+        enum: ['process', 'success', 'failed']
     },
-    // invoice: String,
     date_transaction: Date,
 });
 

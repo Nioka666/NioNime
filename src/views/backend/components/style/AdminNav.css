@@ -6,20 +6,29 @@ nav#nav {
   padding: 8px 10px;
 }
 
+.nav-link {
+  padding: 10px 7px;
+}
+
+.nav-link:active {
+  color: white;
+}
+
 input.admin-nav-search {
   background-color: #2e2f32;
-  width: 200px;
+  height: 40px;
+  padding: 10px 15px;
+  width: 220px;
 }
 
 input.admin-nav-search:focus {
   background-color: #000000;
   border: 2px solid #a0a0a0;
-  width: 200px;
 }
 
 .admin-nav-search::placeholder {
   color: #a0a0a0;
-  padding: 5px;
+  padding: 10px 5px;
 }
 
 nav div.container a.admin-navbar-brand {
@@ -47,14 +56,14 @@ table.bdr {
   overflow: hidden;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   cursor: pointer;
   transition: 0.2s all ease-in-out;
   background-color: #000000;
   color: #e1e1e1;
   padding: 20px;
 }
-
 
 .mtop-60 {
   margin-top: 60px;
@@ -68,3 +77,16 @@ table.bdr {
   color: #323236;
 }
 
+.button-action {
+  border: none;
+  background-color: transparent;
+}
+
+.text-graylights {
+  color: #d7d7d7;
+}
+
+.nav-link:hover{
+  color: #b8b8b8;
+  /* font-weight: 600; */
+}

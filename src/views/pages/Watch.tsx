@@ -138,7 +138,7 @@ export const Watch: React.FC<WatchProps> = () => {
                 <h3 className="text-light" style={{ width: "3500px" }} key={animeWatchDetail?.title.romaji}>{animeWatchDetail?.title.romaji}</h3>
                 <i className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray" style={{ width: "70px" }}></i>
               </div>
-              <h5 className="text-gray" key={episodeTitle}>EP {selectedEpisode} - {animeWatchDetail?.title.native}</h5>
+              <h5 className="text-gray" key={episodeTitle}>EP {selectedEpisode + 1} - {animeWatchDetail?.title.native}</h5>
               <h6
                 className="text-gray m-top-20"
                 style={{ lineHeight: "23px" }}

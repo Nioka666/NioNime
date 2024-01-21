@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import chalk from "chalk";
 import mongoose from "mongoose";
-import { AdminsModel, AnimesModel, BookmarksModel, MembershipsModel, UsersModel } from "./models.js";
+import { AdminsModel, AnimesModel, BookmarksModel, MembershipsModel, TransactionsModel, UsersModel } from "./models.js";
 import { Conn } from "./connection.js";
 import { AdminsSeeder, AnimesSeeder, BookmarksSeeder, MembershipsSeeder, TransactionsSeeder, UsersSeeder } from "./seeders.js";
 
@@ -35,6 +35,19 @@ export const FindCollection = async (modelDefined, key) => {
     }
 };
 
+export const findAndUpdate = async (modelDefined, key) => {
+    try {
+        await Conn();
+        await modelDefined.findOneAndUpdate(
+            { username: key },
+            { username: "changed" },
+            { new: true });
+        console.log("succes");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // block running
 const runOperation = async (operation, models, key, seeder) => {
     try {
@@ -50,5 +63,9 @@ const runOperation = async (operation, models, key, seeder) => {
 // await runOperation(insertMany, AnimesModel, AnimesSeeder);
 // await runOperation(insertMany, MembershipsSeeder);
 // await runOperation(insertMany, BookmarksModel, BookmarksSeeder);
-await runOperation(insertMany, MembershipsModel, MembershipsSeeder);
+// await runOperation(insertMany, MembershipsModel, MembershipsSeeder);
+// await runOperation(findAndUpdate, UsersModel);
+// await runOperation(insertMany, AdminsModel, AdminsSeeder);
+await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
+
 await mongoose.connection.close();

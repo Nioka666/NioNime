@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// anime.ts
+// factory function
 import axios, { AxiosInstance } from "axios";
 
 // URL
@@ -149,7 +149,7 @@ export const fetchUserData = async () => {
     });
     return userData.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -173,6 +173,46 @@ export const fetchAllUserData = async () => {
       withCredentials: true,
     });
     return user.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAdminData = async () => {
+  try {
+    const admin = await axios.get("http://localhost:3000/api/admin-data", {
+      withCredentials: true,
+    });
+    return admin.data;
+  } catch (error) {
+    // console.error(error);
+  }
+};
+
+export const doDeleteUser = async () => {
+  try {
+    const response = await axios.delete(
+      "http://localhost:3000/api/user-delete",
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const fetchTrxData = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/api/transactions-data",
+      {
+        withCredentials: false,
+      }
+    );
+    return response.data;
   } catch (error) {
     console.log(error);
   }

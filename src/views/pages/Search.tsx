@@ -2,7 +2,7 @@
 // Import dependencies and components
 import React, { useState } from "react";
 import { fetchSearchAnime } from "@utils/anime";
-import { Loading } from "@views/components/Loading";
+import { Loading, SearchLoading } from "@views/components/Loading";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 
@@ -74,7 +74,7 @@ export const Search = () => {
         </form>
       </div>
       {/* Render search results here */}
-      <div className="slide-nime mt-5" style={{ height: "auto", marginBottom: "230px" }}>
+      <div className="slide-nime mt-5" style={{ height: "auto", marginBottom: "100px" }}>
         <center>
           <div>
             <h3 style={{ marginTop: "-95px" }}>Search Result</h3>
@@ -83,7 +83,7 @@ export const Search = () => {
 
           <div className="sss display-wraps" style={{ paddingLeft: "60px" }}>
             <div className="search-results">
-              {isLoadingSearch && <Loading />}
+              {isLoadingSearch && <SearchLoading />}
               {!isLoadingSearch &&
                 searchResults?.map((result: any) => (
                   <Link to={`http://localhost/anime-detail/${result.id}`} key={result.id}>

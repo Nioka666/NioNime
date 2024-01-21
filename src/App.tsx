@@ -11,34 +11,40 @@ import { AnimeDetail } from "@pages/AnimeDetail";
 import { MainLayout } from "@views/layouts/MainLayout";
 import { Watch } from "@views/pages/Watch";
 import { Dashboard } from "@views/backend/Dashboard";
-import { UserDetail } from "./views/backend/UsersDetail";
 import { Search } from "@views/pages/Search";
-import useSWR from "swr";
-import { fetchUserData } from "@utils/anime";
 import { Transaction } from "@views/pages/Transaction";
 import { AuthProvider } from "@views/components/AuthContext";
+import { AdminLoginForm } from "@views/backend/AdminLogin";
+import useSWR from "swr";
+import { fetchAdminData, fetchUserData } from "@utils/anime";
 
 export const App = () => {
   const {
     data: userData,
-    error: errorUserData,
   } = useSWR("fetchUserData", () => fetchUserData(), {
     revalidateOnFocus: false,
   });
 
-  if (errorUserData) {
-    console.error(errorUserData);
-  }
+  const {
+    data: adminData,
+  } = useSWR("fetchAdminData", () => fetchAdminData(), {
+    revalidateOnFocus: false
+  });
 
-  const checkLoginStatus = () => {
-    if (userData?.username) {
+  const adminCheck = () => {
+    if (adminData?.username) {
       return true;
-    } else {
-      return false;
     }
   }
 
-  const isLoggedIn = checkLoginStatus();
+  const userCheck = () => {
+    if (userData?.username) {
+      return true;
+    }
+  }
+
+  const isUserLoggedIn = userCheck();
+  const isAdminLoggedIn = adminCheck();
 
   return (
     <>
@@ -75,16 +81,21 @@ export const App = () => {
                 element={<Register />}
                 errorElement={<ErrorPage />}
               />
+              {!isAdminLoggedIn && (
+                <Route
+                  path="admin-portals"
+                  element={<AdminLoginForm />}
+                  errorElement={<ErrorPage />}
+                />
+              )}
             </Route>
             {/* admin path */}
-            {isLoggedIn && (
+            {!isUserLoggedIn && isAdminLoggedIn === true && (
               <Route
                 path="/admin/"
                 element={<Dashboard />}
-                errorElement={<ErrorPage />}
               >
                 <Route path="dashboard" element={<Dashboard />} />
-                <Route path="userDetail" element={<UserDetail />} />
               </Route>
             )}
             {/* user path */}
@@ -93,7 +104,6 @@ export const App = () => {
               element={<Account />}
               errorElement={<ErrorPage />}
             >
-              <Route path="info" element={<UserDetail />} />
             </Route>
           </Routes>
         </Router>

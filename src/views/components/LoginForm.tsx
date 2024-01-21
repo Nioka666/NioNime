@@ -167,9 +167,7 @@ export const LoginForm = () => {
               </tbody>
             </table>
           </form>
-
           <ErrorToast errorMessage={loginError} />
-
         </div>
         <div className="login-banner">
           <figure style={{ position: "relative" }}>

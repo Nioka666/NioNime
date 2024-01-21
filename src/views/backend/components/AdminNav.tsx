@@ -1,4 +1,4 @@
-import { fetchUserData } from "@utils/anime";
+import { fetchAdminData } from "@utils/anime";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,26 +7,22 @@ import useSWR from "swr";
 const InnerNav = () => {
     const navigate = useNavigate();
     const {
-        data: userData,
-        error: errorUserData,
-    } = useSWR("fetchUserData", () => fetchUserData(), {
+        data: adminData,
+    } = useSWR("fetchAdminData", () => fetchAdminData(), {
         revalidateOnFocus: false,
     });
 
-    if (errorUserData) {
-        console.error(errorUserData);
-    }
-
     const checkLoginStatus = () => {
-        if (userData?.username) {
+        if (adminData?.username) {
             return true;
         } else {
             return false;
         }
     }
 
+    // const avatarUrl = import.meta.env.VITE_ADMIN_PROFILE_URL;
     const isLoggedIn = checkLoginStatus();
-    // console.log(`status: ${isLoggedIn}`);
+    const avatarUrl = `../../../img/${adminData?.profile_url}`;
 
     const handleLogout = async () => {
         try {
@@ -41,24 +37,36 @@ const InnerNav = () => {
 
     return (
         <>
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold mt-1" style={{ marginLeft: "700px", gap: "20px" }}>
                 <li className="nav-item">
                     <form className="d-flex mt-3 mt-lg-0" role="search">
-                        <input className="form-control me-2 admin-nav-search" type="search" placeholder="Search" aria-label="Search" style={{ borderRadius: "15px", color: "white", border: "none" }} />
-                        <a href="/search" className="nav-link" style={{ marginLeft: "10px" }}>
-                            <i className="fa-solid fa-magnifying-glass font-nav-icon"></i>
-                        </a>
+                        <div className="input-group" style={{ marginTop: "3.5px" }}>
+                            <input
+                                className="form-control admin-nav-search"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                style={{ borderRadius: "15px 0 0 15px", color: "white", border: "none", backgroundColor: "#2e2f32" }}
+                                disabled
+                            />
+                            <button className="btn btn-secondary" type="button" style={{ borderRadius: "0 15px 15px 0", backgroundColor: "#2e2f32", border: "none" }}>
+                                <i className="fa-solid fa-magnifying-glass font-nav-icon text-gray"></i>
+                            </button>
+                        </div>
                     </form>
                 </li>
-                <li className="nav-item dropstart">
+                <li className="nav-item dropstart" style={{ marginTop: "-8px" }}>
                     <a
                         className="nav-link dropdown"
                         href="#"
                         role="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
+                        style={{ marginTop: "1px" }}
                     >
-                        <i className="fa-solid fa-user font-nav-icon"></i>
+                        {/* <i className="fa-solid fa-circle-user" style={{ fontSize: "32px", color: "gray" }}></i> */}
+                        <img src={avatarUrl} alt="" width="40" height="40" className="rounded-circle" />
+
                     </a>
                     <ul
                         className="dropdown-menu dropdown-menu-dark bg-dark text-lights"
@@ -164,8 +172,7 @@ export const AdminNav: React.FC = () => {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                        {/* {currentPath !== "/account" && <InnerNav />} */}
+                    <div className="collapse navbar-collapse d-flex" id="navbarTogglerDemo02">
                         <InnerNav />
                     </div>
                 </div>

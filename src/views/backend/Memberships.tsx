@@ -1,10 +1,11 @@
-import { fetchTrxData } from "@utils/anime";
+import { fetchUserMembershipData } from "@utils/anime";
 import useSWR from "swr";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const TransactionsDetail = () => {
-  const { data: trxData, error: errorTrxData } = useSWR("fetchTrxData", () =>
-    fetchTrxData()
+export const Memberships = () => {
+  const { data: trxData, error: errorTrxData } = useSWR(
+    "fetchMembershipData",
+    () => fetchUserMembershipData()
   );
 
   if (errorTrxData) {
@@ -26,7 +27,7 @@ export const TransactionsDetail = () => {
     >
       <div className="card bg-black text-white h-satus user-card">
         <div className="card-header" style={{ padding: "50px 0px 0px 45px" }}>
-          <h4 className="text-lighs">Transactions data</h4>
+          <h4 className="text-lighs">Memberships data</h4>
         </div>
         <div className="card-body" style={{ padding: "0 25px 25px 25px" }}>
           <div className="d-flex justify-content-between align-items-center">
@@ -56,10 +57,9 @@ export const TransactionsDetail = () => {
             <thead className="p-2">
               <tr>
                 <td>No</td>
-                <td>Username</td>
                 <td>Membership Level</td>
-                <td>Amount</td>
-                <td>Date Transaction</td>
+                <td>Price</td>
+                <td>Features</td>
                 <td>Actions</td>
               </tr>
             </thead>
@@ -67,9 +67,9 @@ export const TransactionsDetail = () => {
               {trxData?.map((trx: any) => (
                 <tr key={trx._id}>
                   <td>1</td>
-                  <td>{trx?.username}</td>
-                  <td>{trx?.membership_level}</td>
-                  <td>{trx?.amount}</td>
+                  <td>{trx?.level}</td>
+                  <td>{trx?.prices}</td>
+                  <td>{trx?.features.join(", ")}</td>
                   <td>{trx?.date_transaction}</td>
                   <td className="d-flex gap-3">
                     <button

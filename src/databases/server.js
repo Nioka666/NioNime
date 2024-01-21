@@ -3,7 +3,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { Conn } from './connection.js';
-import { MembershipsModel, UsersModel } from './models.js';
+import { AdminsModel, MembershipsModel, TransactionsModel, UsersModel } from './models.js';
 import cors from 'cors';
 import path from 'path';
 import session from 'express-session';
@@ -13,7 +13,7 @@ const port = 3000;
 
 const corsOptions = {
     // origin: 'http://localhost:4173', 
-    origin: 'http://localhost:4173',
+    origin: 'http://localhost',
     credentials: true,
     optionSuccessStatus: 200
 };
@@ -30,7 +30,7 @@ app.use(
         resave: false,
         saveUninitialized: true,
         cookie: {
-            secure: false, // Gantilah menjadi true jika menggunakan HTTPS
+            secure: false,
             httpOnly: true,
             maxAge: null,
         },
@@ -99,7 +99,7 @@ app.post('/api/logout', (req, res) => {
             console.error('Error during logout:', err);
             res.status(500).json({ message: 'Internal server error during logout' });
         } else {
-            res.clearCookie('connect.sid'); // Clear the session cookie
+            res.clearCookie('connect.sid');
             res.status(200).json({ message: 'Logout successful' });
         }
     });
@@ -126,13 +126,12 @@ app.post('/api/account/change-password', async (req, res) => {
 
 app.post('/api/register', async (req, res) => {
     const { username, email, password } = req.body;
-
     try {
         const newUser = await UsersModel.insertMany({
             username: username,
             email: email,
             password: password,
-            // phone_number: phone_number,
+            date_joined: new Date()
         });
         if (newUser) {
             res.status(200).json({ message: 'Succesfully registered!' });
@@ -162,6 +161,82 @@ app.get("/api/users-list", async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.post('/api/account/user-edit', async (req, res) => {
+    const { username, newUsername, newEmail, newPhoneNumber } = req.body;
+    try {
+        const newUserInfo = await UsersModel.findOneAndUpdate(
+            { username },
+            {
+                username: newUsername,
+                email: newEmail,
+                phone_number: newPhoneNumber
+            },
+            { new: true }
+        );
+        if (newUserInfo) {
+            res.status(200).json({ message: 'Password successfully changed!' });
+        } else {
+            res.status(200).json({ message: 'Password changed failed' });
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.post("/api/user-delete", async (req, res) => {
+    const { userId } = req.body;
+    try {
+        await UsersModel.deleteOne({
+            _id: userId
+        });
+        return res.status(200).json({ message: `user with id: ${userId} was successfully deleted` });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
+// API Admin route
+app.post("/api/auth/admin-sign-in", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const admin = await AdminsModel.findOne({ email, password });
+        if (admin) {
+            req.session.admin = {
+                id: admin._id,
+                username: admin.username,
+                profile_url: admin.profile_url
+            }
+        }
+        res.status(200).json({ message: 'admin was successfully logged in..' });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+app.get("/api/admin-data", async (req, res) => {
+    try {
+        if (req.session.admin) {
+            res.status(200).json(req.session.admin);
+        } else {
+            res.status(401).json({ message: "couldn't fetch admin data" });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+app.get("/api/transactions-data", async (req, res) => {
+    try {
+        const trxList = await TransactionsModel.find();
+        res.status(200).json(trxList);
+    } catch (error) {
+        console.log(error);
     }
 });
 

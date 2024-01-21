@@ -25,8 +25,8 @@ const InnerNav = () => {
     }
   }
 
-  const isLoggedIn = checkLoginStatus();
-  // console.log(`status: ${isLoggedIn}`);
+  const isUserLoggedIn = checkLoginStatus();
+  // console.log(`status: ${isUserLoggedIn}`);
 
   const handleLogout = async () => {
     try {
@@ -66,7 +66,7 @@ const InnerNav = () => {
             className="dropdown-menu dropdown-menu-dark bg-dark text-lights"
             style={{ position: "absolute", top: "50px", right: "-10px" }}
           >
-            {isLoggedIn && (
+            {isUserLoggedIn && (
               <>
                 <li>
                   <a className="dropdown-item text-lights" href="/account">
@@ -85,7 +85,7 @@ const InnerNav = () => {
                 </li>
               </>
             )}
-            {!isLoggedIn && (
+            {!isUserLoggedIn && (
               <>
                 <li>
                   <a className="dropdown-item text-lights" href="/auth/login">

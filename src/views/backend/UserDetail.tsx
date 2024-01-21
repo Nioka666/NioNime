@@ -1,24 +1,42 @@
-import { fetchTrxData } from "@utils/anime";
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// For Customers
+import { fetchAllUserData } from "@utils/anime";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const TransactionsDetail = () => {
-  const { data: trxData, error: errorTrxData } = useSWR("fetchTrxData", () =>
-    fetchTrxData()
+export const UserDetails = () => {
+  const navigate = useNavigate();
+  let no_asc: number = 1;
+  const { data: userData, error: errorUserData } = useSWR(
+    "fetchAllUserData",
+    () => fetchAllUserData(),
+    {
+      revalidateOnFocus: false,
+    }
   );
 
-  if (errorTrxData) {
-    console.log(errorTrxData);
+  if (errorUserData) {
+    console.error(errorUserData);
   }
-
-  const handleDeleteTrx = (trxID: any) => {
-    console.log(trxID);
+  // console.log(import.meta.env.VITE_BASEURL);
+  const handleEditUser = (userId: any) => {
+    navigate(`/edit-user/${userId}`);
   };
 
-  const handleEditTrx = (trxID: any) => {
-    console.log(trxID);
+  const handleDeleteUser = async (userId: any) => {
+    try {
+      await axios.post(
+        "http://localhost:3000/api/user-delete",
+        { userId },
+        { withCredentials: true }
+      );
+      console.log(`success deleting user with id: ${userId}`);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
-
   return (
     <div
       className="col-md-9"
@@ -26,7 +44,7 @@ export const TransactionsDetail = () => {
     >
       <div className="card bg-black text-white h-satus user-card">
         <div className="card-header" style={{ padding: "50px 0px 0px 45px" }}>
-          <h4 className="text-lighs">Transactions data</h4>
+          <h4 className="text-lighs">Table contents</h4>
         </div>
         <div className="card-body" style={{ padding: "0 25px 25px 25px" }}>
           <div className="d-flex justify-content-between align-items-center">
@@ -57,31 +75,31 @@ export const TransactionsDetail = () => {
               <tr>
                 <td>No</td>
                 <td>Username</td>
+                <td>Email</td>
+                <td>Phone Number</td>
                 <td>Membership Level</td>
-                <td>Amount</td>
-                <td>Date Transaction</td>
                 <td>Actions</td>
               </tr>
             </thead>
             <tbody className="p-4">
-              {trxData?.map((trx: any) => (
-                <tr key={trx._id}>
-                  <td>1</td>
-                  <td>{trx?.username}</td>
-                  <td>{trx?.membership_level}</td>
-                  <td>{trx?.amount}</td>
-                  <td>{trx?.date_transaction}</td>
+              {userData?.map((user: any) => (
+                <tr key={user._id}>
+                  <td>{no_asc}</td>
+                  <td>{user?.username}</td>
+                  <td>{user?.email}</td>
+                  <td>{user?.phone_number}</td>
+                  <td>{user?.membership_level}</td>
                   <td className="d-flex gap-3">
                     <button
                       className="button-action"
-                      onClick={() => handleEditTrx(trx?._id)}
+                      onClick={() => handleEditUser(user?._id)}
                     >
                       <i className="fa-solid fa-pen text-warning"></i>
                     </button>
 
                     <button
                       className="button-action"
-                      onClick={() => handleDeleteTrx(trx?._id)}
+                      onClick={() => handleDeleteUser(user?._id)}
                     >
                       <i className="fa-solid fa-trash text-danger"></i>
                     </button>

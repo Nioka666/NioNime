@@ -18,6 +18,11 @@
   font-weight: normal;
 }
 
+*::selection {
+  background-color: transparent;
+  color: #ffbd2490;
+}
+
 body {
   background-color: #000000;
   /* background-color: #2c2c2c; */
@@ -110,7 +115,7 @@ nav .right-nav-wrapper ul {
 
 nav ul.navbar-nav {
   gap: 30px;
-  margin: 0 0 0 690px;
+  margin: 0 0 0 720px;
 }
 
 nav ul li.dropstart ul {
@@ -1154,4 +1159,11 @@ form.changePassword label {
 
 .text-yellow {
   color: #f4cc00;
+  color: #434343;
+}
+
+.dropdown-menu-dark li:active,
+.dropdown-menu-dark li:focus-visible,
+.dropdown-menu-dark li:target {
+  background-color: yellow;
 }

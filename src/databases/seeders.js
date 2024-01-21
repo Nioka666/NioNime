@@ -1,10 +1,11 @@
 export const AdminsSeeder = [
     {
-        username: "nioka",
+        username: "Adhim",
         email: "niokagi@gmail.com",
-        password: "nioka666"
+        password: "nioka666",
+        profile_url: "gojj.jpg"
     }
-]
+];
 
 export const UsersSeeder = [
     {
@@ -30,10 +31,10 @@ export const UsersSeeder = [
 export const TransactionsSeeder = [
     {
         username: "adhimNiokagi",
-        membership_level: "premium",
-        amount: 99000,
-        status: "pending",
-        date: new Date()
+        membership_level: "Fan",
+        amount: 8.33,
+        status: "process",
+        date_transaction: new Date()
     },
 ];
 

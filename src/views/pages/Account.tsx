@@ -37,7 +37,7 @@ const UserProfile = () => {
       return false;
     }
   }
-  
+
   const isLoggedIn = checkLoginStatus();
 
   if (!isLoggedIn) {
