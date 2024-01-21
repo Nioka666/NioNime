@@ -6,12 +6,13 @@ import useSWR from "swr";
 
 const InnerNav = () => {
   const navigate = useNavigate();
-  const {
-    data: userData,
-    error: errorUserData,
-  } = useSWR("fetchUserData", () => fetchUserData(), {
-    revalidateOnFocus: false,
-  });
+  const { data: userData, error: errorUserData } = useSWR(
+    "fetchUserData",
+    () => fetchUserData(),
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   if (errorUserData) {
     console.error(errorUserData);
@@ -23,14 +24,16 @@ const InnerNav = () => {
     } else {
       return false;
     }
-  }
+  };
 
   const isUserLoggedIn = checkLoginStatus();
   // console.log(`status: ${isUserLoggedIn}`);
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/logout", null, { withCredentials: true });
+      await axios.post("http://localhost:3000/api/logout", null, {
+        withCredentials: true,
+      });
       console.log("Logout success");
       navigate("/");
       window.location.reload();
@@ -71,16 +74,24 @@ const InnerNav = () => {
                 <li>
                   <a className="dropdown-item text-lights" href="/account">
                     <i className="fa-solid fa-id-badge"></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>Profile</span>
+                    <span className="ml-12" style={{ color: "#cecece" }}>
+                      Profile
+                    </span>
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item text-lights" href="#" onClick={handleLogout}>
+                  <a
+                    className="dropdown-item text-lights"
+                    href="#"
+                    onClick={handleLogout}
+                  >
                     <i
                       className="fa-solid fa-arrow-right-to-bracket"
                       style={{ transform: "rotate(180deg)" }}
                     ></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>Sign out</span>
+                    <span className="ml-12" style={{ color: "#cecece" }}>
+                      Sign out
+                    </span>
                   </a>
                 </li>
               </>
@@ -90,13 +101,20 @@ const InnerNav = () => {
                 <li>
                   <a className="dropdown-item text-lights" href="/auth/login">
                     <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>Sign in</span>
+                    <span className="ml-12" style={{ color: "#cecece" }}>
+                      Sign in
+                    </span>
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item text-lights" href="/auth/register">
+                  <a
+                    className="dropdown-item text-lights"
+                    href="/auth/register"
+                  >
                     <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>Sign up</span>
+                    <span className="ml-12" style={{ color: "#cecece" }}>
+                      Sign up
+                    </span>
                   </a>
                 </li>
               </>

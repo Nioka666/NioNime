@@ -19,29 +19,25 @@ import useSWR from "swr";
 import { fetchAdminData, fetchUserData } from "@utils/anime";
 
 export const App = () => {
-  const {
-    data: userData,
-  } = useSWR("fetchUserData", () => fetchUserData(), {
+  const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
     revalidateOnFocus: false,
   });
 
-  const {
-    data: adminData,
-  } = useSWR("fetchAdminData", () => fetchAdminData(), {
-    revalidateOnFocus: false
+  const { data: adminData } = useSWR("fetchAdminData", () => fetchAdminData(), {
+    revalidateOnFocus: false,
   });
 
   const adminCheck = () => {
     if (adminData?.username) {
       return true;
     }
-  }
+  };
 
   const userCheck = () => {
     if (userData?.username) {
       return true;
     }
-  }
+  };
 
   const isUserLoggedIn = userCheck();
   const isAdminLoggedIn = adminCheck();
@@ -51,15 +47,16 @@ export const App = () => {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<MainLayout />} errorElement={<ErrorPage />}>
+            <Route
+              path="/"
+              element={<MainLayout />}
+              errorElement={<ErrorPage />}
+            >
               <Route path="/" element={<Home />} />
               <Route path="account" element={<Account />} />
               <Route path="about" element={<About />} />
               <Route path="anime-detail/:animeId" element={<AnimeDetail />} />
-              <Route
-                path="watch/:animeId"
-                element={<Watch />}
-              />
+              <Route path="watch/:animeId" element={<Watch />} />
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
               <Route path="transaction" element={<Transaction />} />
@@ -91,10 +88,7 @@ export const App = () => {
             </Route>
             {/* admin path */}
             {!isUserLoggedIn && isAdminLoggedIn === true && (
-              <Route
-                path="/admin/"
-                element={<Dashboard />}
-              >
+              <Route path="/admin/" element={<Dashboard />}>
                 <Route path="dashboard" element={<Dashboard />} />
               </Route>
             )}
@@ -103,8 +97,7 @@ export const App = () => {
               path="/user/"
               element={<Account />}
               errorElement={<ErrorPage />}
-            >
-            </Route>
+            ></Route>
           </Routes>
         </Router>
       </AuthProvider>

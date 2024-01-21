@@ -90,3 +90,21 @@ table.bdr {
   color: #b8b8b8;
   /* font-weight: 600; */
 }
+
+.btn-fan:hover {
+  transition: all ease-in-out 0.2s;
+}
+
+.btn-noblefan:hover {
+  transition: all ease-in-out 0.2s;
+  background-color: #caa800;
+}
+
+.fan-col {
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+
+.fan-col:hover {
+  transform: scale(1.03);
+}

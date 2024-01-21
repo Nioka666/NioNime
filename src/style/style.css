@@ -20,7 +20,7 @@
 
 *::selection {
   background-color: transparent;
-  color: #ffbd2490;
+  color: #ffbd24ba;
 }
 
 body {
@@ -1159,7 +1159,7 @@ form.changePassword label {
 
 .text-yellow {
   color: #f4cc00;
-  color: #434343;
+  /* color: #434343; */
 }
 
 .dropdown-menu-dark li:active,
