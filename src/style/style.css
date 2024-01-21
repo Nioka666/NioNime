@@ -708,7 +708,8 @@ button.search-btn {
 
 /* font size */
 .font-nav-icon {
-  font-size: 18px;
+  margin-top: 6px;
+  font-size: 22.5px;
 }
 
 /* Login Section */

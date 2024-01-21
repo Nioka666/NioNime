@@ -28,7 +28,6 @@ interface WatchProps { }
 export const Watch: React.FC<WatchProps> = () => {
   const { animeId } = useParams();
   const [selectedEpisode, setSelectedEpisode] = useState(null);
-  console.log(selectedEpisode);
 
   const {
     data: animeWatchDetail,

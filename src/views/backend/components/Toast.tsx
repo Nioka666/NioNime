@@ -16,13 +16,9 @@ export const BackendToast: React.FC<ToastProps> = ({ successMessage, typeToast }
       toastId = toast.error(`Error when deleting user`);
     }
 
-    // Jika ingin mengontrol toast menggunakan ID
-    // const handleDismiss = () => toast.dismiss(toastId);
-
-    // Return statement
     return () => {
       // Membersihkan toast saat komponen di-unmount
-      toast.dismiss(toastId);
+      toast.dismiss(toastId);1
     };
   }, [successMessage, typeToast]);
 

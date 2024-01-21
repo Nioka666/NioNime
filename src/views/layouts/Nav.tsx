@@ -47,12 +47,18 @@ const InnerNav = () => {
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
         <li className="nav-item">
           <a className="nav-link fw-semibold text-lights" href="/about">
-            About
+            <i
+              className="fa-solid fa-crown text-warning font-nav-icon"
+              style={{ marginTop: "5px", fontSize: "25px" }}
+            ></i>
           </a>
         </li>
         <li className="nav-item">
           <a href="/search" className="nav-link">
-            <i className="fa-solid fa-magnifying-glass font-nav-icon"></i>
+            <i
+              className="fa-solid fa-magnifying-glass font-nav-icon"
+              style={{ marginTop: "8px" }}
+            ></i>
           </a>
         </li>
         <li className="nav-item dropstart">
@@ -63,7 +69,18 @@ const InnerNav = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i className="fa-solid fa-user font-nav-icon"></i>
+            {isUserLoggedIn ? (
+              <img
+                src={"../../img/gojj.jpg"}
+                alt=""
+                width="40"
+                height="40"
+                className="rounded-circle"
+                style={{ marginLeft: "-6px", marginTop: "2px" }}
+              />
+            ) : (
+              <i className="fa-solid fa-user font-nav-icon fs-4"></i>
+            )}
           </a>
           <ul
             className="dropdown-menu dropdown-menu-dark bg-dark text-lights"

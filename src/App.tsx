@@ -92,12 +92,6 @@ export const App = () => {
                 <Route path="dashboard" element={<Dashboard />} />
               </Route>
             )}
-            {/* user path */}
-            <Route
-              path="/user/"
-              element={<Account />}
-              errorElement={<ErrorPage />}
-            ></Route>
           </Routes>
         </Router>
       </AuthProvider>
