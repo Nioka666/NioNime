@@ -32,20 +32,18 @@ export const Pricing = () => {
     }
   );
 
-  // console.log(membershipList);
-
   if (errorMembershipList) {
     console.log(errorMembershipList);
   }
 
-  const handleClick = (level: any) => {
-    console.log(`Button ${level} clicked`);
-  };
+  // const handleClick = (level: any) => {
+  //   console.log(`Button ${level} clicked`);
+  //   navigate(`/transaction/${level}`);
+  // };
 
   // console.log(membershipList?.[0].prices);
   return (
     <>
-    
       <div className="container mt-5">
         <PricingHeader />
         <main>
@@ -117,14 +115,15 @@ export const Pricing = () => {
                       {membershipList?.[1].features[5]}
                     </li>
                   </ul>
-                  <button
-                    type="button"
-                    className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
-                    value={membershipList?.[1].level}
-                    onClick={() => handleClick(membershipList?.[1].level)}
-                  >
-                    Purchase
-                  </button>
+                  <Link to={`/transaction/`}>
+                    <button
+                      type="button"
+                      className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
+                      value={membershipList?.[1].level}
+                    >
+                      Purchase
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

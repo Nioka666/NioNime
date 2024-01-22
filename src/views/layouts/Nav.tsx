@@ -44,12 +44,12 @@ const InnerNav = () => {
 
   return (
     <>
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold" style={{ gap: "25px" }}>
         <li className="nav-item">
           <a className="nav-link fw-semibold text-lights" href="/about">
             <i
               className="fa-solid fa-crown text-warning font-nav-icon"
-              style={{ marginTop: "5px", fontSize: "25px" }}
+              style={{ marginTop: "5px", fontSize: "23.5px" }}
             ></i>
           </a>
         </li>
@@ -73,13 +73,13 @@ const InnerNav = () => {
               <img
                 src={"../../img/gojj.jpg"}
                 alt=""
-                width="40"
-                height="40"
+                width="38"
+                height="38"
                 className="rounded-circle"
-                style={{ marginLeft: "-6px", marginTop: "2px" }}
+                style={{ marginLeft: "-6px", marginTop: "0px" }}
               />
             ) : (
-              <i className="fa-solid fa-user font-nav-icon fs-4"></i>
+              <i className="fa-solid fa-user font-nav-icon" style={{ marginTop: "8px" }}></i>
             )}
           </a>
           <ul

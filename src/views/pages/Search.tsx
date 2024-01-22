@@ -57,7 +57,7 @@ export const Search = () => {
     <>
       <div className="container search-page-wrapper">
         <form onSubmit={handleSearchFormSubmit}>
-          <div className="search-attribute">
+          <div className="input-group">
             <input
               className="search-bar"
               type="text"
@@ -67,8 +67,8 @@ export const Search = () => {
               onChange={handleSearchInputChange}
               autoFocus
             />
-            <button className="search-btn" type="submit" style={{ backgroundColor: "transparent" }}>
-              <i className="fa-solid fa-magnifying-glass fa-xl text-warning"></i>
+            <button className="search-btn" type="submit">
+              <i className="fa-solid fa-magnifying-glass fa-xl text-lights"></i>
             </button>
           </div>
         </form>

@@ -131,6 +131,7 @@ app.post('/api/register', async (req, res) => {
             username: username,
             email: email,
             password: password,
+            membership_level: "Fan",
             date_joined: new Date()
         });
         if (newUser) {
@@ -231,6 +232,10 @@ app.get("/api/admin-data", async (req, res) => {
     }
 });
 
+app.post("/api/transaction-validation", async (req, res) => {
+
+});
+
 app.get("/api/transactions-data", async (req, res) => {
     try {
         const trxList = await TransactionsModel.find();
@@ -239,6 +244,16 @@ app.get("/api/transactions-data", async (req, res) => {
         console.log(error);
     }
 });
+
+app.post("/api/membership-upgrade", async (req, res) => {
+    const { userId, newLevel } = req.body;
+    try {
+        const userLevelChange = UsersModel.findOneAndUpdate({ _id: userId, membership_level: newLevel });
+        res.status(200).json(userLevelChange);
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 
 app.listen(port, () => {

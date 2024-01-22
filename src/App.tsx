@@ -60,6 +60,7 @@ export const App = () => {
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
               <Route path="transaction" element={<Transaction />} />
+              <Route path="transaction/*" element={<Transaction />} />
               <Route
                 path="*"
                 element={<ErrorPage />}

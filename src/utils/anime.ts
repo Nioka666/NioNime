@@ -14,6 +14,7 @@ const gogoanimeStreamLink =
 // const zoroStreamLink =
 //   "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
 const animeEpisodes = "/api/episodes/{id}";
+const statsUrl = "/api/stats";
 // ---------------------------------------------
 
 const axiosInstance: AxiosInstance = axios.create({
@@ -22,6 +23,17 @@ const axiosInstance: AxiosInstance = axios.create({
     "Access-Control-Allow-Origin": "*",
   },
 });
+
+// Fetch Anify Stats
+export const fetchAnifyStats = async () => {
+  try {
+    const res = await axios.get(statsUrl);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 // Anime Episodes
 export const fetchAnimeEpisodes = async (id: any) => {

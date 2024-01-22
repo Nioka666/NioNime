@@ -69,7 +69,7 @@ const UserProfile = () => {
               >
                 {userData?.username} <br />
                 <span style={{ fontSize: "17px", color: "gray" }}>
-                  Plain User
+                  {userData?.membership_level}
                 </span>
               </h4>
             )}
