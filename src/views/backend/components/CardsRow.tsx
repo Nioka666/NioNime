@@ -3,8 +3,8 @@ export const CardsRow = () => {
   return (
     <>
       <div
-        className="col-md-9"
-        style={{ padding: "100px 0px", margin: "0 -20px", width: "80%" }}
+        className="col-md-5"
+        style={{ padding: "100px 0px", margin: "0 -20px", width: "30%" }}
       >
         <div className="card bg-black text-white h-satus user-card">
           <div className="card-header" style={{ padding: "50px 0px 0px 45px" }}>
@@ -18,17 +18,6 @@ export const CardsRow = () => {
               >
                 Special title treatmentless our commits
               </h6>
-              <a
-                href="#"
-                className="btn fw-medium"
-                style={{
-                  margin: "-20px 10px 0 0",
-                  backgroundColor: "#d1b200",
-                  borderRadius: "16px",
-                }}
-              >
-                <i className="fa-solid fa-plus me-2"></i>Add new
-              </a>
             </div>
             <hr />
           </div>

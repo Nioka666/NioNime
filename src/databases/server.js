@@ -7,6 +7,7 @@ import { AdminsModel, MembershipsModel, TransactionsModel, UsersModel } from './
 import cors from 'cors';
 import path from 'path';
 import session from 'express-session';
+import multer from "multer";
 
 const app = express();
 const port = 3000;
@@ -41,7 +42,23 @@ await Conn();
 
 app.get('/', (req, res) => {
     res.send("LESGOOOO");
-})
+});
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callBack) {
+        callBack(null, "public/img/evidence");
+    },
+    filename: function (req, file, callBack) {
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        callBack(null, `evidence_${uniqueSuffix}${path.extname(file.originalname)}`);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/upload", upload.single("file"), (req, res) => {
+    res.status(200).json({ message: "File uploaded successfully" });
+});
 
 app.get('/api/all-user', async (req, res) => {
     try {
@@ -232,8 +249,26 @@ app.get("/api/admin-data", async (req, res) => {
     }
 });
 
-app.post("/api/transaction-validation", async (req, res) => {
+app.post("/api/transaction-add", async (req, res) => {
+    const { userID, username, membershipLevel, membershipPrice } = req.body;
+    try {
+        const newTrx = await TransactionsModel.insertMany({
+            users_id: userID,
+            username: username,
+            membership_level: membershipLevel,
+            amount: membershipPrice,
+            status: "Unprocessed",
+            date_transaction: Date()
+        });
+        if (newTrx) {
+            res.status(200).json({ message: "Successfully inserting new trx" });
+        } else {
+            res.status(401).json({ error: "inserting failed" });
+        }
+    } catch (error) {
+        console.log(error);
 
+    }
 });
 
 app.get("/api/transactions-data", async (req, res) => {
@@ -253,7 +288,7 @@ app.post("/api/membership-upgrade", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+});
 
 
 app.listen(port, () => {

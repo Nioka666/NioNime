@@ -30,10 +30,11 @@ export const UsersSeeder = [
 
 export const TransactionsSeeder = [
     {
+        users_id: "655b27b99bb9954064cd77e4",
         username: "adhimNiokagi",
-        membership_level: "Fan",
-        amount: 8.33,
-        status: "process",
+        membership_level: "Noble Fan",
+        amount: 50000,
+        status: "unprocessed",
         date_transaction: new Date()
     },
 ];

@@ -22,7 +22,7 @@ const InnerNav = () => {
 
     // const avatarUrl = import.meta.env.VITE_ADMIN_PROFILE_URL;
     const isLoggedIn = checkLoginStatus();
-    const avatarUrl = `../../../img/${adminData?.profile_url}`;
+    const avatarUrl = '../../../../public/img/blacks.jpg';
 
     const handleLogout = async () => {
         try {
@@ -50,7 +50,7 @@ const InnerNav = () => {
                                 disabled
                             />
                             <button className="btn btn-secondary" type="button" style={{ borderRadius: "0 15px 15px 0", backgroundColor: "#2e2f32", border: "none" }}>
-                                <i className="fa-solid fa-magnifying-glass font-nav-icon text-gray"></i>
+                                <i className="fa-solid fa-magnifying-glass font-nav-icon text-gray" style={{ fontSize: "14px" }}></i>
                             </button>
                         </div>
                     </form>

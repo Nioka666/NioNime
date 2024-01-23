@@ -17,6 +17,7 @@ import { AuthProvider } from "@views/components/AuthContext";
 import { AdminLoginForm } from "@views/backend/AdminLogin";
 import useSWR from "swr";
 import { fetchAdminData, fetchUserData } from "@utils/anime";
+import { TrxProcess } from "@views/pages/TrxProcess";
 
 export const App = () => {
   const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -62,6 +63,10 @@ export const App = () => {
               <Route path="transaction" element={<Transaction />} />
               <Route path="transaction/*" element={<Transaction />} />
               <Route
+                path="transaction/process/:method"
+                element={<TrxProcess />}
+              />
+              <Route
                 path="*"
                 element={<ErrorPage />}
                 errorElement={<ErrorPage />}
@@ -88,7 +93,7 @@ export const App = () => {
               )}
             </Route>
             {/* admin path */}
-            {!isUserLoggedIn && isAdminLoggedIn === true && (
+            {isAdminLoggedIn === true && (
               <Route path="/admin/" element={<Dashboard />}>
                 <Route path="dashboard" element={<Dashboard />} />
               </Route>

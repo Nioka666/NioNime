@@ -46,10 +46,11 @@ export const TransactionsModel = mongoose.model("Transactions", {
         type: String,
         enum: ['Fan', 'Noble Fan']
     },
-    amount: Number,
+    amount: BigInt,
+    photo_evidence: String,
     status: {
         type: String,
-        enum: ['process', 'success', 'failed']
+        enum: ['Unprocessed', 'Process', 'Success', 'Failed']
     },
     date_transaction: Date,
 });

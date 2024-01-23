@@ -49,7 +49,6 @@ nav#nav {
   background-color: #000000a3;
   z-index: 999;
   height: 70px;
-  transition: all ease-in-out 0.1s;
 }
 
 nav div.container a.navbar-brand {
@@ -631,7 +630,8 @@ button.search-btn {
   /* color: #292929; */
 }
 
-.trx-form input {
+.trx-form input,
+.trx-form input:disabled {
   padding: 17px 20px;
   border-radius: 10px;
   border: none;
@@ -648,6 +648,11 @@ button.search-btn {
   color: white;
 }
 
+button.btn-noblefan {
+  padding: 13px 20px;
+  border-radius: 10px;
+}
+
 button.payment-method {
   margin: 0 auto;
   border-radius: 15px;
@@ -660,8 +665,7 @@ button.payment-method:hover {
   background-color: #cdcdcd;
 }
 
-button.payment-method:active,
-button.payment-method:focus {
+.payment-method.active {
   border: 4px solid #ffbf00;
 }
 

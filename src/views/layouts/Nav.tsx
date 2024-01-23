@@ -44,7 +44,10 @@ const InnerNav = () => {
 
   return (
     <>
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold" style={{ gap: "25px" }}>
+      <ul
+        className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold"
+        style={{ gap: "25px" }}
+      >
         <li className="nav-item">
           <a className="nav-link fw-semibold text-lights" href="/about">
             <i
@@ -79,7 +82,10 @@ const InnerNav = () => {
                 style={{ marginLeft: "-6px", marginTop: "0px" }}
               />
             ) : (
-              <i className="fa-solid fa-user font-nav-icon" style={{ marginTop: "8px" }}></i>
+              <i
+                className="fa-solid fa-user font-nav-icon"
+                style={{ marginTop: "8px" }}
+              ></i>
             )}
           </a>
           <ul
@@ -128,7 +134,7 @@ const InnerNav = () => {
                     className="dropdown-item text-lights"
                     href="/auth/register"
                   >
-                    <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                    <i className="fa-solid fa-user-plus"></i>
                     <span className="ml-12" style={{ color: "#cecece" }}>
                       Sign up
                     </span>
