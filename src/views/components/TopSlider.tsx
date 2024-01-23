@@ -3,7 +3,6 @@ import useSWR, { mutate } from "swr";
 import { fetchTopAnimeData } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
-import { Link } from "react-router-dom";
 import { ContentDummyLoad } from "./ContentDummyLoad";
 import DOMPurify from "dompurify";
 
@@ -23,10 +22,10 @@ export const TopSlider: React.FC = () => {
   };
 
   const handleClick = () => {
-    const pageRefreshed = localStorage.getItem('pageRefreshed') === 'true';
+    const pageRefreshed = localStorage.getItem("pageRefreshed") === "true";
 
     if (!pageRefreshed) {
-      localStorage.setItem('pageRefreshed', 'true');
+      localStorage.setItem("pageRefreshed", "true");
       window.location.reload();
     }
   };
@@ -50,7 +49,13 @@ export const TopSlider: React.FC = () => {
           <h3>Top Airing</h3>
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
-        <div className="sss" style={{ backgroundColor: "#0000008c", boxShadow: "10px -10px 15px #0000008c" }}>
+        <div
+          className="sss"
+          style={{
+            backgroundColor: "#0000008c",
+            boxShadow: "10px -10px 15px #0000008c",
+          }}
+        >
           {isLoadingTopAnime && <Loading /> && (
             <>
               <ContentDummyLoad />
@@ -64,10 +69,15 @@ export const TopSlider: React.FC = () => {
           )}
           {!isLoadingTopAnime &&
             animeData?.top.map((anime: any) => (
-              <Link to={`anime-detail/${anime.id}`} key={anime.id} onClick={handleClick}>
+              <a
+                href={`anime-detail/${anime.id}`}
+                key={anime.id}
+                onClick={handleClick}
+              >
                 <div
-                  className={`item ${hoveredAnimeId === anime.id ? "hovered" : ""
-                    }`}
+                  className={`item ${
+                    hoveredAnimeId === anime.id ? "hovered" : ""
+                  }`}
                   key={anime.id}
                   data-anime-id={anime.id}
                   onMouseOver={() => handleMouseOver(anime.id)}
@@ -81,16 +91,18 @@ export const TopSlider: React.FC = () => {
                     {isLoadingTopAnime && <Loading />}
                     {!isLoadingTopAnime && hoveredAnimeId === anime.id && (
                       <div className="anime-detail" key={anime.id}>
-                        <h6 className="fw-normal">
-                          {anime?.title.romaji}
-                        </h6>
+                        <h6 className="fw-normal">{anime?.title.romaji}</h6>
                         <strong>
                           <p className="text-lights fw-bold">
                             Genres: {anime?.genres[1]}
                           </p>
                           <br />
                         </strong>
-                        <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(anime?.description) }}></p>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(anime?.description),
+                          }}
+                        ></p>
                       </div>
                     )}
                   </div>
@@ -101,7 +113,7 @@ export const TopSlider: React.FC = () => {
                     </h6>
                   </div>
                 </div>
-              </Link>
+              </a>
             ))}
         </div>
       </div>

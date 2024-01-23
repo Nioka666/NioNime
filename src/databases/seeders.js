@@ -34,7 +34,8 @@ export const TransactionsSeeder = [
         username: "adhimNiokagi",
         membership_level: "Noble Fan",
         amount: 50000,
-        status: "unprocessed",
+        photo_evidence: 'ev.jpg',
+        status: "Unprocessed",
         date_transaction: new Date()
     },
 ];

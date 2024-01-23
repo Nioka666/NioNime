@@ -48,10 +48,6 @@ const storage = multer.diskStorage({
     destination: function (req, file, callBack) {
         callBack(null, "public/img/evidence");
     },
-    filename: function (req, file, callBack) {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        callBack(null, `evidence_${uniqueSuffix}${path.extname(file.originalname)}`);
-    },
 });
 
 const upload = multer({ storage: storage });
@@ -249,22 +245,47 @@ app.get("/api/admin-data", async (req, res) => {
     }
 });
 
+// if (user) {
+//     req.session.user = {
+//         id: user._id,
+//         username: user.username,
+//         email: user.email,
+//         password: user.password,
+//         phone_number: user.phone_number,
+//         membership_level: user.membership_level,
+//     };
+//     res.status(200).json({ message: 'Login successful' });
+// } else {
+//     res.status(401).json({ message: 'Invalid username or password' });
+// }
+
 app.post("/api/transaction-add", async (req, res) => {
-    const { userID, username, membershipLevel, membershipPrice } = req.body;
+    const { userID, username, membershipLevel, membershipPrice, fileName } = req.body;
     try {
         const newTrx = await TransactionsModel.insertMany({
             users_id: userID,
             username: username,
             membership_level: membershipLevel,
             amount: membershipPrice,
+            photo_evidence: fileName,
             status: "Unprocessed",
             date_transaction: Date()
         });
-        if (newTrx) {
+
+        if (newTrx && newTrx.length > 0) {
+            req.session.newTrx = newTrx.map(trx => ({
+                id: trx._id,
+                users_id: trx.users_id,
+                username: trx.username,
+                status: trx.status,
+                date_transaction: trx.date_transaction
+            }));
+            req.session.save();
             res.status(200).json({ message: "Successfully inserting new trx" });
         } else {
-            res.status(401).json({ error: "inserting failed" });
+            res.status(401).json({ error: "Inserting failed" });
         }
+
     } catch (error) {
         console.log(error);
 
@@ -273,12 +294,32 @@ app.post("/api/transaction-add", async (req, res) => {
 
 app.get("/api/transactions-data", async (req, res) => {
     try {
-        const trxList = await TransactionsModel.find();
-        res.status(200).json(trxList);
+        if (req.session.newTrx) {
+            res.status(200).json(req.session.newTrx);
+        } else {
+            res.status(404).json({ message: "Transaction data not found" });
+        }
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+app.get("/api/transactions-detail", async (req, res) => {
+    const { trxID } = req.body;
+    try {
+        const resp = await TransactionsModel.findById({ _id: "65b032d256094ea383f71423" });
+        if (resp) {
+            res.status(200).json(resp);
+        } else {
+            res.status(404).json({ message: 'Transaction not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+);
 
 app.post("/api/membership-upgrade", async (req, res) => {
     const { userId, newLevel } = req.body;

@@ -21,7 +21,7 @@ export const AnimeSlider = () => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 1, 20), {
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 2, 20), {
     revalidateOnFocus: false,
   });
 
@@ -50,7 +50,7 @@ export const AnimeSlider = () => {
           )}
           {!isLoadingRecentAnime &&
             animeData?.map((anime: any) => (
-              <Link to={`anime-detail/${anime.id}`} key={anime.id}>
+              <a href={`anime-detail/${anime.id}`} key={anime.id}>
                 <div
                   key={anime.id}
                   className={`item ${hoveredAnimeId === anime.id ? "hovered" : ""
@@ -88,7 +88,7 @@ export const AnimeSlider = () => {
                     <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
                   </div>
                 </div>
-              </Link>
+              </a>
             ))}
         </div>
       </div>

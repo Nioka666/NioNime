@@ -115,7 +115,7 @@ export const Pricing = () => {
                       {membershipList?.[1].features[5]}
                     </li>
                   </ul>
-                  <Link to={`/transaction/`}>
+                  <a href={`/transaction/`}>
                     <button
                       type="button"
                       className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
@@ -123,7 +123,7 @@ export const Pricing = () => {
                     >
                       Purchase
                     </button>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

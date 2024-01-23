@@ -4,9 +4,7 @@ import { fetchAllUserData, fetchUserMembershipData } from "@utils/anime";
 import useSWR from "swr";
 import gopayLogo from "../../../public/img/Gopay.svg";
 import danaLogo from "../../../public/img/Dana.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const Transaction = () => {
   const { data: userData } = useSWR("fetchUserData", () => fetchAllUserData());
@@ -15,6 +13,21 @@ export const Transaction = () => {
   );
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
   const [activePayment, setActivePayment] = useState<string | null>(null);
+  const [userID, setUserID] = useState("");
+  const [username, setUsername] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    if (userData) {
+      setUserID(userData.id || "");
+      setUsername(userData.username || "");
+      setUserEmail(userData.email || "");
+    }
+  }, [userData]);
+
+  // const userID: string = userData?.id;
+  // const username: string = userData?.username;
+  // const userEmail: any = userData?.email;
 
   const handlePaymentClick = (method: string) => {
     setActivePayment((prevMethod: string | null) =>
@@ -26,43 +39,9 @@ export const Transaction = () => {
     );
   };
 
-  const userID: string = userData?.id;
-  const username: string = userData?.username;
-  const userEmail: any = userData?.email;
-
   const membershipLevel = membershipData?.[1]?.level;
-  const membershipPrice = membershipData?.[1]?.prices;
-  // const membershipPrice = membershipData?.[1]?.prices.toLocaleString("id-ID");
-
-  console.log(membershipPrice);
-
-  const handleNextStep = async () => {
-    try {
-      if (!userData || !userData.username) {
-        console.error("User data not available");
-        return;
-      }
-
-      const response = await axios.post(
-        "http://localhost:3000/api/transaction-add",
-        {
-          userID: userData.id,
-          username: userData.username,
-          membershipLevel,
-          membershipPrice,
-        },
-        { withCredentials: true }
-      );
-
-      if (response.status === 200) {
-        console.log(response.data.message); // Log success message
-      } else {
-        console.error("Transaction failed:", response.data.error); // Log error message
-      }
-    } catch (error) {
-      console.error("Error:", error); // Log any unexpected errors
-    }
-  };
+  const membershipPriceLocale =
+    membershipData?.[1]?.prices.toLocaleString("id-ID");
 
   return (
     <>
@@ -105,7 +84,7 @@ export const Transaction = () => {
                   className="text-lights fw-medium"
                   style={{ margin: "auto 30px" }}
                 >
-                  IDR {membershipPrice}
+                  IDR {membershipPriceLocale}
                 </h5>
               </div>
             </div>
@@ -140,7 +119,7 @@ export const Transaction = () => {
                   className="form-control text-white"
                   id="userID"
                   placeholder="name@example.com"
-                  value={userID}
+                  defaultValue={userID}
                   style={{ width: "75%" }}
                   disabled
                 />
@@ -154,7 +133,7 @@ export const Transaction = () => {
                   className="form-control text-white"
                   id="username"
                   placeholder="name@example.com"
-                  value={username}
+                  defaultValue={username}
                   style={{ width: "99%" }}
                 />
                 <br />
@@ -169,7 +148,7 @@ export const Transaction = () => {
                   className="form-control text-white"
                   id="exampleFormControlInput1"
                   placeholder="name@example.com"
-                  value={userEmail}
+                  defaultValue={userEmail}
                   style={{ width: "99%" }}
                 />
                 <br />
@@ -187,17 +166,17 @@ export const Transaction = () => {
                 </p>
                 <br />
                 <center>
-                  <Link to={`/transaction/process/${selectedPayment}`}>
+                  <a href={`/transaction/process/${selectedPayment}`}>
                     <button
                       type="button"
                       className="w-75 btn btn-lg btn-warning fw-semibold btn-noblefan"
-                      value={userID}
+                      defaultValue={userID}
                       disabled={!selectedPayment}
-                      onClick={handleNextStep}
+                      // onClick={handleNextStep}
                     >
                       Go Next Step
                     </button>
-                  </Link>
+                  </a>
                 </center>
               </form>
             </div>

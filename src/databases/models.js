@@ -37,10 +37,11 @@ export const AnimesModel = mongoose.model("Animes", {
 
 export const TransactionsModel = mongoose.model("Transactions", {
     id: ObjectID,
-    users_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
-    },
+    // users_id: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Users',
+    // },
+    users_id: String,
     username: String,
     membership_level: {
         type: String,

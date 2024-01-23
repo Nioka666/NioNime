@@ -4,10 +4,21 @@ import { DragDropFiles } from "@views/components/DragDropFiles";
 import gopayQR from "../../../public/img/gopay_qr.png";
 import danaQR from "../../../public/img/dana_qr.png";
 import { useParams } from "react-router-dom";
+import { fetchAllUserData, fetchUserMembershipData } from "@utils/anime";
+import useSWR from "swr";
+import axios from "axios";
 
 export const TrxProcess = () => {
   const { method } = useParams();
   const [file, setFile] = useState(null);
+  const { data: userData } = useSWR("fetchUserData", () => fetchAllUserData());
+  const { data: membershipData } = useSWR("fetchMembershipData", () =>
+    fetchUserMembershipData()
+  );
+
+  const membershipLevel = membershipData?.[1]?.level;
+  const membershipPrice = membershipData?.[1]?.prices;
+
   const getMethodLink = () => {
     if (method === "gopay") {
       return gopayQR;
@@ -28,7 +39,7 @@ export const TrxProcess = () => {
         });
         if (response.ok) {
           console.log("File uploaded successfully");
-          window.location.reload();
+          window.location.href = "/transaction/waiting";
         } else {
           console.error("File upload failed");
         }
@@ -41,45 +52,63 @@ export const TrxProcess = () => {
     }
   };
 
-  const handleSubmit = () => {
-    handleFileUpload();
+  const handleSubmit = async () => {
+    try {
+      if (!userData || !userData?.username) {
+        console.error("User data not available");
+        return;
+      }
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().replace(/[-T:.Z]/g, "");
+      const customFileName = `evidence_ss_${formattedDate}_${
+        (file as unknown as { name?: string })?.name || ""
+      }`;
+
+      const response = await axios.post(
+        "http://localhost:3000/api/transaction-add",
+        {
+          userID: userData.id,
+          username: userData.username,
+          membershipLevel,
+          membershipPrice,
+          fileName: customFileName,
+        },
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        console.log(response.data.message); // Log success message
+        handleFileUpload();
+      } else {
+        console.error("Transaction failed:", response.data.error); // Log error message
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
     <>
-      <div
-        className="container d-flex"
-        style={{
-          marginTop: "100px",
-          gap: "50px",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "77%",
-          backgroundColor: "#292929",
-          padding: "50px 40px",
-          borderRadius: "15px",
-        }}
-      >
+      <div className="container d-flex trx-proces-container">
         <section
           className="qr-code text-center"
           style={{ backgroundColor: "#292929", marginTop: "-10px" }}
         >
           <h2 style={{ marginBottom: "10px" }}>Scan QR Code : </h2>
-          <img src={getMethodLink()} width={330} alt="qr_method" />
+          {method === "dana" && (
+            <img
+              src={getMethodLink()}
+              width={330}
+              style={{ marginTop: "10px" }}
+              alt="qr_method"
+            />
+          )}
+          {method === "gopay" && (
+            <img src={getMethodLink()} width={350} alt="qr_method" />
+          )}
         </section>
         <div className="div d-grid">
-          <section
-            className="file-upload d-grid"
-            style={{
-              marginTop: "85px",
-              border: "2px dashed gray",
-              paddingTop: "40px",
-              paddingBottom: "40px",
-              padding: "50px",
-              borderStyle: "dashed",
-              borderRadius: "10px",
-            }}
-          >
+          <section className="file-upload d-grid evidence-file-sec text-gray">
             <div className="wrapp d-flex gap-4">
               <i
                 className="fa-solid fa-image text-center text-gray"
@@ -96,8 +125,9 @@ export const TrxProcess = () => {
           <button
             type="button"
             className="w-75 btn btn-lg btn-light fw-semibold"
-            style={{ margin: "30px 0 0 115px", padding: "9px 10px" }}
+            style={{ margin: "30px auto", padding: "10px 10px" }}
             onClick={handleSubmit}
+            disabled={!file}
           >
             Submit Transaction
           </button>

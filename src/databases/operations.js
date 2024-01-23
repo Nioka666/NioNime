@@ -48,6 +48,16 @@ export const findAndUpdate = async (modelDefined, key) => {
     }
 }
 
+export const findData = async (modelDefined, key) => {
+    try {
+        await Conn();
+        const res = await modelDefined.findOne({ _id: key });
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // block running
 const runOperation = async (operation, models, key, seeder) => {
     try {
@@ -66,6 +76,7 @@ const runOperation = async (operation, models, key, seeder) => {
 // await runOperation(insertMany, MembershipsModel, MembershipsSeeder);
 // await runOperation(findAndUpdate, UsersModel);
 // await runOperation(insertMany, AdminsModel, AdminsSeeder);
-await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
+// await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
+await runOperation(findData, TransactionsModel, "65b032d256094ea383f71423");
 
 await mongoose.connection.close();

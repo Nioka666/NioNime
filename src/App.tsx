@@ -18,6 +18,7 @@ import { AdminLoginForm } from "@views/backend/AdminLogin";
 import useSWR from "swr";
 import { fetchAdminData, fetchUserData } from "@utils/anime";
 import { TrxProcess } from "@views/pages/TrxProcess";
+import { TrxWaiting } from "@views/pages/TrxWaiting";
 
 export const App = () => {
   const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -61,11 +62,11 @@ export const App = () => {
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
               <Route path="transaction" element={<Transaction />} />
-              <Route path="transaction/*" element={<Transaction />} />
               <Route
                 path="transaction/process/:method"
                 element={<TrxProcess />}
               />
+              <Route path="transaction/waiting" element={<TrxWaiting />} />
               <Route
                 path="*"
                 element={<ErrorPage />}

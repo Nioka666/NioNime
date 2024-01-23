@@ -221,8 +221,21 @@ export const fetchTrxData = async () => {
     const response = await axios.get(
       "http://localhost:3000/api/transactions-data",
       {
-        withCredentials: false,
+        withCredentials: true,
       }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchTrxDetail = async (trxID: any) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/transactions-detail",
+      { trxID },
+      { withCredentials: true }
     );
     return response.data;
   } catch (error) {
