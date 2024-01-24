@@ -230,15 +230,13 @@ export const fetchTrxData = async () => {
   }
 };
 
-export const fetchTrxDetail = async (trxID: any) => {
+export const fetchTransList = async (trxID: any) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/api/transactions-detail",
-      { trxID },
-      { withCredentials: true }
-    );
-    return response.data;
+    const res = await axios.get(`http://localhost:3000/api/trans/${trxID}`, {
+      withCredentials: true,
+    });
+    return res.data;
   } catch (error) {
-    console.log(error);
+    // console.error(error);
   }
 };

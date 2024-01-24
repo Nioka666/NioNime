@@ -137,6 +137,21 @@ app.post('/api/account/change-password', async (req, res) => {
     }
 });
 
+app.post("/api/membership-upgrade", async (req, res) => {
+    const { userId, membership_level, newLevel } = req.body;
+    try {
+        const userLevelChange = UsersModel.findOneAndUpdate({ _id: userId, membership_level: newLevel }, { new: true });
+        if (userLevelChange) {
+            res.status(200).json(userLevelChange);
+            res.status(200).json({ message: 'Level successfully changed!' });
+        } else {
+            res.status(200).json({ message: 'Level changed failed' });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 app.post('/api/register', async (req, res) => {
     const { username, email, password } = req.body;
     try {
@@ -172,6 +187,22 @@ app.get("/api/users-list", async (req, res) => {
     try {
         const usersList = await UsersModel.find();
         res.status(200).json(usersList);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get("/api/trans/:trxID", async (req, res) => {
+    try {
+        const trxID = req.params.trxID;
+        const transaction = await TransactionsModel.findOne({ _id: trxID });
+
+        if (transaction) {
+            res.status(200).json(transaction);
+        } else {
+            res.status(404).json({ message: 'Transaction not found' });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
@@ -272,12 +303,14 @@ app.post("/api/transaction-add", async (req, res) => {
             date_transaction: Date()
         });
 
-        if (newTrx && newTrx.length > 0) {
+        if (newTrx) {
             req.session.newTrx = newTrx.map(trx => ({
                 id: trx._id,
                 users_id: trx.users_id,
                 username: trx.username,
                 status: trx.status,
+                membership_level: trx.membership_level,
+                amount: trx.amount,
                 date_transaction: trx.date_transaction
             }));
             req.session.save();
@@ -305,29 +338,18 @@ app.get("/api/transactions-data", async (req, res) => {
     }
 });
 
-app.get("/api/transactions-detail", async (req, res) => {
-    const { trxID } = req.body;
+app.post("/api/transaction-detail", async (req, res) => {
+    // const trxID = req.session.newTrx.id;
     try {
-        const resp = await TransactionsModel.findById({ _id: "65b032d256094ea383f71423" });
+        const resp = await TransactionsModel.findOne({ id: req.session.newTrx.id });
         if (resp) {
-            res.status(200).json(resp);
+            res.status(200).json(req.session.newTrx);
         } else {
             res.status(404).json({ message: 'Transaction not found' });
         }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
-    }
-}
-);
-
-app.post("/api/membership-upgrade", async (req, res) => {
-    const { userId, newLevel } = req.body;
-    try {
-        const userLevelChange = UsersModel.findOneAndUpdate({ _id: userId, membership_level: newLevel });
-        res.status(200).json(userLevelChange);
-    } catch (error) {
-        console.log(error);
     }
 });
 

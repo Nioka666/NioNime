@@ -37,17 +37,13 @@ export const AnimesModel = mongoose.model("Animes", {
 
 export const TransactionsModel = mongoose.model("Transactions", {
     id: ObjectID,
-    // users_id: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Users',
-    // },
     users_id: String,
     username: String,
     membership_level: {
         type: String,
         enum: ['Fan', 'Noble Fan']
     },
-    amount: BigInt,
+    amount: Number,
     photo_evidence: String,
     status: {
         type: String,

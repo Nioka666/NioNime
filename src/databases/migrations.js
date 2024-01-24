@@ -14,7 +14,7 @@ const UserMigration = (async () => {
     }
 })();
 
-const TransactionMigration = (async () => {
+export const TransactionsMigration = (async () => {
     try {
         await Conn();
         await TransactionsModel.insertMany(TransactionsSeeder);

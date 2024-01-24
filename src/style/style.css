@@ -668,6 +668,20 @@ button.search-btn {
   border-radius: 10px;
 }
 
+.printable {
+  display: flex;
+  justify-content: center;
+}
+
+.printable table {
+  margin-left: 30px;
+  width: 500px;
+}
+
+.printable table td {
+  padding: 5px 0;
+}
+
 button.btn-noblefan {
   padding: 13px 20px;
   border-radius: 10px;
