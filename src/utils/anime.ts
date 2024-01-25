@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// factory function
 import axios, { AxiosInstance } from "axios";
 import { serverURL } from "./environment";
 
-// URL
+// ROUTES URL
 const seasonalAnime =
   "/api/seasonal/anime?fields=[id,title,coverImage,genres,description]";
 const recentAnime = "/api/recent?type={type}&page={page}&perPage={perPage}";
@@ -16,7 +15,8 @@ const gogoanimeStreamLink =
 //   "/api/sources?providerId=zoro&watchId={watchId}&episodeNumber={episodeNumber}&id={animeId}&subType=sub";
 const animeEpisodes = "/api/episodes/{id}";
 const statsUrl = "/api/stats";
-// ---------------------------------------------
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 const axiosInstance: AxiosInstance = axios.create({
   headers: {

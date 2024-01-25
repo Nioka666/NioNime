@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import chalk from "chalk";
 
-// Chalks
 export const greenBold = (text) => {
   return chalk.green.bold(text);
 };

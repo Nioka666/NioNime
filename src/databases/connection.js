@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { greenBold, redBold } from "../utils/fxFactories.js";
+import { DB_PASS } from "../utils/environment.js";
 
 export const Conn = async () => {
   try {
-    await mongoose.connect("mongodb+srv://nioka666:nioka666@nionime.sjcjmif.mongodb.net/NioNime", {
+    await mongoose.connect(`mongodb+srv://nioka666:${DB_PASS}@nionime.sjcjmif.mongodb.net/NioNime`, {
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
     });
