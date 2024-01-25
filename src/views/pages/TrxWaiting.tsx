@@ -25,7 +25,7 @@ export const TrxWaiting = () => {
   const trxStatus = trxList?.status;
 
   useEffect(() => {
-    if (trxStatus === "Process") {
+    if (trxStatus === "Success") {
       setIsConfirm(true);
     } else {
       setIsConfirm(false);
@@ -40,7 +40,10 @@ export const TrxWaiting = () => {
     <>
       <center>
         {!isConfirm && (
-          <div className="container printable" style={{ marginTop: "200px" }}>
+          <div
+            className="container printable d-grid"
+            style={{ marginTop: "200px" }}
+          >
             <i
               className="fa-regular fa-hourglass-half text-gray"
               style={{ fontSize: "140px", transform: "rotate(10deg)" }}
@@ -100,7 +103,7 @@ export const TrxWaiting = () => {
                     <label htmlFor="id">Membership Purchased:</label>
                   </td>
                   <td>
-                    <span>{trxDetail?.membership_level}</span>
+                    <span className="fw-bold">{trxDetail?.membership_level}</span>
                   </td>
                 </tr>
                 <tr>

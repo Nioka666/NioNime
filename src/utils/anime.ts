@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // factory function
 import axios, { AxiosInstance } from "axios";
+import { serverURL } from "./environment";
 
 // URL
 const seasonalAnime =
@@ -31,7 +32,6 @@ export const fetchAnifyStats = async () => {
     return res.data;
   } catch (error) {
     console.log(error);
-    throw error;
   }
 };
 
@@ -156,7 +156,7 @@ export const fetchAllAnimeData = async (_page: any) => {
 // Database Route
 export const fetchUserData = async () => {
   try {
-    const userData = await axios.get("http://localhost:3000/api/user", {
+    const userData = await axios.get(`${serverURL}/api/user`, {
       withCredentials: true,
     });
     return userData.data;
@@ -167,12 +167,9 @@ export const fetchUserData = async () => {
 
 export const fetchUserMembershipData = async () => {
   try {
-    const membership = await axios.get(
-      "http://localhost:3000/api/membership-list",
-      {
-        withCredentials: true,
-      }
-    );
+    const membership = await axios.get(`${serverURL}/api/membership-list`, {
+      withCredentials: true,
+    });
     return membership.data;
   } catch (error) {
     console.log(error);
@@ -181,7 +178,7 @@ export const fetchUserMembershipData = async () => {
 
 export const fetchAllUserData = async () => {
   try {
-    const user = await axios.get("http://localhost:3000/api/users-list", {
+    const user = await axios.get(`${serverURL}/api/users-list`, {
       withCredentials: true,
     });
     return user.data;
@@ -192,7 +189,7 @@ export const fetchAllUserData = async () => {
 
 export const fetchAdminData = async () => {
   try {
-    const admin = await axios.get("http://localhost:3000/api/admin-data", {
+    const admin = await axios.get(`${serverURL}/api/admin-data`, {
       withCredentials: true,
     });
     return admin.data;
@@ -203,12 +200,9 @@ export const fetchAdminData = async () => {
 
 export const doDeleteUser = async () => {
   try {
-    const response = await axios.delete(
-      "http://localhost:3000/api/user-delete",
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.delete(`${serverURL}/api/user-delete`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -218,21 +212,18 @@ export const doDeleteUser = async () => {
 
 export const fetchTrxData = async () => {
   try {
-    const response = await axios.get(
-      "http://localhost:3000/api/transactions-data",
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`${serverURL}/api/transactions-data`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const fetchTransList = async (trxID: any) => {
+export const fetchTransList = async () => {
   try {
-    const res = await axios.get(`http://localhost:3000/api/trans/${trxID}`, {
+    const res = await axios.get(`${serverURL}/api/transaction-all`, {
       withCredentials: true,
     });
     return res.data;

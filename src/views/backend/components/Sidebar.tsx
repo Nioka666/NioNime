@@ -2,10 +2,7 @@
 import "./style/AdminNav.css";
 // import { useState } from 'react';
 
-export const Sidebar = ({
-  onMenuClick,
-  activeMenu,
-}: {
+export const Sidebar = ({onMenuClick, activeMenu,} : {
   onMenuClick: (menuId: string) => void;
   activeMenu: string;
 }) => {
@@ -20,7 +17,7 @@ export const Sidebar = ({
     <>
       <div
         className="d-flex flex-column flex-shrink-0 p-2 bg-black"
-        style={{ width: "260px", height: "auto" }}
+        style={{ width: "260px", minHeight: "100vh", height: "auto" }}
       >
         <br />
         <br />

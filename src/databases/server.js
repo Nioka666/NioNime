@@ -353,6 +353,53 @@ app.post("/api/transaction-detail", async (req, res) => {
     }
 });
 
+app.get("/api/transaction-all", async (req, res) => {
+    try {
+        const resp = await TransactionsModel.find();
+        if (resp) {
+            res.status(200).json(resp);
+        } else {
+            res.status(404).json({ message: 'Transaction not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Edit transaction
+app.post("/api/update/transaction-status", async (req, res) => {
+    const { trxID, newTrxStatus } = req.body;
+    try {
+        const trxUpdated = await TransactionsModel.findOneAndUpdate({ trxID },
+            { status: newTrxStatus },
+            { new: true }
+        );
+        if (trxUpdated) {
+            res.status(200).json({ message: "Transaction status is Successfully Updated" })
+        } else {
+            res.status(401).json({ message: "Transaction status is Failed to update" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+app.post("/api/transaction-delete", async (req, res) => {
+    const { trxID } = req.body;
+    try {
+        await TransactionsModel.deleteOne({
+            _id: trxID
+        });
+        return res.status(200).json({ message: `Transaction with id: ${trxID} was successfully deleted` });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

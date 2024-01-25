@@ -16,14 +16,15 @@ import { Transaction } from "@views/pages/Transaction";
 import { AuthProvider } from "@views/components/AuthContext";
 import { AdminLoginForm } from "@views/backend/AdminLogin";
 import useSWR from "swr";
-import { fetchAdminData, fetchUserData } from "@utils/anime";
+import { fetchAdminData } from "@utils/anime";
 import { TrxProcess } from "@views/pages/TrxProcess";
 import { TrxWaiting } from "@views/pages/TrxWaiting";
+import { TransactionEdit } from "@views/backend/TransactionEdit";
 
 export const App = () => {
-  const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
-    revalidateOnFocus: false,
-  });
+  // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
+  //   revalidateOnFocus: false,
+  // });
 
   const { data: adminData } = useSWR("fetchAdminData", () => fetchAdminData(), {
     revalidateOnFocus: false,
@@ -35,13 +36,13 @@ export const App = () => {
     }
   };
 
-  const userCheck = () => {
-    if (userData?.username) {
-      return true;
-    }
-  };
+  // const userCheck = () => {
+  //   if (userData?.username) {
+  //     return true;
+  //   }
+  // };
 
-  const isUserLoggedIn = userCheck();
+  // const isUserLoggedIn = userCheck();
   const isAdminLoggedIn = adminCheck();
 
   return (
@@ -85,18 +86,31 @@ export const App = () => {
                 element={<Register />}
                 errorElement={<ErrorPage />}
               />
-              {!isAdminLoggedIn && (
+              {!isAdminLoggedIn ? (
                 <Route
                   path="admin-portals"
                   element={<AdminLoginForm />}
+                  errorElement={<ErrorPage />}
+                />
+              ) : (
+                <Route
+                  path="admin-portals"
+                  element={<Dashboard />}
                   errorElement={<ErrorPage />}
                 />
               )}
             </Route>
             {/* admin path */}
             {isAdminLoggedIn === true && (
-              <Route path="/admin/" element={<Dashboard />}>
-                <Route path="dashboard" element={<Dashboard />} />
+              <Route
+                path="/admin/*"
+                element={<Dashboard />}
+                errorElement={<ErrorPage />}
+              >
+                <Route
+                  path="transaction-edit/*"
+                  element={<TransactionEdit />}
+                />
               </Route>
             )}
           </Routes>

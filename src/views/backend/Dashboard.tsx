@@ -5,6 +5,7 @@ import { UserDetails } from "./UserDetail";
 import { TransactionsDetail } from "./TransactionsDetail";
 import { Memberships } from "./Memberships";
 import { CardsRow } from "./components/CardsRow";
+import { Outlet } from "react-router-dom";
 
 export const Dashboard = () => {
   const [activeMenu, setActiveMenu] = useState("dashboard");
@@ -39,7 +40,7 @@ export const Dashboard = () => {
       <div className="container-fluid">
         <div className="row d-flex gap-1 flex-lg-nowrap">
           <Sidebar onMenuClick={handleMenuClick} activeMenu={activeMenu} />
-          {renderContent()}
+          {renderContent() || <Outlet />}
         </div>
       </div>
     </>

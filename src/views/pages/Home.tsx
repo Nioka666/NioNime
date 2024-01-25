@@ -9,7 +9,6 @@ export const Home = () => {
   return (
     <>
       <Carousels />
-      {/* <AnimeSlider /> */}
       <TopSlider />
       <AnimeSlider />
       <BigAnimeCard />

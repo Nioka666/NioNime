@@ -1,10 +1,13 @@
-import { fetchTrxData } from "@utils/anime";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { fetchTransList } from "@utils/anime";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const TransactionsDetail = () => {
+  const navigate = useNavigate();
   const { data: trxData, error: errorTrxData } = useSWR("fetchTrxData", () =>
-    fetchTrxData()
+    fetchTransList()
   );
 
   if (errorTrxData) {
@@ -22,7 +25,12 @@ export const TransactionsDetail = () => {
   return (
     <div
       className="col-md-9"
-      style={{ padding: "100px 0px", margin: "0 -20px", width: "80%" }}
+      style={{
+        padding: "100px 0px",
+        margin: "0 -20px",
+        width: "80%",
+        height: "auto",
+      }}
     >
       <div className="card bg-black text-white h-satus user-card">
         <div className="card-header" style={{ padding: "50px 0px 0px 45px" }}>
@@ -59,6 +67,7 @@ export const TransactionsDetail = () => {
                 <td>Username</td>
                 <td>Membership Level</td>
                 <td>Amount</td>
+                <td>Status</td>
                 <td>Date Transaction</td>
                 <td>Actions</td>
               </tr>
@@ -70,14 +79,17 @@ export const TransactionsDetail = () => {
                   <td>{trx?.username}</td>
                   <td>{trx?.membership_level}</td>
                   <td>{trx?.amount}</td>
+                  <td>{trx?.status}</td>
                   <td>{trx?.date_transaction}</td>
                   <td className="d-flex gap-3">
-                    <button
-                      className="button-action"
-                      onClick={() => handleEditTrx(trx?._id)}
-                    >
-                      <i className="fa-solid fa-pen text-warning"></i>
-                    </button>
+                    <a href="transaction-edit">
+                      <button
+                        className="button-action"
+                        onClick={() => handleEditTrx(trx?._id)}
+                      >
+                        <i className="fa-solid fa-pen text-warning"></i>
+                      </button>
+                    </a>
 
                     <button
                       className="button-action"
