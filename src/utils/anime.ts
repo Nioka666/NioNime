@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance } from "axios";
-import { serverURL } from "./environment";
 
 // ROUTES URL
+export const serverURL = import.meta.env.VITE_SERVER_URL;
 const seasonalAnime =
   "/api/seasonal/anime?fields=[id,title,coverImage,genres,description]";
 const recentAnime = "/api/recent?type={type}&page={page}&perPage={perPage}";
