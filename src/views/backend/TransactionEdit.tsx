@@ -136,7 +136,7 @@ export const TransactionEdit = () => {
             </form>
             <section className="photo_evidence">
               <h3>Photo Evidence</h3>
-              <img src={`${photoEvidence}`} alt="Evidence" />;
+              <img src={`${photoEvidence}`} alt="Evidence" />
             </section>
           </div>
         </div>

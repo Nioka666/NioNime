@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchUserMembershipData } from "@utils/anime";
 import useSWR from "swr";
+import { AddButtonSM } from "./components/AddButton";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const Memberships = () => {
   const { data: trxData, error: errorTrxData } = useSWR(
     "fetchMembershipData",
@@ -12,13 +14,13 @@ export const Memberships = () => {
     console.log(errorTrxData);
   }
 
-  const handleDeleteTrx = (trxID: any) => {
-    console.log(trxID);
-  };
+  // const handleDeleteTrx = (trxID: any) => {
+  //   console.log(trxID);
+  // };
 
-  const handleEditTrx = (trxID: any) => {
-    console.log(trxID);
-  };
+  // const handleEditTrx = (trxID: any) => {
+  //   console.log(trxID);
+  // };
 
   return (
     <div
@@ -35,61 +37,38 @@ export const Memberships = () => {
               className="card-title text-gray"
               style={{ paddingLeft: "20px" }}
             >
-              Special title treatmentless our commits
+              Available Subscription Data of Memberships Options
             </h6>
-            <a
-              href="#"
-              className="btn fw-medium"
-              style={{
-                margin: "-20px 10px 0 0",
-                backgroundColor: "#d1b200",
-                borderRadius: "16px",
-              }}
-            >
-              <i className="fa-solid fa-plus me-2"></i>Add new
-            </a>
+            <AddButtonSM jumpTo="admin" />
           </div>
-          <hr />
-          <table
-            className="table table-dark bg-black table-borderless table-hover mt-3"
-            style={{ marginRight: "200px" }}
-          >
-            <thead className="p-2">
-              <tr>
-                <td>No</td>
-                <td>Membership Level</td>
-                <td>Price</td>
-                <td>Features</td>
-                <td>Actions</td>
-              </tr>
-            </thead>
-            <tbody className="p-4">
-              {trxData?.map((trx: any) => (
-                <tr key={trx._id}>
-                  <td>1</td>
-                  <td>{trx?.level}</td>
-                  <td>{trx?.prices}</td>
-                  <td>{trx?.features.join(", ")}</td>
-                  <td>{trx?.date_transaction}</td>
-                  <td className="d-flex gap-3">
-                    <button
-                      className="button-action"
-                      onClick={() => handleEditTrx(trx?._id)}
-                    >
-                      <i className="fa-solid fa-pen text-warning"></i>
-                    </button>
-
-                    <button
-                      className="button-action"
-                      onClick={() => handleDeleteTrx(trx?._id)}
-                    >
-                      <i className="fa-solid fa-trash text-danger"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {/* Membership */}
+          <div className="card-wrapper d-flex gap-4 mt-5 ms-3 mb-5">
+            {trxData?.map((trx: any) => (
+              <div
+                className="card text-white h-satus user-card"
+                style={{
+                  margin: "0",
+                  border: "none",
+                  padding: "20px 20px",
+                  width: "300px",
+                  backgroundColor: "#292a2b",
+                }}
+              >
+                <div className="card-header border-0 d-flex justify-content-between">
+                  <h4 className="text-lighs">{trx?.level.toUpperCase()} </h4>
+                  <i className="fa-solid fa-pen-to-square mt-1 text-gray fs-4"></i>
+                </div>
+                <div className="card-body text-lights">
+                  <h5>IDR {trx?.prices.toLocaleString("ID-id")}</h5>
+                  <ul className="list-unstyled text-gray">
+                    {trx?.features.map((feature: any) => (
+                      <li>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

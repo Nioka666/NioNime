@@ -8,12 +8,12 @@ export const Dashboard = () => {
       <style>
         {`
         body {
-          background-color: #323236;
+          background-color: #2c2c2f;
         }
       `}
       </style>
-      <AdminNav />
       <div className="container-fluid">
+        <AdminNav />
         <div className="row d-flex gap-1 flex-lg-nowrap">
           <Sidebar />
           <Outlet />

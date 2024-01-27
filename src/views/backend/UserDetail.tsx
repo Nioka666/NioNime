@@ -5,6 +5,7 @@ import { fetchAllUserData } from "@utils/anime";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
+import { AddButtonSM } from "./components/AddButton";
 
 export const UserDetails = () => {
   const navigate = useNavigate();
@@ -54,17 +55,7 @@ export const UserDetails = () => {
             >
               Special title treatmentless our commits
             </h6>
-            <a
-              href="#"
-              className="btn fw-medium"
-              style={{
-                margin: "-20px 10px 0 0",
-                backgroundColor: "#d1b200",
-                borderRadius: "16px",
-              }}
-            >
-              <i className="fa-solid fa-plus me-2"></i>Add new
-            </a>
+            <AddButtonSM jumpTo="admin" />
           </div>
           <hr />
           <table

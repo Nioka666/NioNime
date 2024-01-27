@@ -15,7 +15,7 @@ nav#nav {
 }
 
 div.sidebar-head {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 
 input.admin-nav-search {
@@ -51,7 +51,7 @@ div.wrapper-admin-container {
 
 /* style={{ marginLeft: "45px", borderRadius: "15px" }} */
 .user-card {
-  margin: 15px 15px 0 55px;
+  margin: 15px 15px 0 48px;
   border-radius: 15px;
 }
 
@@ -160,5 +160,7 @@ div.trx-edit .user-card {
   color: #d5d5d5;
   color: #d5d5d589;
   color: #585858;
-  color: #7070706b;
+  color: #212122;
+  color: #2c2c2f;
+  color: #cf0000;
 }
