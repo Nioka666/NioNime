@@ -5,9 +5,6 @@ import { CarouselHeader } from "@components/Carousels";
 import { Pricing } from "@components/Pricing";
 import { Loading } from "@views/components/Loading";
 import { useEffect, useState } from "react";
-// import { fetchUserData } from "@utils/anime";
-// import { useEffect, useState } from "react";
-// import useSWR from "swr";
 
 const Features = () => {
   return (

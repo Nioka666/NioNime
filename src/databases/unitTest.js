@@ -13,7 +13,7 @@ const data = async (watchId, epNumber, animeId) => {
             .replace("{epNumber}", epNumber)
             .replace("{animeId}", animeId));
         const dataBuffer = JSON.stringify(data);
-        writeFileSync("res.json", dataBuffer, "utf-8");
+        writeFileSync("./res/response.json", dataBuffer, "utf-8");
 
         console.log(greenBold("success writed"));
     } catch (err) {
