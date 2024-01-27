@@ -33,17 +33,22 @@ export const TrxProcess = () => {
       formData.append("file", file);
 
       try {
-        const response = await fetch("http://localhost:3000/upload", {
-          method: "POST",
-          body: formData,
-        });
-        if (response.ok) {
+        const response = await axios.post(
+          "http://localhost:3000/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        if (response.status === 200) {
           console.log("File uploaded successfully");
           window.location.href = "/transaction/waiting";
         } else {
           console.error("File upload failed");
         }
-        return response.ok;
       } catch (error) {
         console.error("Error during file upload", error);
       }
@@ -59,8 +64,11 @@ export const TrxProcess = () => {
         return;
       }
       const currentDate = new Date();
-      const formattedDate = currentDate.toISOString().replace(/[-T:.Z]/g, "");
-      const customFileName = `evidence_ss_${formattedDate}_${
+      const formattedDate = currentDate
+        .toISOString()
+        .slice(0, 10)
+        .replace(/\s+/g, "_");
+      const customFileName = `ss_evidence_${formattedDate}_${
         (file as unknown as { name?: string })?.name || ""
       }`;
 

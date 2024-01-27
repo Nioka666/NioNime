@@ -45,16 +45,24 @@ app.get('/', (req, res) => {
 });
 
 const storage = multer.diskStorage({
-    destination: function (req, file, callBack) {
-        callBack(null, "public/img/evidence");
+    destination: function (req, file, callback) {
+        callback(null, 'public/img/evidence');
+    },
+    filename: function (req, file, callback) {
+        const currentDate = new Date().toISOString().slice(0, 10); // Format tanggal: YYYY-MM-DD
+        const sanitizedFileName = file.originalname.replace(/\s+/g, '_'); // Ganti spasi dengan underscore
+        const generatedFileName = `ss_evidence_${currentDate}_${sanitizedFileName}`;
+
+        callback(null, generatedFileName);
     },
 });
 
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("file"), (req, res) => {
-    res.status(200).json({ message: "File uploaded successfully" });
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.status(200).json({ message: 'File uploaded successfully' });
 });
+
 
 app.get('/api/all-user', async (req, res) => {
     try {
@@ -353,6 +361,22 @@ app.post("/api/transaction-detail", async (req, res) => {
     }
 });
 
+app.get("/api/transaction-find/:trxID", async (req, res) => {
+    const trxID = req.params.trxID;
+
+    try {
+        const resp = await TransactionsModel.findOne({ _id: trxID });
+        if (resp) {
+            res.status(200).json(resp);
+        } else {
+            res.status(404).json({ message: 'Transaction not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 app.get("/api/transaction-all", async (req, res) => {
     try {
         const resp = await TransactionsModel.find();
@@ -371,7 +395,7 @@ app.get("/api/transaction-all", async (req, res) => {
 app.post("/api/update/transaction-status", async (req, res) => {
     const { trxID, newTrxStatus } = req.body;
     try {
-        const trxUpdated = await TransactionsModel.findOneAndUpdate({ trxID },
+        const trxUpdated = await TransactionsModel.findOneAndUpdate({ _id: trxID },
             { status: newTrxStatus },
             { new: true }
         );

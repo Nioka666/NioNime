@@ -16,7 +16,7 @@ const gogoanimeStreamLink =
 const animeEpisodes = "/api/episodes/{id}";
 const statsUrl = "/api/stats";
 
-/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 
 const axiosInstance: AxiosInstance = axios.create({
   headers: {
@@ -216,6 +216,35 @@ export const fetchTrxData = async () => {
       withCredentials: true,
     });
     return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchTrxDetail = async (trxID: any) => {
+  try {
+    const response = await axios.get(
+      `${serverURL}/api/transaction-find/${trxID}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const UpdateTrxStatus = async (trxID: any, newTrxStatus: any) => {
+  try {
+    const res = await axios.post(
+      `${serverURL}/api/update/transaction-status`,
+      { trxID, newTrxStatus },
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data;
   } catch (error) {
     console.log(error);
   }

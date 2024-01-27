@@ -14,6 +14,10 @@ nav#nav {
   color: white;
 }
 
+div.sidebar-head {
+  margin-top: 70px;
+}
+
 input.admin-nav-search {
   background-color: #2e2f32;
   height: 40px;
@@ -51,6 +55,11 @@ div.wrapper-admin-container {
   border-radius: 15px;
 }
 
+ul.nav-pills {
+  display: grid;
+  gap: 11px;
+}
+
 table.bdr {
   border-radius: 10px 10px 0 0;
   overflow: hidden;
@@ -63,6 +72,42 @@ table.bdr {
   background-color: #000000;
   color: #e1e1e1;
   padding: 20px;
+}
+
+/* TRX EDIT STYLE */
+div.trx-edit {
+  padding: 100px 0px;
+  margin: 0 -20px;
+  width: 80%;
+  height: 100vh;
+}
+
+div.trx-edit .card-header {
+  padding: 50px 0 0 45px;
+}
+
+div.trx-edit .card-body {
+  display: flex;
+  padding: 50px 0 45px 45px;
+  gap: 90px;
+}
+
+div.trx-edit .card-body form table tr td {
+  padding-top: 20px; /* Anda bisa sesuaikan nilai padding yang diinginkan */
+}
+
+div.trx-edit .card-body section.photo_evidence {
+  margin-top: -90px;
+}
+
+div.trx-edit .card-body section.photo_evidence img {
+  width: 250px;
+  height: auto;
+  border-radius: 20px;
+}
+
+div.trx-edit .user-card {
+  padding: 0px 0px 20px 0;
 }
 
 .mtop-60 {
@@ -86,7 +131,7 @@ table.bdr {
   color: #d7d7d7;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   color: #b8b8b8;
   /* font-weight: 600; */
 }
@@ -107,4 +152,13 @@ table.bdr {
 
 .fan-col:hover {
   transform: scale(1.03);
+}
+
+.palette {
+  color: #ba8b00;
+  color: #ba8b003d;
+  color: #d5d5d5;
+  color: #d5d5d589;
+  color: #585858;
+  color: #7070706b;
 }

@@ -4,15 +4,13 @@ import axios from "axios";
 import { useState } from "react";
 import { LoadingButton } from "../components/Loading";
 import useSWR from "swr";
-import { fetchUserData } from "@utils/anime";
+import { fetchUserData, serverURL } from "@utils/anime";
 import { useNavigate } from "react-router-dom";
 
 const ProfileDetails = (props: any) => {
   return (
     <>
-      <div className="container d-flex profile-detail">
-        {props.children}
-      </div>
+      <div className="container d-flex profile-detail">{props.children}</div>
     </>
   );
 };
@@ -21,7 +19,7 @@ const UserProfile = () => {
   const {
     data: userData,
     error: errorUserData,
-    isValidating: isLoadingUserData
+    isValidating: isLoadingUserData,
   } = useSWR("fetchUserData", () => fetchUserData(), {
     revalidateOnFocus: false,
   });
@@ -36,7 +34,7 @@ const UserProfile = () => {
     } else {
       return false;
     }
-  }
+  };
 
   const isLoggedIn = checkLoginStatus();
 
@@ -59,9 +57,7 @@ const UserProfile = () => {
               className="bd-placeholder-img rounded-circle"
               style={{ border: "0px solid black", cursor: "pointer" }}
             />
-            {isLoadingUserData && (
-              <h4 className="placeholder-glow"></h4>
-            )}
+            {isLoadingUserData && <h4 className="placeholder-glow"></h4>}
             {!isLoadingUserData && (
               <h4
                 className="profile-username"
@@ -135,7 +131,7 @@ export const Account = () => {
           backgroundSize: "cover",
           // backgroundPosition: "0px",
           height: "260px",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       ></div>
       <UserProfile />
@@ -150,17 +146,17 @@ export const ChangePasswordForm = () => {
   const [newPassword, setNewPassword] = useState("");
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
 
-  const {
-    data: userData,
-    error: errorUserData,
-  } = useSWR("fetchUserData", () => fetchUserData(), {
-    revalidateOnFocus: false,
-  });
+  const { data: userData, error: errorUserData } = useSWR(
+    "fetchUserData",
+    () => fetchUserData(),
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   if (errorUserData) {
     console.error(errorUserData);
   }
-
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -171,7 +167,7 @@ export const ChangePasswordForm = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const response = await axios.post(
-        "http://localhost:3000/api/account/change-password",
+        `${serverURL}/api/account/change-password`,
         { username, password, newPassword },
         { withCredentials: true }
       );
@@ -238,7 +234,9 @@ export const ChangePasswordForm = () => {
 };
 
 export const UserInfo = () => {
-  return (<>
-    <h1>info</h1>
-  </>)
-}
+  return (
+    <>
+      <h1>info</h1>
+    </>
+  );
+};

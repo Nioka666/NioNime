@@ -4,13 +4,14 @@ import { BigAnimeCard } from "@components/BigAnimeCard";
 import { Carousels } from "@components/Carousels";
 import { TopSlider } from "@components/TopSlider";
 import { PremiumHero } from "@views/components/PremiumHero";
+import { TrendingAnime } from "@views/components/TrendingAnime";
 
 export const Home = () => {
   return (
     <>
       <Carousels />
       <TopSlider />
-      <AnimeSlider />
+      <TrendingAnime />
       <BigAnimeCard />
       <AnimeSlider />
       <PremiumHero />

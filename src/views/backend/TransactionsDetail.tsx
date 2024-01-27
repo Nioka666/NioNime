@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { fetchTransList } from "@utils/anime";
+import { fetchTransList, serverURL } from "@utils/anime";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
@@ -14,12 +15,25 @@ export const TransactionsDetail = () => {
     console.log(errorTrxData);
   }
 
-  const handleDeleteTrx = (trxID: any) => {
-    console.log(trxID);
+  const handleEditTrx = async (trxID: any) => {
+    navigate(`/admin/transaction-edit/${trxID}`);
   };
 
-  const handleEditTrx = (trxID: any) => {
-    console.log(trxID);
+  let no_asc = 1;
+
+  const handleDeleteTrx = async (trxID: any) => {
+    try {
+      const isDeleted = await axios.post(
+        `${serverURL}/api/transaction-delete`,
+        { trxID },
+        { withCredentials: true }
+      );
+      if (isDeleted.status === 200) {
+        console.log(`success deleted trx with id: ${trxID}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -59,7 +73,7 @@ export const TransactionsDetail = () => {
           <hr />
           <table
             className="table table-dark bg-black table-borderless table-hover mt-3"
-            style={{ marginRight: "200px" }}
+            style={{ marginRight: "200px", fontSize: "14px" }}
           >
             <thead className="p-2">
               <tr>
@@ -75,21 +89,19 @@ export const TransactionsDetail = () => {
             <tbody className="p-4">
               {trxData?.map((trx: any) => (
                 <tr key={trx._id}>
-                  <td>1</td>
+                  <td>{no_asc++}</td>
                   <td>{trx?.username}</td>
                   <td>{trx?.membership_level}</td>
                   <td>{trx?.amount}</td>
                   <td>{trx?.status}</td>
                   <td>{trx?.date_transaction}</td>
                   <td className="d-flex gap-3">
-                    <a href="transaction-edit">
-                      <button
-                        className="button-action"
-                        onClick={() => handleEditTrx(trx?._id)}
-                      >
-                        <i className="fa-solid fa-pen text-warning"></i>
-                      </button>
-                    </a>
+                    <button
+                      className="button-action"
+                      onClick={() => handleEditTrx(trx?._id)}
+                    >
+                      <i className="fa-solid fa-pen text-warning"></i>
+                    </button>
 
                     <button
                       className="button-action"

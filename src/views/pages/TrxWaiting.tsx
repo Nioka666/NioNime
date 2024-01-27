@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { useState, useEffect } from "react";
 import { fetchTrxData } from "@utils/anime";
 import axios from "axios";
 import logo from "../../../public/img/logo.png";
@@ -12,7 +12,7 @@ export const TrxWaiting = () => {
   const [isConfirm, setIsConfirm] = useState(false);
   const { data: trxDAT } = useSWR("fetchTrxDAT", () => fetchTrxData());
   const trxID = trxDAT?.[0]?.id;
-  const { data: trxList, isValidating: isListValidate } = useSWR(
+  const { data: trxList } = useSWR(
     trxID ? [`http://localhost:3000/api/trans/${trxID}`] : null,
     (url: any) =>
       axios.get(`${url}`, { withCredentials: true }).then((res) => res.data),
@@ -103,7 +103,9 @@ export const TrxWaiting = () => {
                     <label htmlFor="id">Membership Purchased:</label>
                   </td>
                   <td>
-                    <span className="fw-bold">{trxDetail?.membership_level}</span>
+                    <span className="fw-bold">
+                      {trxDetail?.membership_level}
+                    </span>
                   </td>
                 </tr>
                 <tr>

@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { fetchRecentAnime } from "@utils/anime";
 import { Loading } from "./Loading";
 import React from "react";
-import { Link } from "react-router-dom";
 import { ContentDummyLoad } from "./ContentDummyLoad";
 import DOMPurify from "dompurify";
 

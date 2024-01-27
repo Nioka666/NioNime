@@ -20,6 +20,11 @@ import { fetchAdminData } from "@utils/anime";
 import { TrxProcess } from "@views/pages/TrxProcess";
 import { TrxWaiting } from "@views/pages/TrxWaiting";
 import { TransactionEdit } from "@views/backend/TransactionEdit";
+import { TransactionsDetail } from "@views/backend/TransactionsDetail";
+import { CardsRow } from "@views/backend/components/CardsRow";
+import { Memberships } from "@views/backend/Memberships";
+import { UserDetails } from "@views/backend/UserDetail";
+import { Basic } from "@views/pages/Testt";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -62,6 +67,7 @@ export const App = () => {
               <Route path="watch/:animeId" element={<Watch />} />
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
+              <Route path="testt" element={<Basic />} />
               <Route path="transaction" element={<Transaction />} />
               <Route
                 path="transaction/process/:method"
@@ -107,8 +113,12 @@ export const App = () => {
                 element={<Dashboard />}
                 errorElement={<ErrorPage />}
               >
+                <Route path="dashboard" element={<CardsRow />} />
+                <Route path="transactions" element={<TransactionsDetail />} />
+                <Route path="users" element={<UserDetails />} />
+                <Route path="memberships" element={<Memberships />} />
                 <Route
-                  path="transaction-edit/*"
+                  path="transaction-edit/:trxID"
                   element={<TransactionEdit />}
                 />
               </Route>
