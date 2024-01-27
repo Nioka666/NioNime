@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface ToastProps {
   successMessage: string | boolean;
   typeToast: string;
 }
 
-export const BackendToast: React.FC<ToastProps> = ({ successMessage, typeToast }) => {
+export const BackendToast: React.FC<ToastProps> = ({
+  successMessage,
+  typeToast,
+}) => {
   useEffect(() => {
-    let toastId: string | number;
+    let toastId: string | number | any;
 
-    if (typeToast === 'success') {
+    if (typeToast === "success") {
       toastId = toast.success(`${successMessage}`);
     } else {
       toastId = toast.error(`Error when deleting user`);
@@ -18,7 +22,7 @@ export const BackendToast: React.FC<ToastProps> = ({ successMessage, typeToast }
 
     return () => {
       // Membersihkan toast saat komponen di-unmount
-      toast.dismiss(toastId);1
+      toast.dismiss(toastId);
     };
   }, [successMessage, typeToast]);
 

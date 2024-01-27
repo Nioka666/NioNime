@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// import { fetchUserMembershipData } from "@utils/anime";
+// import useSWR from "swr";
 import { CarouselHeader } from "@components/Carousels";
 import { Pricing } from "@components/Pricing";
-// import { fetchUserMembershipData } from "@utils/anime";
+import { Loading } from "@views/components/Loading";
+import { useEffect, useState } from "react";
+// import { fetchUserData } from "@utils/anime";
+// import { useEffect, useState } from "react";
 // import useSWR from "swr";
 
 const Features = () => {
@@ -15,7 +20,6 @@ const Features = () => {
           backgroundColor: "#000000",
           zIndex: "1",
           padding: "0 92px",
-          // border: "2px solid white",
         }}
       >
         <div
@@ -71,9 +75,7 @@ const Features = () => {
                   <i className="fa-solid fa-fire p-3 text-black"></i>
                 </div>
                 <h4 className="fw-semibold mb-0 text-white">Updates</h4>
-                <p className="text-gray">
-                  Updates anime information everyday
-                </p>
+                <p className="text-gray">Updates anime information everyday</p>
               </div>
             </div>
           </div>
@@ -84,25 +86,28 @@ const Features = () => {
 };
 
 export const About = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <CarouselHeader>
         <div className="carousel-item active">
           <img src="./img/jjk0.jpg" className="d-block w-100 z-0" />
-          <div
-            className="carousel-overlay"
-            style={{
-              justifyContent: "center",
-              marginTop: "0px",
-              alignItems: "center",
-              zIndex: "1",
-            }}
-          >
+          <div className="carousel-overlay caro-about">
             <div className="inner-overlay" style={{ backdropFilter: "unset" }}>
-              <h1
-                className="display-3 fw-bold text-lights"
-                style={{ textAlign: "center", textShadow: "0 0 80px black" }}
-              >
+              <h1 className="display-3 fw-bold text-lights">
                 A Free Place <br /> Anime Stream Collections
               </h1>
 

@@ -15,7 +15,7 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a className="link-secondary text-decoration-none" href="#">
+                <a className="link-secondary text-decoration-none" href="/search">
                   Browse
                 </a>
               </li>
@@ -50,13 +50,8 @@ export const Footer = () => {
             <h5>Account</h5>
             <ul className="list-unstyled text-small">
               <li>
-                <a className="link-secondary text-decoration-none" href="#">
+                <a className="link-secondary text-decoration-none" href="/account">
                   My Profiles
-                </a>
-              </li>
-              <li>
-                <a className="link-secondary text-decoration-none" href="#">
-                  History
                 </a>
               </li>
               <li>
@@ -76,22 +71,12 @@ export const Footer = () => {
             <ul className="list-unstyled text-small">
               <li>
                 <a className="link-secondary text-decoration-none" href="#">
-                  Team
+                  Contact Developer
                 </a>
               </li>
               <li>
                 <a className="link-secondary text-decoration-none" href="#">
-                  Locations
-                </a>
-              </li>
-              <li>
-                <a className="link-secondary text-decoration-none" href="#">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a className="link-secondary text-decoration-none" href="#">
-                  Terms
+                  Our Social Media
                 </a>
               </li>
             </ul>

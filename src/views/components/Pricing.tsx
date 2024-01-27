@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fetchUserMembershipData } from "@utils/anime";
+import {
+  fetchUserData,
+  fetchUserMembershipData,
+  serverURL,
+} from "@utils/anime";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 
@@ -24,6 +30,22 @@ const PricingHeader = () => {
 };
 
 export const Pricing = () => {
+  const { data: userData } = useSWR("fetchUserData", () => fetchUserData());
+  const userID = userData?.id;
+  const currentUserID = userData?.id;
+  const { data: userDetail } = useSWR(
+    userID ? ["userDetails", userID] : null,
+    () =>
+      axios
+        .post(
+          `${serverURL}/api/user-details`,
+          { userID },
+          { withCredentials: true }
+        )
+        .then((response) => response.data)
+  );
+
+  const [isNobleFan, setNobleFan] = useState(false);
   const { data: membershipList, error: errorMembershipList } = useSWR(
     "fetchMembershipList",
     () => fetchUserMembershipData(),
@@ -32,16 +54,42 @@ export const Pricing = () => {
     }
   );
 
+  useEffect(() => {
+    setNobleFan(userDetail?.membership_level === "Noble Fans");
+  }, [userDetail]);
+
   if (errorMembershipList) {
     console.log(errorMembershipList);
   }
 
-  // const handleClick = (level: any) => {
-  //   console.log(`Button ${level} clicked`);
-  //   navigate(`/transaction/${level}`);
-  // };
+  const isLoggedIn = (() => {
+    if (userData) {
+      return true;
+    }
+  })();
 
-  // console.log(membershipList?.[0].prices);
+  const { data: currentTrx } = useSWR(
+    currentUserID ? ["currentTrx", currentUserID] : null,
+    () =>
+      axios
+        .post(
+          `${serverURL}/api/user-transaction-find`,
+          { currentUserID },
+          { withCredentials: true }
+        )
+        .then((response) => response.data)
+  );
+
+  const checkAvailableTrx = (() => {
+    if (currentTrx) {
+      return true;
+    } else {
+      return false;
+    }
+  })();
+
+  const isAvailableTrx = checkAvailableTrx;
+
   return (
     <>
       <div className="container mt-5">
@@ -49,7 +97,7 @@ export const Pricing = () => {
         <main>
           <div
             className="row row-cols-1 row-cols-md-3 d-flex mb-3 text-center mt-4"
-            style={{ justifyContent: "center" }}
+            style={{ justifyContent: "center", gap: "10px" }}
           >
             <div className="col fan-col">
               <div className="card mb-4 rounded-0 shadow-sm bg-gray-blue text-white h-90">
@@ -66,14 +114,25 @@ export const Pricing = () => {
                     <li>{membershipList?.[0].features[2]}</li>
                     <li>{membershipList?.[0].features[3]}</li>
                   </ul>
-                  <Link to={"/auth/register"}>
+                  {isLoggedIn && (
                     <button
                       type="button"
                       className="w-100 btn btn-lg btn-outline-warning rounded-0 fw-medium border-2 btn-fan"
+                      disabled
                     >
-                      Start be a Fan !
+                      You're Registered
                     </button>
-                  </Link>
+                  )}
+                  {!isLoggedIn && (
+                    <Link to={"/auth/register"}>
+                      <button
+                        type="button"
+                        className="w-100 btn btn-lg btn-outline-warning rounded-0 fw-medium border-2 btn-fan"
+                      >
+                        Start be a Fan !
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -115,15 +174,39 @@ export const Pricing = () => {
                       {membershipList?.[1].features[5]}
                     </li>
                   </ul>
-                  <a href={`/transaction/`}>
+                  {isNobleFan && (
                     <button
                       type="button"
                       className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
                       value={membershipList?.[1].level}
+                      disabled
                     >
-                      Purchase
+                      Purchased
+                      <i className="fa-solid text-success fa-check ms-2"></i>
                     </button>
-                  </a>
+                  )}
+                  {!isNobleFan && !isAvailableTrx && (
+                    <a href={`/transaction/`}>
+                      <button
+                        type="button"
+                        className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
+                        value={membershipList?.[1].level}
+                      >
+                        Purchase
+                      </button>
+                    </a>
+                  )}
+                  {isAvailableTrx && (
+                    <a href={`/transaction/waiting`}>
+                      <button
+                        type="button"
+                        className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
+                        value={membershipList?.[1].level}
+                      >
+                        Purchase
+                      </button>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

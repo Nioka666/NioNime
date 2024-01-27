@@ -25,7 +25,12 @@ export const Memberships = () => {
   return (
     <div
       className="col-md-9"
-      style={{ padding: "100px 0px", margin: "0 -20px", width: "80%" }}
+      style={{
+        padding: "100px 0px",
+        margin: "0 -20px",
+        width: "80%",
+        cursor: "pointer",
+      }}
     >
       <div className="card bg-black text-white h-satus user-card">
         <div className="card-header" style={{ padding: "50px 0px 0px 45px" }}>

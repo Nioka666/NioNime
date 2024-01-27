@@ -51,7 +51,7 @@ export const findAndUpdate = async (modelDefined, key) => {
 export const findData = async (modelDefined, key) => {
     try {
         await Conn();
-        const res = await modelDefined.findOne({ username: key });
+        const res = await modelDefined.findOne({ users_id: key });
         console.log(res);
     } catch (error) {
         console.log(error);
@@ -77,7 +77,7 @@ const runOperation = async (operation, models, key, seeder) => {
 // await runOperation(findAndUpdate, UsersModel);
 // await runOperation(insertMany, AdminsModel, AdminsSeeder);
 // await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
-await runOperation(findData, TransactionsModel, "adhimNiokagi");
+await runOperation(findData, TransactionsModel, "65b4ba03c8ee3694d212fa61");
 
 
 await mongoose.connection.close();

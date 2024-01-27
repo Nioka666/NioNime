@@ -39,7 +39,7 @@ export const Sidebar = () => {
             <img src={logo} height="25px" />
           </a>
         </div>
-        <ul className="nav nav-pills flex-column mb-auto nav-padding mt-4">
+        <ul className="nav nav-pills flex-column mb-auto nav-padding mt-5">
           {menuItems.map((menuItem: any) => (
             <li key={menuItem.id} className="nav-item">
               <Link to={menuItem.id} className={`nav-link text-lights`}>

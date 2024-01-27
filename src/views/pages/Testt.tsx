@@ -4,20 +4,20 @@
 import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-const styleDiv: any = {
-  margin: "1%",
-};
+// const styleDiv: any = {
+//   margin: "1%",
+// };
 
-const style: any = {
-  width: 200,
-  height: 150,
-  border: "1px dotted #888",
-};
+// const style: any = {
+//   width: 200,
+//   height: 150,
+//   border: "1px dotted #888",
+// };
 
 export const Basic = () => {
   const [files, setFiles] = useState<(File & { preview: string })[]>([]);
   const [uploading, setUploading] = useState(false); // State untuk status pengunggahan
-  const [uploadLocation, setUploadLocation] = useState(""); // State untuk lokasi tujuan pengunggahan
+  // const [uploadLocation, setUploadLocation] = useState(""); // State untuk lokasi tujuan pengunggahan
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {

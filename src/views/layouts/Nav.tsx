@@ -76,10 +76,10 @@ const InnerNav = () => {
               <img
                 src={"../../img/gojj.jpg"}
                 alt=""
-                width="38"
-                height="38"
+                width="36"
+                height="36"
                 className="rounded-circle"
-                style={{ marginLeft: "-6px", marginTop: "0px" }}
+                style={{ marginLeft: "-6px", marginTop: "1.5px" }}
               />
             ) : (
               <i
@@ -156,7 +156,7 @@ export const Nav: React.FC = () => {
   const [navStyles, setNavStyles] = useState({
     backgroundColor: isDisabledPath ? "#000000a3" : "transparent",
     backdropFilter: isDisabledPath ? "blur(5px)" : "none",
-    height: isDisabledPath ? "70px" : "80px",
+    height: isDisabledPath ? "73px" : "90px",
   });
 
   useEffect(() => {
@@ -167,13 +167,13 @@ export const Nav: React.FC = () => {
         setNavStyles({
           backgroundColor: "#000000a3",
           backdropFilter: "blur(10px)",
-          height: "75px",
+          height: "73px",
         });
       } else if (currentPath !== "/account" && currentPath !== "/watch") {
         setNavStyles({
           backgroundColor: "transparent",
           backdropFilter: "none",
-          height: "83px",
+          height: "90px",
         });
       }
     };

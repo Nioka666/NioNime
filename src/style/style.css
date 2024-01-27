@@ -564,7 +564,7 @@ div.input-group input {
 }
 
 div.input-group button {
-  background-color: #393939;
+  background-color: #252525;
 }
 
 .search-page-wrapper {
@@ -578,7 +578,6 @@ input.search-bar {
   width: 800px;
   height: 65px;
   border-radius: 15px;
-  background-color: #343434;
   padding-left: 20px;
   font-size: 22px;
   color: #ededed;
@@ -595,7 +594,7 @@ button.search-btn {
   outline: none !important;
   border-radius: 15px;
   font-weight: bolder;
-  background-color: #caa800;
+  /* background-color: #caa800; */
 }
 
 .search-bar:active {
@@ -626,6 +625,19 @@ button.search-btn {
   margin: 85px 0 0 0;
   font-weight: 600;
   font-size: 100px;
+}
+
+/* ABOUT PAGE */
+.caro-about{
+  justify-content: center;
+  margin-top: 0px;
+  align-items: center;
+  z-index: 1;
+}
+
+.caro-about div.inner-overlay h1{
+  text-align: center;
+  text-shadow: 0 0 80px black;
 }
 
 /* Trx Form */

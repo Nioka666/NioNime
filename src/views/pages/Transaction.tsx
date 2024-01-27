@@ -1,13 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { fetchAllUserData, fetchUserMembershipData } from "@utils/anime";
+import {
+  fetchAllUserData,
+  fetchUserData,
+  fetchUserMembershipData,
+  serverURL,
+} from "@utils/anime";
 import useSWR from "swr";
 import gopayLogo from "../../../public/img/Gopay.svg";
 import danaLogo from "../../../public/img/Dana.svg";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Loading } from "@views/components/Loading";
 
 export const Transaction = () => {
+  const navigate = useNavigate();
   const { data: userData } = useSWR("fetchUserData", () => fetchAllUserData());
+  const { data: currentUserData } = useSWR("fetchUserData", () =>
+    fetchUserData()
+  );
   const { data: membershipData } = useSWR("fetchMembershipData", () =>
     fetchUserMembershipData()
   );
@@ -16,6 +28,15 @@ export const Transaction = () => {
   const [userID, setUserID] = useState("");
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (userData) {
@@ -25,9 +46,22 @@ export const Transaction = () => {
     }
   }, [userData]);
 
-  // const userID: string = userData?.id;
-  // const username: string = userData?.username;
-  // const userEmail: any = userData?.email;
+  const currentUserID: string = currentUserData?.id;
+  const { data: currentTrx } = useSWR(
+    currentUserID ? ["currentTrx", currentUserID] : null,
+    () =>
+      axios
+        .post(
+          `${serverURL}/api/user-transaction-find`,
+          { currentUserID },
+          { withCredentials: true }
+        )
+        .then((response) => response.data)
+  );
+
+  if (currentTrx) {
+    navigate("/transaction/waiting");
+  }
 
   const handlePaymentClick = (method: string) => {
     setActivePayment((prevMethod: string | null) =>
@@ -42,6 +76,10 @@ export const Transaction = () => {
   const membershipLevel = membershipData?.[1]?.level;
   const membershipPriceLocale =
     membershipData?.[1]?.prices.toLocaleString("id-ID");
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

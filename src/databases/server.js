@@ -13,7 +13,8 @@ const app = express();
 const port = 3000;
 
 const corsOptions = {
-    // origin: 'http://localhost:4173', 
+    // for production
+    // origin: 'http://localhost:4173',
     origin: 'http://localhost',
     credentials: true,
     optionSuccessStatus: 200
@@ -83,6 +84,21 @@ app.get('/api/user', async (req, res) => {
             res.status(200).json(req.session.user);
         } else {
             res.status(401).json({ message: 'Not authorized' });
+        }
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.post('/api/user-details', async (req, res) => {
+    const { userID } = req.body;
+    try {
+        const resp = await UsersModel.findOne({ _id: userID });
+        if (resp) {
+            res.status(200).json(resp);
+        } else {
+            res.status(401).json({ msg: `can't find user with id${userID}` })
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
@@ -368,6 +384,24 @@ app.get("/api/transaction-find/:trxID", async (req, res) => {
         const resp = await TransactionsModel.findOne({ _id: trxID });
         if (resp) {
             res.status(200).json(resp);
+        } else {
+            res.status(404).json({ message: 'Transaction not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+app.post("/api/user-transaction-find", async (req, res) => {
+    // const trxID = req.params.trxID;
+    // IMPORTANNTTTTT
+    const currentUserID = req.body.currentUserID;
+
+    try {
+        const response = await TransactionsModel.findOne({ users_id: `${currentUserID}` });
+        if (response) {
+            res.status(200).json(response);
         } else {
             res.status(404).json({ message: 'Transaction not found' });
         }

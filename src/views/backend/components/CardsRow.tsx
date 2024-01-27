@@ -32,15 +32,10 @@ export const CardsRow = () => {
     }
   }
 
-  const finalAnimeStats = () => {
-    if (!errorAnimeStats) {
-      return animeStats;
-    } else if (errorAnimeStats) {
-      return savedAnimeStats;
-    }
-  };
+  const labels = Object.keys(
+    errorAnimeStats ? savedAnimeStats || {} : animeStats || {}
+  ).slice(0, 3);
 
-  const labels = Object.keys(finalAnimeStats() || {}).slice(0, 3);
   const data = {
     labels: labels,
     datasets: [
@@ -99,13 +94,19 @@ export const CardsRow = () => {
             className="card-header text-start text-lights border-0"
             style={{ padding: "50px 0px 0px 43px" }}
           >
-            <h3 className="text-white">
-              Content data stats
-            </h3>
+            <h3 className="text-white">Content data stats</h3>
           </div>
-          <div className="card-body text-start" style={{ padding: "0 25px 25px 25px" }}>
+          <div
+            className="card-body text-start"
+            style={{ padding: "0 25px 25px 25px" }}
+          >
             <div className="d-flex justify-content-between p-3 text-lights">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium in asperiores ipsum recusandae officiis, dolores corrupti ullam exercitationem eveniet libero aut debitis ea. Eum consequatur voluptate numquam dolor ea maxime.</p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Praesentium in asperiores ipsum recusandae officiis, dolores
+                corrupti ullam exercitationem eveniet libero aut debitis ea. Eum
+                consequatur voluptate numquam dolor ea maxime.
+              </p>
             </div>
             <br />
           </div>

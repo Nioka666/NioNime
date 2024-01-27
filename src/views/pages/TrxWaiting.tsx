@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useSWR from "swr";
 import { useState, useEffect } from "react";
-import { fetchTrxData } from "@utils/anime";
+import { fetchTrxData, fetchUserData } from "@utils/anime";
 import axios from "axios";
 import logo from "../../../public/img/logo.png";
 import "../../style/print.css";
@@ -11,6 +11,8 @@ import "../../style/print.css";
 export const TrxWaiting = () => {
   const [isConfirm, setIsConfirm] = useState(false);
   const { data: trxDAT } = useSWR("fetchTrxDAT", () => fetchTrxData());
+  const { data: userData } = useSWR("fetchUserData", () => fetchUserData());
+  console.log(userData);
   const trxID = trxDAT?.[0]?.id;
   const { data: trxList } = useSWR(
     trxID ? [`http://localhost:3000/api/trans/${trxID}`] : null,

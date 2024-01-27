@@ -90,11 +90,6 @@ const UserProfile = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="/account/change-email" className="text-gray">
-                    Change Email
-                  </a>
-                </li>
-                <li>
                   <a href="/account/change-password" className="text-gray">
                     Change Password
                   </a>
@@ -105,6 +100,11 @@ const UserProfile = () => {
                 <li>
                   <a href="/account" className="text-gray">
                     Order History
+                  </a>
+                </li>
+                <li>
+                  <a href="/account" className="text-danger fw-semibold">
+                    Sign Out
                   </a>
                 </li>
               </ul>

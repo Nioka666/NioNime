@@ -28,7 +28,9 @@ export const Search = () => {
     setHoveredAnimeId(animeId);
   };
 
-  const handleSearchInputChange = (e: { target: { value: React.SetStateAction<string> }; }) => {
+  const handleSearchInputChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setSearchQuery(e.target.value);
   };
   const handleSearchButtonClick = async () => {
@@ -67,14 +69,21 @@ export const Search = () => {
               onChange={handleSearchInputChange}
               autoFocus
             />
-            <button className="search-btn" type="submit">
+            <button
+              className="search-btn anime-src-btn"
+              type="submit"
+              style={{ height: "65px" }}
+            >
               <i className="fa-solid fa-magnifying-glass fa-xl text-lights"></i>
             </button>
           </div>
         </form>
       </div>
       {/* Render search results here */}
-      <div className="slide-nime mt-5" style={{ height: "auto", marginBottom: "100px" }}>
+      <div
+        className="slide-nime mt-5"
+        style={{ height: "auto", marginBottom: "100px" }}
+      >
         <center>
           <div>
             <h3 style={{ marginTop: "-95px" }}>Search Result</h3>
@@ -86,11 +95,15 @@ export const Search = () => {
               {isLoadingSearch && <SearchLoading />}
               {!isLoadingSearch &&
                 searchResults?.map((result: any) => (
-                  <Link to={`http://localhost/anime-detail/${result.id}`} key={result.id}>
+                  <Link
+                    to={`http://localhost/anime-detail/${result.id}`}
+                    key={result.id}
+                  >
                     <div
                       key={result.id}
-                      className={`small-item ${hoveredAnimeId === result.id ? "hovered" : ""
-                        }`}
+                      className={`small-item ${
+                        hoveredAnimeId === result.id ? "hovered" : ""
+                      }`}
                       style={{ width: "180px" }}
                       data-result-id={result.id}
                       onMouseOver={() => handleMouseOver(result.id)}
@@ -119,14 +132,25 @@ export const Search = () => {
                               </p>
                               <br />
                             </strong>
-                            <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(result?.description) }}></p>
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(result?.description),
+                              }}
+                            ></p>
                           </div>
                         )}
                       </div>
 
                       <div className="result-title m-top-10">
-                        <h6 style={{ fontSize: "15px" }}>{result.title.romaji}</h6>
-                        <h6 className="text-gray" style={{ marginTop: "-15px", fontSize: "14px" }}>EP. {result.currentEpisode}</h6>
+                        <h6 style={{ fontSize: "15px" }}>
+                          {result.title.romaji}
+                        </h6>
+                        <h6
+                          className="text-gray"
+                          style={{ marginTop: "-15px", fontSize: "14px" }}
+                        >
+                          EP. {result.currentEpisode}
+                        </h6>
                       </div>
                     </div>
                   </Link>

@@ -1,17 +1,18 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 import { fetchAnimeDetail, fetchAnimeStreamLink } from "@utils/anime";
 import { RecommendSlide } from "@views/components/RecommendSlide";
 import { useParams } from "react-router-dom";
-import Player from 'video.js/dist/types/player';
+import Player from "video.js/dist/types/player";
 import useSWR from "swr";
-import DOMPurify from 'dompurify';
-import { VideoPlayer } from '@views/components/VideoPlayer';
-import { CommentInfo } from '@views/components/CommentInfo';
-import { ParagraphPlaceholder } from '@views/components/ParagraphPlaceholder';
-import EpisodesPagination from '@views/components/EpisodePagination';
+import DOMPurify from "dompurify";
+import { VideoPlayer } from "@views/components/VideoPlayer";
+import { CommentInfo } from "@views/components/CommentInfo";
+import { ParagraphPlaceholder } from "@views/components/ParagraphPlaceholder";
+import EpisodesPagination from "@views/components/EpisodePagination";
 
 export interface CustomVideoJsPlayerOptions {
   autoplay: boolean;
@@ -23,36 +24,38 @@ export interface CustomVideoJsPlayerOptions {
     type: string;
   }[];
 }
-interface WatchProps { }
+interface WatchProps {}
 
 export const Watch: React.FC<WatchProps> = () => {
   const { animeId } = useParams();
-  const [selectedEpisode, setSelectedEpisode] = useState(null);
+  const [selectedEpisode, setSelectedEpisode] = useState(null || "");
 
-  const {
-    data: animeWatchDetail,
-    isValidating: isLoadingAnimeWatchDetail,
-  } = useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId), {
-    revalidateOnFocus: false,
-  });
+  const { data: animeWatchDetail, isValidating: isLoadingAnimeWatchDetail } =
+    useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId), {
+      revalidateOnFocus: false,
+    });
 
   const episodeProvider = animeWatchDetail?.episodes.data;
   const providerIndex = episodeProvider?.findIndex(
-    (episode: any) => episode.providerId === 'gogoanime'
+    (episode: any) => episode.providerId === "gogoanime"
   );
 
-  const episodesStore = animeWatchDetail?.episodes.data[providerIndex]?.episodes;
+  const episodesStore =
+    animeWatchDetail?.episodes.data[providerIndex]?.episodes;
   const currentEpisode = episodesStore?.[0]?.number;
   const episodeTitle = episodesStore?.[0]?.title;
 
-  const watchID = animeWatchDetail?.episodes?.data[providerIndex]?.episodes[0]?.id;
+  const watchID =
+    animeWatchDetail?.episodes?.data[providerIndex]?.episodes[0]?.id;
   console.log(watchID);
 
-  const {
-    data: animeStreamLink,
-  } = useSWR("animeStreamLink", () => fetchAnimeStreamLink(watchID, currentEpisode, animeId), {
-    revalidateOnFocus: false,
-  });
+  const { data: animeStreamLink } = useSWR(
+    "animeStreamLink",
+    () => fetchAnimeStreamLink(watchID, currentEpisode, animeId),
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   const resultLink = animeStreamLink?.sources[3].url;
   console.log(animeStreamLink?.sources);
@@ -63,29 +66,36 @@ export const Watch: React.FC<WatchProps> = () => {
     controls: true,
     responsive: true,
     fluid: false,
-    sources: [{
-      src: resultLink,
-      type: 'application/x-mpegURL',
-    }],
+    sources: [
+      {
+        src: resultLink,
+        type: "application/x-mpegURL",
+      },
+    ],
   };
 
   const handlePlayerReady = (player: Player) => {
     playerRef.current = player;
 
-    player.on('waiting', () => {
-      console.log('player is waiting');
+    player.on("waiting", () => {
+      console.log("player is waiting");
     });
 
-    player.on('dispose', () => {
-      console.log('player will dispose');
+    player.on("dispose", () => {
+      console.log("player will dispose");
     });
   };
 
   const fetchEpisodeData = async (episodeId: any) => {
     // Fetch data episode baru berdasarkan episodeId
-    const watchID = animeWatchDetail?.episodes.data[providerIndex].episodes[episodeId].id;
+    const watchID =
+      animeWatchDetail?.episodes.data[providerIndex].episodes[episodeId].id;
     console.log(watchID);
-    const newEpisodeData = await fetchAnimeStreamLink(watchID, episodeId, animeId);
+    const newEpisodeData = await fetchAnimeStreamLink(
+      watchID,
+      episodeId,
+      animeId
+    );
     return newEpisodeData?.sources[3]?.url || null;
   };
 
@@ -98,24 +108,28 @@ export const Watch: React.FC<WatchProps> = () => {
 
     const newVideoJsOptions = {
       ...videoJsOptions,
-      sources: [{
-        src: newEpisodeSrc,
-        type: 'application/x-mpegURL',
-      }],
+      sources: [
+        {
+          src: newEpisodeSrc,
+          type: "application/x-mpegURL",
+        },
+      ],
     };
 
     if (playerRef.current) {
       playerRef.current.src(newVideoJsOptions.sources);
 
-      playerRef.current.one('waiting', () => {
-        console.log('player is waiting');
+      playerRef.current.one("waiting", () => {
+        console.log("player is waiting");
       });
 
-      playerRef.current.one('canplay', () => {
-        console.log('player can play');
+      playerRef.current.one("canplay", () => {
+        console.log("player can play");
       });
     }
   };
+
+  let selectedEP = selectedEpisode + 1;
 
   return (
     <>
@@ -128,20 +142,31 @@ export const Watch: React.FC<WatchProps> = () => {
         style={{ display: "flex", margin: "38px 70px", gap: "75px" }}
       >
         <section style={{ width: "690px" }}>
-          {isLoadingAnimeWatchDetail && (
-            <ParagraphPlaceholder />
-          )}
+          {isLoadingAnimeWatchDetail && <ParagraphPlaceholder />}
           {!isLoadingAnimeWatchDetail && (
             <>
               <div className="d-flex">
-                <h3 className="text-light" style={{ width: "3500px" }} key={animeWatchDetail?.title.romaji}>{animeWatchDetail?.title.romaji}</h3>
-                <i className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray" style={{ width: "70px" }}></i>
+                <h3
+                  className="text-light"
+                  style={{ width: "3500px" }}
+                  key={animeWatchDetail?.title.romaji}
+                >
+                  {animeWatchDetail?.title.romaji}
+                </h3>
+                <i
+                  className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray"
+                  style={{ width: "70px" }}
+                ></i>
               </div>
-              <h5 className="text-gray" key={episodeTitle}>EP {selectedEpisode + 1} - {animeWatchDetail?.title.native}</h5>
+              <h5 className="text-gray" key={episodeTitle}>
+                EP {selectedEP} - {animeWatchDetail?.title.native}
+              </h5>
               <h6
                 className="text-gray m-top-20"
                 style={{ lineHeight: "23px" }}
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(animeWatchDetail?.description) }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(animeWatchDetail?.description),
+                }}
               ></h6>
             </>
           )}
@@ -217,14 +242,15 @@ export const Watch: React.FC<WatchProps> = () => {
                   English
                 </td>
               </tr>
-
             </tbody>
           </table>
           <CommentInfo />
         </section>
-        <section style={{ width: '390px' }}>
+        <section style={{ width: "390px" }}>
           <EpisodesPagination
-            episodes={animeWatchDetail?.episodes.data[providerIndex]?.episodes || []}
+            episodes={
+              animeWatchDetail?.episodes.data[providerIndex]?.episodes || []
+            }
             onEpisodeClick={handleEpisodeClick}
             currentEpisodeIndex={selectedEpisode}
           />

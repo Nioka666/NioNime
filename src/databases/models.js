@@ -41,7 +41,7 @@ export const TransactionsModel = mongoose.model("Transactions", {
     username: String,
     membership_level: {
         type: String,
-        enum: ['Fan', 'Noble Fan']
+        enum: ['Fans', 'Noble Fans']
     },
     amount: Number,
     photo_evidence: String,
