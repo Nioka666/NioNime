@@ -25,7 +25,6 @@ export const TransactionEdit = () => {
   console.log(trxStatusUpdate);
 
   useEffect(() => {
-    // Set the default value of newStatus to the current status when trxDetail is available
     if (trxDetail?.status) {
       setNewStatus(trxDetail.status);
     }
@@ -35,8 +34,8 @@ export const TransactionEdit = () => {
     setNewStatus(event.target.value);
   };
 
-  const handleUpdateStatus = () => {
-    updateTrxStatus();
+  const handleUpdateStatus = (value: any) => {
+    updateTrxStatus(value);
   };
 
   if (!trxDetail) {
@@ -45,10 +44,22 @@ export const TransactionEdit = () => {
 
   return (
     <>
-      <div className="col-md-9 trx-edit h-auto">
+      <div
+        className="col-md-9 trx-edit h-auto"
+        style={{
+          padding: "90px 0px 50px 0",
+          margin: "0 0px",
+          width: "102%",
+          marginRight: "-200px",
+        }}
+      >
         <div className="card bg-black text-white h-satus user-card">
           <div className="card-header text-lights">
-            <h4 className="text-lighs">Transactions data</h4>
+            <h2 className="text-lighs">Transactions Details</h2>
+            <h5 className="text-gray mt-2">
+              All of customers transaction can be updated here
+            </h5>
+            <hr className="mt-4" />
           </div>
           <div className="card-body d-flex">
             <form>
@@ -82,21 +93,33 @@ export const TransactionEdit = () => {
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="status">Transaction Status:</label>
+                      <label htmlFor="status">Trx Status:</label>
                     </td>
                     <td>
                       <select
                         id="status"
                         value={newStatus}
                         onChange={handleStatusChange}
-                        className="form-control dark rounded"
+                        className="form-control bg-dark border-0 text-white"
+                        style={{
+                          padding: "12px 20px",
+                          borderRadius: "17px",
+                          cursor: "pointer",
+                        }}
                       >
                         <option value="" disabled>
                           Select Status
                         </option>
                         {["Unprocessed", "Process", "Success", "Failed"].map(
                           (status, index) => (
-                            <option key={index} value={status}>
+                            <option
+                              key={index}
+                              value={status}
+                              style={{
+                                fontSize: "17px",
+                                padding: "150px 15px",
+                              }}
+                            >
                               {status}
                             </option>
                           )
@@ -121,10 +144,10 @@ export const TransactionEdit = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2} style={{ paddingTop: "10px" }}>
+                    <td colSpan={2} style={{ paddingTop: "40px" }}>
                       <button
                         type="button"
-                        className="btn btn-primary"
+                        className="btn btn-warning fw-semibold"
                         onClick={handleUpdateStatus}
                       >
                         Update Status
@@ -135,8 +158,10 @@ export const TransactionEdit = () => {
               </table>
             </form>
             <section className="photo_evidence">
-              <h3>Photo Evidence</h3>
-              <img src={`${photoEvidence}`} alt="Evidence" />
+              <h4 className="text-gray mb-4" style={{ fontSize: "26px" }}>
+                Photo Evidence
+              </h4>
+              <img src={`${photoEvidence}`} alt="Evidence"/>
             </section>
           </div>
         </div>

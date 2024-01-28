@@ -25,6 +25,7 @@ import { CardsRow } from "@views/backend/components/CardsRow";
 import { Memberships } from "@views/backend/Memberships";
 import { UserDetails } from "@views/backend/UserDetail";
 import { Basic } from "@views/pages/Testt";
+import { AdminLoadings } from "@views/backend/components/AdminLoadings";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -58,7 +59,6 @@ export const App = () => {
             <Route
               path="/"
               element={<MainLayout />}
-              errorElement={<ErrorPage />}
             >
               <Route path="/" element={<Home />} />
               <Route path="account" element={<Account />} />
@@ -75,7 +75,7 @@ export const App = () => {
               />
               <Route path="transaction/waiting" element={<TrxWaiting />} />
               <Route
-                path="*"
+                path="/*"
                 element={<ErrorPage />}
                 errorElement={<ErrorPage />}
               />
@@ -96,13 +96,13 @@ export const App = () => {
                 <Route
                   path="admin-portals"
                   element={<AdminLoginForm />}
-                  errorElement={<ErrorPage />}
+                  errorElement={<AdminLoadings />}
                 />
               ) : (
                 <Route
                   path="admin-portals"
                   element={<Dashboard />}
-                  errorElement={<ErrorPage />}
+                  errorElement={<AdminLoadings />}
                 />
               )}
             </Route>
@@ -111,8 +111,9 @@ export const App = () => {
               <Route
                 path="/admin/*"
                 element={<Dashboard />}
-                errorElement={<ErrorPage />}
+                errorElement={<AdminLoadings />}
               >
+                <Route path="admin/" element={<CardsRow />} />
                 <Route path="dashboard" element={<CardsRow />} />
                 <Route path="transactions" element={<TransactionsDetail />} />
                 <Route path="users" element={<UserDetails />} />

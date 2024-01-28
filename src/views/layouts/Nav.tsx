@@ -89,7 +89,7 @@ const InnerNav = () => {
             )}
           </a>
           <ul
-            className="dropdown-menu dropdown-menu-dark bg-dark text-lights"
+            className="dropdown-menu dropdown-menu-dark text-lights"
             style={{ position: "absolute", top: "50px", right: "-10px" }}
           >
             {isUserLoggedIn && (

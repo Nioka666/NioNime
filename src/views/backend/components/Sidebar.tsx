@@ -8,7 +8,7 @@ export const Sidebar = () => {
     {
       id: "dashboard",
       label: "Dashboard",
-      icon: "fa-solid fa-house me-2 ",
+      icon: "fa-solid fa-gauge-high me-2 ",
     },
     { id: "users", label: "Users", icon: "fa-regular fa-address-book me-2" },
     {
@@ -31,18 +31,23 @@ export const Sidebar = () => {
           width: "260px",
           minHeight: "100vh",
           height: "auto",
+          position: "fixed",
           borderRadius: "0 20px 20px 0",
         }}
       >
-        <div className="sidebar-head text-center">
-          <a className="admin-navbar-brand" href="/">
+        <div className="sidebar-head text-center d-grid">
+          <a className="admin-navbar-brand" href="/admin/dashboard">
             <img src={logo} height="25px" />
           </a>
+          <span className="mt-2 text-gray fw-semibold" style={{ fontSize: "13px" }}>ADMIN DESK</span>
         </div>
         <ul className="nav nav-pills flex-column mb-auto nav-padding mt-5">
           {menuItems.map((menuItem: any) => (
             <li key={menuItem.id} className="nav-item">
-              <Link to={menuItem.id} className={`nav-link text-lights`}>
+              <Link
+                to={menuItem.id}
+                className={`nav-link nav-link-admin text-lights`}
+              >
                 <i className={`${menuItem.icon} fs-5 ms-3`}></i>{" "}
                 {menuItem.label}
               </Link>

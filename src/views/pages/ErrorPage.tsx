@@ -7,7 +7,7 @@ export const ErrorPage = () => {
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 2000);
 
     return () => clearTimeout(loadingTimer);
   }, []);

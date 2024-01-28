@@ -24,11 +24,12 @@ export const Memberships = () => {
 
   return (
     <div
-      className="col-md-9"
+      className="col-md-10"
       style={{
-        padding: "100px 0px",
-        margin: "0 -20px",
-        width: "80%",
+        padding: "90px 0px 50px 0",
+        margin: "0 0px",
+        width: "102%",
+        marginRight: "-200px",
         cursor: "pointer",
       }}
     >

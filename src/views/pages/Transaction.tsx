@@ -110,7 +110,7 @@ export const Transaction = () => {
             >
               <div
                 className="detail-option d-flex"
-                style={{ width: "100%", gap: "330px" }}
+                style={{ width: "100%", gap: "322px" }}
               >
                 <h5
                   className="text-lights fw-medium"

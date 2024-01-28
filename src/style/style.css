@@ -628,14 +628,14 @@ button.search-btn {
 }
 
 /* ABOUT PAGE */
-.caro-about{
+.caro-about {
   justify-content: center;
   margin-top: 0px;
   align-items: center;
   z-index: 1;
 }
 
-.caro-about div.inner-overlay h1{
+.caro-about div.inner-overlay h1 {
   text-align: center;
   text-shadow: 0 0 80px black;
 }
@@ -980,13 +980,19 @@ form.changePassword label {
 /* Watch Page */
 .ep-square {
   text-align: center;
-  background-color: #353535;
+  background-color: #323232;
   padding: 15px 10px;
   transition: 0.2s all ease-in-out;
 }
 
 .ep-square:hover {
+  border: none !important;
   background-color: #2d2d2d;
+}
+
+.ep-square:focus,
+.ep-square:active {
+  border: none !important;
 }
 
 /*  */

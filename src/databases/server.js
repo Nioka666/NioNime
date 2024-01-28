@@ -183,7 +183,7 @@ app.post('/api/register', async (req, res) => {
             username: username,
             email: email,
             password: password,
-            membership_level: "Fan",
+            membership_level: "Fans",
             date_joined: new Date()
         });
         if (newUser) {
@@ -279,10 +279,13 @@ app.post("/api/auth/admin-sign-in", async (req, res) => {
             req.session.admin = {
                 id: admin._id,
                 username: admin.username,
+                email: admin.email,
                 profile_url: admin.profile_url
             }
+            res.status(200).json({ message: 'admin was successfully logged in..' });
+        } else {
+            res.status(401).json({ message: 'admin was failed logged in..' });
         }
-        res.status(200).json({ message: 'admin was successfully logged in..' });
     } catch (error) {
         console.log(error);
     }

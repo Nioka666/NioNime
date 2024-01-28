@@ -22,7 +22,6 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
 
     useEffect(() => {
         setLoading(true);
-        // Simulasi loading, gantilah dengan logika sebenarnya saat mengambil data
         const timeout = setTimeout(() => {
             setLoading(false);
         }, 1000);
@@ -59,7 +58,7 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
             pageNumbers.push(
                 <button
                     key={i}
-                    className={`btn ep-square rounded-2 text-white ${isCurrent ? 'current' : ''} ${isActive ? 'active' : ''}`}
+                    className={`btn ep-square rounded-3 text-white ${isCurrent ? 'current' : ''} ${isActive ? 'active' : ''}`}
                     onClick={() => onEpisodeClick(indexOfFirstEpisode + i - 1)}
                     style={{
                         backgroundColor: isCurrent ? '#cf9700' : '',
@@ -83,7 +82,7 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({ episodes, onEpi
                 {!loading &&
                     currentEpisodes.map((episode, index) => (
                         <button
-                            className={`btn ep-square rounded-2 text-white ${index === currentEpisodeIndex ? 'current' : ''}`}
+                            className={`btn ep-square rounded-3 text-white ${index === currentEpisodeIndex ? 'current' : ''}`}
                             style={{
                                 cursor: 'pointer',
                                 width: '70px',

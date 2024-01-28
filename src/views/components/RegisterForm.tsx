@@ -11,7 +11,6 @@ export const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [phone_number, setPhoneNumber] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [isRegistered, setRegistered] = useState(false);

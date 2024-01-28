@@ -37,13 +37,13 @@ const InnerNav = () => {
     <>
       <ul
         className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold mt-1"
-        style={{ marginLeft: "700px", gap: "20px" }}
+        style={{ marginLeft: "80px" }}
       >
         <li className="nav-item">
           <form
             className="d-flex mt-3 mt-lg-0"
             role="search"
-            style={{ marginLeft: "-130px" }}
+            style={{ marginLeft: "-140px" }}
           >
             <div className="input-group" style={{ marginTop: "3.5px" }}>
               <input
@@ -52,10 +52,10 @@ const InnerNav = () => {
                 placeholder="Search"
                 aria-label="Search"
                 style={{
-                  borderRadius: "15px 0 0 15px",
+                  borderRadius: "14px 0 0 14px",
                   color: "white",
                   border: "none",
-                  backgroundColor: "#2e2f32",
+                  backgroundColor: "#232325",
                 }}
                 disabled
               />
@@ -63,8 +63,8 @@ const InnerNav = () => {
                 className="btn btn-secondary"
                 type="button"
                 style={{
-                  borderRadius: "0 15px 15px 0",
-                  backgroundColor: "#2e2f32",
+                  borderRadius: "0 14px 14px 0",
+                  backgroundColor: "#232325",
                   border: "none",
                 }}
               >
@@ -76,83 +76,82 @@ const InnerNav = () => {
             </div>
           </form>
         </li>
-        <li className="nav-item dropstart" style={{ marginTop: "-8px" }}>
-          <a
-            className="nav-link dropdown"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            style={{ marginTop: "1px" }}
-          >
-            {/* <i className="fa-solid fa-circle-user" style={{ fontSize: "32px", color: "gray" }}></i> */}
-            <img
-              src={avatarUrl}
-              alt=""
-              width="40"
-              height="40"
-              className="rounded-circle"
-            />
-          </a>
-          <ul
-            className="dropdown-menu dropdown-menu-dark bg-dark text-lights"
-            style={{ position: "absolute", top: "50px", right: "-10px" }}
-          >
-            {isLoggedIn && (
-              <>
-                <li>
+        <div className="ligroup d-flex gap-3" style={{ marginLeft: "600px" }}>
+          <li className="nav-item dropstart" style={{ marginTop: "-8px" }}>
+            <a
+              className="nav-link dropdown"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style={{ marginTop: "1px" }}
+            >
+              <i className="fa-solid fa-bell fs-4 mt-2"></i>
+            </a>
+          </li>
+          <li className="nav-item dropstart" style={{ marginTop: "-8px" }}>
+            <a
+              className="nav-link dropdown"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style={{ marginTop: "1px" }}
+            >
+              {/* <i className="fa-solid fa-circle-user" style={{ fontSize: "32px", color: "gray" }}></i> */}
+              <img
+                src={avatarUrl}
+                alt=""
+                width="40"
+                height="40"
+                className="rounded-circle"
+              />
+            </a>
+            <ul
+              className="dropdown-menu dropdown-menu-dark text-lights"
+              style={{ position: "absolute", top: "50px", right: "-10px" }}
+            >
+              {isLoggedIn && (
+                <>
+                  {/* <li>
                   <a className="dropdown-item text-lights" href="/account">
                     <i className="fa-solid fa-id-badge"></i>
                     <span className="ml-12" style={{ color: "#cecece" }}>
                       Profile
                     </span>
                   </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item text-lights"
-                    href="#"
-                    onClick={handleLogout}
-                  >
-                    <i
-                      className="fa-solid fa-arrow-right-to-bracket"
-                      style={{ transform: "rotate(180deg)", color: "#cf0000" }}
-                    ></i>
-                    <span
-                      className="ml-12 fw-semibold"
-                      style={{ color: "#cf0000" }}
+                </li> */}
+                  <li style={{ height: "70px", padding: "10px 0 0 0" }}>
+                    <span className="p-4">{adminData?.username}</span>
+                    <br />
+                    <span className="p-4 text-gray" style={{ fontSize: "13px" }}>{adminData?.email}</span>
+                  </li>
+                  <li className="ps-1">
+                    <a
+                      className="dropdown-item text-lights"
+                      href="#"
+                      onClick={handleLogout}
                     >
-                      Sign out
-                    </span>
-                  </a>
-                </li>
-              </>
-            )}
-            {!isLoggedIn && (
-              <>
-                <li>
-                  <a className="dropdown-item text-lights" href="/auth/login">
-                    <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>
-                      Sign in
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item text-lights"
-                    href="/auth/register"
-                  >
-                    <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>
-                      Sign up
-                    </span>
-                  </a>
-                </li>
-              </>
-            )}
-          </ul>
-        </li>
+                      <i
+                        className="fa-solid fa-arrow-right-to-bracket"
+                        style={{
+                          transform: "rotate(180deg)",
+                          color: "#cf0000",
+                        }}
+                      ></i>
+                      <span
+                        className="ml-12 fw-semibold"
+                        style={{ color: "#cf0000", fontSize: "15px" }}
+                      >
+                        Sign out
+                      </span>
+                    </a>
+                  </li>
+                </>
+              )}
+            </ul>
+          </li>
+        </div>
       </ul>
     </>
   );
@@ -166,7 +165,7 @@ export const AdminNav: React.FC = () => {
         className="navbar navbar-expand-lg text-white"
         style={{
           width: "75%",
-          borderRadius: "15px",
+          borderRadius: "19px",
           padding: "0 15px 0 70px",
           position: "absolute",
           height: "75px",
