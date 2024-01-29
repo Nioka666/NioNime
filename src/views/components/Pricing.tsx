@@ -97,7 +97,7 @@ export const Pricing = () => {
 
   return (
     <>
-      <div className="container mt-5">
+      <div className="container mt-5" id="pricing">
         <PricingHeader />
         <main>
           <div
@@ -212,7 +212,7 @@ export const Pricing = () => {
                       </button>
                     </a>
                   )}
-                  {isAvailableTrx && (
+                  {isAvailableTrx && !isNobleFan && (
                     <a href={`/transaction/waiting`}>
                       <button
                         type="button"

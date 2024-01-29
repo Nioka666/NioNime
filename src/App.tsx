@@ -26,6 +26,10 @@ import { Memberships } from "@views/backend/Memberships";
 import { UserDetails } from "@views/backend/UserDetail";
 import { Basic } from "@views/pages/Testt";
 import { AdminLoadings } from "@views/backend/components/AdminLoadings";
+import { AlertConfirmDialog } from "@views/components/Modals";
+import path from "path";
+import { UserInfo } from "@views/pages/UserInfo";
+import { ChangePasswordForm } from "@views/pages/ChangePassword";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -56,18 +60,22 @@ export const App = () => {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route
-              path="/"
-              element={<MainLayout />}
-            >
+            <Route path="/" element={<MainLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="account" element={<Account />} />
+              <Route path="account/" element={<Account />}>
+                <Route path="user-info" element={<UserInfo />} />
+                <Route
+                  path="change-password"
+                  element={<ChangePasswordForm />}
+                />
+              </Route>
               <Route path="about" element={<About />} />
               <Route path="anime-detail/:animeId" element={<AnimeDetail />} />
               <Route path="watch/:animeId" element={<Watch />} />
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
-              <Route path="testt" element={<Basic />} />
+              <Route path="testt" element={<AlertConfirmDialog />} />
               <Route path="transaction" element={<Transaction />} />
               <Route
                 path="transaction/process/:method"

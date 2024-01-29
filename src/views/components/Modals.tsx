@@ -1,40 +1,48 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-export const LoginFailModal = ({ showModal, closeModal }: any) => {
-  const [displayStyle, setDisplayStyle] = useState("none");
+export const AlertConfirmDialog = ({ openDialog, handleCloseDialog }: any) => {
+  const [open, setOpen] = React.useState(false);
 
-  useEffect(() => {
-    setDisplayStyle(showModal ? "block" : "none");
-  }, [showModal]);
+  React.useEffect(() => {
+    setOpen(openDialog);
+  }, [openDialog]);
+
+  const handleClose = () => {
+    setOpen(false);
+    handleCloseDialog();
+  };
 
   return (
-    <div
-      className="modal fade show"
-      tabIndex={-1}
-      role="dialog"
-      style={{ display: displayStyle }}
-    >
-      <div className="modal-dialog modal-danger">
-        <div className="modal-content bg-danger">
-          <div className="modal-header">
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              onClick={closeModal}
-              style={{ border: "none", backgroundColor: "transparent" }}
-            >
-              <i className="fa-solid fa-xmark fa-lg text-black"></i>
-            </button>
-            {/* <h4 className="modal-title">Modal Header</h4> */}
-          </div>
-          <div className="modal-body text-black text-center">
-            <h1 className="p-4">Login Failed</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose} autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
   );
 };

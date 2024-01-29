@@ -16,7 +16,7 @@ export const CardsRow = () => {
     error: errorAnimeStats,
     isValidating: loadingAnimeStats,
   } = useSWR("fetchAnimeStats", () => fetchAnifyStats(), {
-    loadingTimeout: 5000, // Waktu maksimum dalam milidetik (5 detik)
+    loadingTimeout: 5000,
   });
 
   let savedAnimeStats: any = null;
@@ -36,10 +36,12 @@ export const CardsRow = () => {
       console.error("Error parsing stored animeStats:", error);
     }
   }
+  console.log(savedAnimeStats);
 
   const labels = Object.keys(
-    errorAnimeStats ? savedAnimeStats || {} : animeStats || {}
+    errorAnimeStats ? animeStats || {} : animeStats || {}
   ).slice(0, 3);
+  // Local storage
 
   const data = {
     labels: labels,
@@ -49,7 +51,7 @@ export const CardsRow = () => {
         data: labels.map((label) => animeStats[label]),
         backgroundColor: ["transparent", "transparent", "transparent"],
         borderColor: ["white", "#ba8b00dd", "gray"],
-        borderWidth: 2,
+        borderWidth: 3,
       },
     ],
   };

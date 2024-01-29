@@ -62,12 +62,13 @@ export const TransactionEdit = () => {
     navigate("/admin/transactions");
   };
 
-  const userID = trxDetail?.users_id;
+  const userID: string = trxDetail?.users_id;
+  const isNotNoble: string = "Fans";
   const checkIsValidNobleFans = () => {
     if (newStatus === "Success") {
       return trxDetail?.membership_level;
-    } else {
-      return false;
+    } else if (newStatus !== "Success") {
+      return isNotNoble;
     }
   };
 
@@ -99,7 +100,7 @@ export const TransactionEdit = () => {
           },
 
           success: {
-            duration: 5000,
+            duration: 2500,
           },
         }}
       />

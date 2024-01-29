@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { fetchUserMembershipData } from "@utils/anime";
 // import useSWR from "swr";
@@ -97,6 +98,13 @@ export const About = () => {
     return <Loading />;
   }
 
+  const handleScroll = (target: string) => {
+    const pricingElement = document.getElementById(target);
+    if (pricingElement) {
+      pricingElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <CarouselHeader>
@@ -113,6 +121,7 @@ export const About = () => {
                   id="btn-banner"
                   className="btn btn-lg"
                   type="button"
+                  onClick={() => handleScroll("pricing")}
                   style={{
                     borderRadius: "0px",
                     margin: "0 0 0 170px",

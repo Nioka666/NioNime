@@ -7,7 +7,7 @@ import React from "react";
 import { ContentDummyLoad } from "./ContentDummyLoad";
 import DOMPurify from "dompurify";
 
-export const AnimeSlider = () => {
+export const AnimeSlider = ({ page }: any) => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
     null
   );
@@ -20,7 +20,7 @@ export const AnimeSlider = () => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 2, 20), {
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", page, 20), {
     revalidateOnFocus: false,
   });
 
@@ -63,8 +63,9 @@ export const AnimeSlider = () => {
               <a href={`anime-detail/${anime.id}`} key={anime.id}>
                 <div
                   key={anime.id}
-                  className={`item ${hoveredAnimeId === anime.id ? "hovered" : ""
-                    }`}
+                  className={`item ${
+                    hoveredAnimeId === anime.id ? "hovered" : ""
+                  }`}
                   data-anime-id={anime.id}
                   onMouseOver={() => handleMouseOver(anime.id)}
                 >
@@ -79,16 +80,18 @@ export const AnimeSlider = () => {
                     {isLoadingRecentAnime && <Loading />}
                     {!isLoadingRecentAnime && hoveredAnimeId === anime.id && (
                       <div className="anime-detail">
-                        <h6 className="text-normal">
-                          {anime?.title.romaji}
-                        </h6>
+                        <h6 className="text-normal">{anime?.title.romaji}</h6>
                         <strong>
                           <p className="text-gray fw-bold">
                             Genres: {anime?.genres.slice(0, 2).join(", ")}
                           </p>
                           <br />
                         </strong>
-                        <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(anime?.description) }}></p>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(anime?.description),
+                          }}
+                        ></p>
                       </div>
                     )}
                   </div>

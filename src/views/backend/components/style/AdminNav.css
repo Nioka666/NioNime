@@ -48,7 +48,7 @@ nav#nav {
 .data-master-pagination {
   margin-top: 40px;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   gap: 15px;
 }
 

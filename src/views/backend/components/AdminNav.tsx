@@ -1,10 +1,13 @@
-import { fetchAdminData } from "@utils/anime";
+import { fetchAdminData, serverURL } from "@utils/anime";
+import { AlertConfirmDialog } from "@views/components/Modals";
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 const InnerNav = () => {
   const navigate = useNavigate();
+  const [isDialogOpen, setDialogOpen] = useState(false);
   const { data: adminData } = useSWR("fetchAdminData", () => fetchAdminData(), {
     revalidateOnFocus: false,
   });
@@ -21,8 +24,16 @@ const InnerNav = () => {
   const avatarUrl = "../../../../public/img/blacks.jpg";
 
   const handleLogout = async () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleConfirmLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/logout", null, {
+      await axios.post(`${serverURL}/api/logout`, null, {
         withCredentials: true,
       });
       console.log("Logout success");
@@ -30,11 +41,19 @@ const InnerNav = () => {
       window.location.reload();
     } catch (error) {
       console.error("Logout error:", error);
+    } finally {
+      // Close the dialog after handling logout
+      handleCloseDialog();
     }
   };
 
   return (
     <>
+      <AlertConfirmDialog
+        openDialog={isDialogOpen}
+        handleCloseDialog={handleCloseDialog}
+        handleConfirm={handleConfirmLogout}
+      />
       <ul
         className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold mt-1"
         style={{ marginLeft: "80px" }}
@@ -124,7 +143,12 @@ const InnerNav = () => {
                   <li style={{ height: "70px", padding: "10px 0 0 0" }}>
                     <span className="p-4">{adminData?.username}</span>
                     <br />
-                    <span className="p-4 text-gray" style={{ fontSize: "13px" }}>{adminData?.email}</span>
+                    <span
+                      className="p-4 text-gray"
+                      style={{ fontSize: "13px" }}
+                    >
+                      {adminData?.email}
+                    </span>
                   </li>
                   <li className="ps-1">
                     <a
