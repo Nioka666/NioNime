@@ -65,7 +65,7 @@ export const AdminLoginForm = () => {
     <>
       <div
         className="container-login d-grid"
-        style={{ gap: "80px", width: "70%", backgroundSize: "cover" }}
+        style={{ gap: "80px", width: "75%", backgroundSize: "cover" }}
       >
         <div className="login-banner">
           <figure style={{ position: "relative" }}>
@@ -96,7 +96,7 @@ export const AdminLoginForm = () => {
                   <tr>
                     <td>
                       <input
-                        type="text"
+                        type="email"
                         name="email"
                         placeholder="Enter Email"
                         autoFocus
@@ -126,7 +126,7 @@ export const AdminLoginForm = () => {
                           type="checkbox"
                           value="remember-me"
                           id="flexCheckDefault"
-                          style={{ backgroundColor: "black" }}
+                          style={{ backgroundColor: "black", cursor: "pointer", border: "2px solid gray" }}
                           checked={rememberMe}
                           onChange={handleCheckboxChange}
                         />

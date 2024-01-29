@@ -8,9 +8,12 @@ import cors from 'cors';
 import path from 'path';
 import session from 'express-session';
 import multer from "multer";
+import validator from 'validator';
+import bcrypt from "bcrypt"
 
 const app = express();
 const port = 3000;
+const saltRounds = 10;
 
 const corsOptions = {
     // for production
@@ -50,8 +53,8 @@ const storage = multer.diskStorage({
         callback(null, 'public/img/evidence');
     },
     filename: function (req, file, callback) {
-        const currentDate = new Date().toISOString().slice(0, 10); // Format tanggal: YYYY-MM-DD
-        const sanitizedFileName = file.originalname.replace(/\s+/g, '_'); // Ganti spasi dengan underscore
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const sanitizedFileName = file.originalname.replace(/\s+/g, '_');
         const generatedFileName = `ss_evidence_${currentDate}_${sanitizedFileName}`;
 
         callback(null, generatedFileName);
@@ -110,18 +113,23 @@ app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await UsersModel.findOne({ email, password });
+        const user = await UsersModel.findOne({ email });
 
         if (user) {
-            req.session.user = {
-                id: user._id,
-                username: user.username,
-                email: user.email,
-                password: user.password,
-                phone_number: user.phone_number,
-                membership_level: user.membership_level,
-            };
-            res.status(200).json({ message: 'Login successful' });
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            if (passwordMatch) {
+                req.session.user = {
+                    id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    phone_number: user.phone_number,
+                    membership_level: user.membership_level,
+                };
+                res.status(200).json({ message: 'Login successful' });
+            } else {
+                res.status(401).json({ message: 'Invalid username or password' });
+            }
         } else {
             res.status(401).json({ message: 'Invalid username or password' });
         }
@@ -161,40 +169,64 @@ app.post('/api/account/change-password', async (req, res) => {
     }
 });
 
-app.post("/api/membership-upgrade", async (req, res) => {
-    const { userId, membership_level, newLevel } = req.body;
+// NOTE
+app.post("/api/membership-update", async (req, res) => {
+    const userID = req.body.userID;
+    const isValidNobleFans = req.body.isValidNobleFans;
+
     try {
-        const userLevelChange = UsersModel.findOneAndUpdate({ _id: userId, membership_level: newLevel }, { new: true });
+        const userLevelChange = await UsersModel.findOneAndUpdate(
+            { _id: userID },
+            { membership_level: isValidNobleFans },
+            { new: true }
+        );
+
         if (userLevelChange) {
-            res.status(200).json(userLevelChange);
-            res.status(200).json({ message: 'Level successfully changed!' });
+            res.status(200).json({ message: 'Level successfully changed!', user: userLevelChange });
         } else {
-            res.status(200).json({ message: 'Level changed failed' });
+            res.status(404).json({ message: 'User not found or level change failed' });
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
+
 app.post('/api/register', async (req, res) => {
     const { username, email, password } = req.body;
+
+    if (!validator.isEmail(email)) {
+        return res.status(400).json({ message: 'Invalid email address' });
+    }
+
+    if (password.length < 8) {
+        return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+    }
+
     try {
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         const newUser = await UsersModel.insertMany({
             username: username,
             email: email,
-            password: password,
-            membership_level: "Fans",
-            date_joined: new Date()
+            password: hashedPassword,
+            membership_level: 'Fans',
+            date_joined: new Date(),
         });
+
         if (newUser) {
-            res.status(200).json({ message: 'Succesfully registered!' });
+            res.status(200).json({ message: 'Successfully registered!' });
         } else {
-            res.status(200).json({ message: 'Registered Failed' });
+            res.status(500).json({ message: 'Registration failed' });
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 app.get("/api/membership-list", async (req, res) => {
     try {

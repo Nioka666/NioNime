@@ -22,18 +22,18 @@ export const UsersModel = mongoose.model("Users", {
     date_joined: Date
 });
 
-export const AnimesModel = mongoose.model("Animes", {
-    id: ObjectID,
-    api_key: String,
-    title: String,
-    episodes: [Number],
-    image: String,
-    genres: [String],
-    description: String,
-    status: String,
-    type: String,
-    release_date: Date,
-});
+// export const AnimesModel = mongoose.model("Animes", {
+//     id: ObjectID,
+//     api_key: String,
+//     title: String,
+//     episodes: [Number],
+//     image: String,
+//     genres: [String],
+//     description: String,
+//     status: String,
+//     type: String,
+//     release_date: Date,
+// });
 
 export const TransactionsModel = mongoose.model("Transactions", {
     id: ObjectID,

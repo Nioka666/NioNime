@@ -46,6 +46,7 @@ nav {
   font-size: 16px;
   color: white;
   transition: 0.5s all ease-in-out;
+  border-radius: 0 0 25px 25px;
 }
 
 nav#nav {
@@ -703,6 +704,10 @@ button.btn-noblefan {
   border-radius: 10px;
 }
 
+.text-silver {
+  color: #b4b4b4;
+}
+
 button.payment-method {
   margin: 0 auto;
   border-radius: 15px;
@@ -849,16 +854,17 @@ button.payment-method:hover {
 
 .container-login .login-form input[type="text"],
 .container-login .login-form input[type="password"],
-.container-login .login-form input[type="number"] {
-  width: 390px;
-  height: 59px;
+.container-login .login-form input[type="number"],
+.container-login .login-form input[type="email"] {
+  width: 400px;
+  height: 63px;
   padding: 13px 13px 13px 17px;
   margin-top: 10px;
   background-color: #eff1f500;
   border: 2.5px solid #8080805d;
   color: #e0e0e0;
   border-radius: 12px;
-  font-size: 16.9px;
+  font-size: 17.9px;
 }
 
 button.btn-loginPage {

@@ -28,7 +28,7 @@ for (let i = 0; i < 50; i++) {
 const jsonData = JSON.stringify(data, null, 2);
 
 try {
-    fs.writeFileSync('dummyData.json', jsonData);
+    fs.writeFileSync('./res/dummyData.json', jsonData);
     console.log('Data berhasil ditulis ke dummyData.json');
 } catch (error) {
     console.error(`Terjadi kesalahan saat menulis file: ${error}`);

@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
-import { UpdateTrxStatus, fetchTrxDetail } from "@utils/anime";
+import { UpdateTrxStatus, fetchTrxDetail, serverURL } from "@utils/anime";
+import toast, { Toaster } from "react-hot-toast";
+import { Loading } from "@views/components/Loading";
+import axios from "axios";
 
 export const TransactionEdit = () => {
+  const navigate = useNavigate();
   const { trxID } = useParams();
   const { data: trxDetail } = useSWR(
     "fetchTrxDetail",
@@ -16,13 +20,37 @@ export const TransactionEdit = () => {
   const photoEvidence = `../../../public/img/evidence/${trxDetail?.photo_evidence}`;
 
   const [newStatus, setNewStatus] = useState(trxDetail?.status);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { data: trxStatusUpdate, mutate: updateTrxStatus } = useSWR(
-    ["updateTrxStatus", trxID, newStatus],
-    () => UpdateTrxStatus(trxID, newStatus)
-  );
+  const handleStatusChange = (event: any) => {
+    setNewStatus(event.target.value);
+  };
 
-  console.log(trxStatusUpdate);
+  const handleUpdateStatus = async () => {
+    try {
+      setIsSubmitting(true);
+      if (newStatus !== trxDetail?.status) {
+        await UpdateTrxStatus(trxID, newStatus);
+      }
+
+      await toast.promise(
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve("Successfully toasted!");
+          }, 500);
+        }),
+        {
+          loading: "Loading...",
+          success: "Successfully Updated!",
+          error: "Failed to Updated!",
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (trxDetail?.status) {
@@ -30,20 +58,51 @@ export const TransactionEdit = () => {
     }
   }, [trxDetail]);
 
-  const handleStatusChange = (event: any) => {
-    setNewStatus(event.target.value);
+  const handleCancel = async () => {
+    navigate("/admin/transactions");
   };
 
-  const handleUpdateStatus = (value: any) => {
-    updateTrxStatus(value);
+  const userID = trxDetail?.users_id;
+  const checkIsValidNobleFans = () => {
+    if (newStatus === "Success") {
+      return trxDetail?.membership_level;
+    } else {
+      return false;
+    }
   };
+
+  const isValidNobleFans = checkIsValidNobleFans();
+  const { data: memberStatusUpdate } = useSWR("updatingMemberStatus", () =>
+    axios
+      .post(
+        `${serverURL}/api/membership-update`,
+        { userID, isValidNobleFans },
+        { withCredentials: true }
+      )
+      .then((response) => response.data)
+  );
 
   if (!trxDetail) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          success: {
+            duration: 5000,
+          },
+        }}
+      />
       <div
         className="col-md-9 trx-edit h-auto"
         style={{
@@ -55,10 +114,10 @@ export const TransactionEdit = () => {
       >
         <div className="card bg-black text-white h-satus user-card">
           <div className="card-header text-lights">
-            <h2 className="text-lighs">Transactions Details</h2>
-            <h5 className="text-gray mt-2">
+            <h3 className="text-lighs">Transactions Details</h3>
+            <h6 className="text-gray mt-2">
               All of customers transaction can be updated here
-            </h5>
+            </h6>
             <hr className="mt-4" />
           </div>
           <div className="card-body d-flex">
@@ -144,13 +203,26 @@ export const TransactionEdit = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2} style={{ paddingTop: "40px" }}>
+                    <td colSpan={2} style={{ paddingTop: "50px" }}>
+                      <p className="text-gray fs-6 mb-4">
+                        * By changing Transaction status is impact to <br />
+                        users level for explicit
+                      </p>
                       <button
                         type="button"
-                        className="btn btn-warning fw-semibold"
+                        className="btn btn-warning fw-semibold fw-semibold btn-noblefan"
+                        style={{ width: "200px" }}
                         onClick={handleUpdateStatus}
+                        disabled={isSubmitting}
                       >
                         Update Status
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger fw-semibold w-25 fw-semibold btn-cancel ms-4"
+                        onClick={handleCancel}
+                      >
+                        Cancel
                       </button>
                     </td>
                   </tr>
@@ -158,10 +230,10 @@ export const TransactionEdit = () => {
               </table>
             </form>
             <section className="photo_evidence">
-              <h4 className="text-gray mb-4" style={{ fontSize: "26px" }}>
-                Photo Evidence
+              <h4 className="text-gray mb-3" style={{ fontSize: "26px" }}>
+                Photo Evidence :
               </h4>
-              <img src={`${photoEvidence}`} alt="Evidence"/>
+              <img src={`${photoEvidence}`} alt="Evidence" />
             </section>
           </div>
         </div>

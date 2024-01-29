@@ -65,8 +65,13 @@ export const Pricing = () => {
   const isLoggedIn = (() => {
     if (userData) {
       return true;
+    } else {
+      return false;
     }
   })();
+
+  // console.log(window.location.pathname);
+  console.log(isLoggedIn);
 
   const { data: currentTrx } = useSWR(
     currentUserID ? ["currentTrx", currentUserID] : null,
@@ -129,7 +134,7 @@ export const Pricing = () => {
                         type="button"
                         className="w-100 btn btn-lg btn-outline-warning rounded-0 fw-medium border-2 btn-fan"
                       >
-                        Start be a Fan !
+                        Start be a Fans !
                       </button>
                     </Link>
                   )}
@@ -185,8 +190,19 @@ export const Pricing = () => {
                       <i className="fa-solid text-success fa-check ms-2"></i>
                     </button>
                   )}
-                  {!isNobleFan && !isAvailableTrx && (
+                  {!isNobleFan && !isAvailableTrx && isLoggedIn && (
                     <a href={`/transaction/`}>
+                      <button
+                        type="button"
+                        className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
+                        value={membershipList?.[1].level}
+                      >
+                        Purchase
+                      </button>
+                    </a>
+                  )}
+                  {!isLoggedIn && (
+                    <a href={`/auth/login`}>
                       <button
                         type="button"
                         className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"

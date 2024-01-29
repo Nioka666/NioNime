@@ -57,7 +57,7 @@ export const Carousels: React.FC = () => {
           ></button>
         </div>
         {/* Items */}
-        <div className="carousel-item active">
+        <div className="carousel-item">
           <div className="hero-bg">
             <div className="hero-bg">
               <picture>
@@ -118,7 +118,10 @@ export const Carousels: React.FC = () => {
         <div className="carousel-item">
           <div className="hero-bg">
             <picture>
-              <source srcSet="./img/fate_ubw1.png" media="(min-width: 1920px)" />
+              <source
+                srcSet="./img/fate_ubw1.png"
+                media="(min-width: 1920px)"
+              />
               <source
                 srcSet="./img/fate_ubw1_potrait.png"
                 media="(max-width: 760px)"
@@ -173,7 +176,7 @@ export const Carousels: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="carousel-item">
+        <div className="carousel-item active">
           <div className="hero-bg">
             <picture>
               <source srcSet="./img/aiai.png" media="(min-width: 1920px)" />

@@ -15,7 +15,10 @@ export const CardsRow = () => {
     data: animeStats,
     error: errorAnimeStats,
     isValidating: loadingAnimeStats,
-  } = useSWR("fetchAnimeStats", () => fetchAnifyStats());
+  } = useSWR("fetchAnimeStats", () => fetchAnifyStats(), {
+    loadingTimeout: 5000, // Waktu maksimum dalam milidetik (5 detik)
+  });
+
   let savedAnimeStats: any = null;
   const storedAnimeStats = localStorage.getItem("animeStats");
 
@@ -26,7 +29,7 @@ export const CardsRow = () => {
     }
   }, [animeStats]);
 
-  if (storedAnimeStats) {
+  if (storedAnimeStats && !animeStats && !loadingAnimeStats) {
     try {
       savedAnimeStats = JSON.parse(storedAnimeStats);
     } catch (error) {

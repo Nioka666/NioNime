@@ -28,6 +28,17 @@ export const AnimeSlider = () => {
     console.error("Error fetching Recent anime data:", RecentAnimeError);
   }
 
+  let savedRecentAnime: any = null;
+  const storedTopAnime = localStorage.getItem("recentAnimeData");
+
+  if (storedTopAnime) {
+    try {
+      savedRecentAnime = JSON.parse(storedTopAnime);
+    } catch (error) {
+      console.error("Error parsing stored animeStats:", error);
+    }
+  }
+
   return (
     <>
       <div className="slide-nime m-top-30">

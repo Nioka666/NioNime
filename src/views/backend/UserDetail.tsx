@@ -112,7 +112,7 @@ export const UserDetails = () => {
             style={{ maxWidth: "100%", overflowX: "auto" }}
           >
             <table
-              className="table table-dark bg-black table-borderless table-hover mt-3"
+              className="table table-dark bg-black table-borderless table-hover mt-2"
               style={{ whiteSpace: "nowrap" }}
             >
               <thead className="p-2">
@@ -162,18 +162,17 @@ export const UserDetails = () => {
                 )}
               </tbody>
             </table>
-
-            <div className="pagination">
-              {Array.from({ length: totalPages }).map((_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={currentPage === index + 1 ? "active" : ""}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
+          </div>
+          <div className="data-master-pagination">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={currentPage === index + 1 ? "active" : ""}
+              >
+                {index + 1}
+              </button>
+            ))}
           </div>
         </div>
       </div>

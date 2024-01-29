@@ -53,14 +53,11 @@ export const Basic = () => {
       // Set status pengunggahan menjadi true
       setUploading(true);
 
-      // Lakukan pengunggahan ke lokasi tujuan (ganti dengan lokasi yang sesuai)
-      // Misalnya, Anda bisa menggunakan Firebase Storage atau server sendiri
       const response = await fetch("http://localhost/upload", {
         method: "POST",
         body: files[0], // Menggunakan file pertama sebagai contoh, sesuaikan sesuai kebutuhan
       });
 
-      // Setelah pengunggahan selesai, atur status pengunggahan menjadi false
       setUploading(false);
 
       // Handle respon dari server jika diperlukan
