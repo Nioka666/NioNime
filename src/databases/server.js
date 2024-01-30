@@ -67,7 +67,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.status(200).json({ message: 'File uploaded successfully' });
 });
 
-
+// gett all user
 app.get('/api/all-user', async (req, res) => {
     try {
         if (req.session && req.session.user) {
@@ -81,6 +81,7 @@ app.get('/api/all-user', async (req, res) => {
     }
 });
 
+// user session
 app.get('/api/user', async (req, res) => {
     try {
         if (req.session && req.session.user) {
@@ -95,13 +96,13 @@ app.get('/api/user', async (req, res) => {
 });
 
 app.post('/api/user-details', async (req, res) => {
-    const { userID } = req.body;
+    const { userIDs } = req.body;
     try {
-        const resp = await UsersModel.findOne({ _id: userID });
+        const resp = await UsersModel.findOne({ _id: userIDs });
         if (resp) {
             res.status(200).json(resp);
         } else {
-            res.status(401).json({ msg: `can't find user with id${userID}` })
+            res.status(401).json({ msg: `can't find user with id${userIDs}` })
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
@@ -169,6 +170,26 @@ app.post('/api/account/change-password', async (req, res) => {
     }
 });
 
+// change user details
+app.post('/api/account/change-detail', async (req, res) => {
+    const { userID, newUsername, newEmail, newPhoneNumber } = req.body;
+
+    try {
+        const updatedUser = await UsersModel.findOneAndUpdate(
+            { userID },
+            { username: newUsername, email: newEmail, phone_number: newPhoneNumber },
+            { new: true }
+        );
+        if (updatedUser) {
+            res.status(200).json({ message: 'User Information was successfully changed!' });
+        } else {
+            res.status(200).json({ message: 'User Information was failed to changed' });
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 // NOTE
 app.post("/api/membership-update", async (req, res) => {
     const userID = req.body.userID;
@@ -227,13 +248,24 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-
+// get all membership
 app.get("/api/membership-list", async (req, res) => {
     try {
         const membershipList = await MembershipsModel.find();
         res.status(200).json(membershipList);
     } catch (error) {
-        // Mengirimkan respons ke klien jika terjadi kesalahan
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// get membership by user ID
+app.get("/api/membership-find", async (req, res) => {
+    const { userID } = req.body;
+    try {
+        const membershipList = await MembershipsModel.findOne({ _id: userID });
+        res.status(200).json(membershipList);
+    } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
@@ -266,21 +298,20 @@ app.get("/api/trans/:trxID", async (req, res) => {
 });
 
 app.post('/api/account/user-edit', async (req, res) => {
-    const { username, newUsername, newEmail, newPhoneNumber } = req.body;
+    const { userID, newUsername, newEmail} = req.body;
     try {
         const newUserInfo = await UsersModel.findOneAndUpdate(
-            { username },
+            { userID },
             {
                 username: newUsername,
                 email: newEmail,
-                phone_number: newPhoneNumber
             },
             { new: true }
         );
         if (newUserInfo) {
-            res.status(200).json({ message: 'Password successfully changed!' });
+            res.status(200).json({ message: 'User successfully changed!' });
         } else {
-            res.status(200).json({ message: 'Password changed failed' });
+            res.status(200).json({ message: 'User changed failed' });
         }
     } catch (err) {
         res.status(500).json({ message: 'Internal server error' });

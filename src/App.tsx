@@ -65,6 +65,7 @@ export const App = () => {
               <Route path="account" element={<Account />} />
               <Route path="account/" element={<Account />}>
                 <Route path="user-info" element={<UserInfo />} />
+                <Route path="membership-info" element={<UserInfo />} />
                 <Route
                   path="change-password"
                   element={<ChangePasswordForm />}

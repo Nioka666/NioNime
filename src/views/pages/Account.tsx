@@ -4,7 +4,8 @@ import useSWR from "swr";
 import { fetchUserData } from "@utils/anime";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import avatar from "../../img/gojj.jpg";
-import { ChangePasswordForm } from "./ChangePassword";
+import bgBanner from "../../../public/img/dark_war.jpg";
+// import { ChangePasswordForm } from "./ChangePassword";
 
 const ProfileDetails = (props: any) => {
   return (
@@ -46,7 +47,7 @@ const UserProfile = () => {
       id: "user-info",
       label: "Your Info",
     },
-    { id: "membership_info", label: "Membership Info" },
+    { id: "membership-info", label: "Membership Info" },
     {
       id: "change-password",
       label: "Change Password",
@@ -90,7 +91,7 @@ const UserProfile = () => {
               <h5 className="mt-5 text-white">General</h5>
               <ul className="list-group text-gray list-unstyled">
                 {menuItems.map((menu: any) => (
-                  <Link to={menu.id} className="text-gray">
+                  <Link to={menu.id} key={menu.id} className="text-gray">
                     <li key={menu.id}>{menu.label}</li>
                   </Link>
                 ))}
@@ -109,10 +110,8 @@ const UserProfile = () => {
                 </li>
               </ul>
             </div>
-            {/* Inner Option */}
             <div className="inner-option text-center mt-5">
               <Outlet />
-              {/* <ChangePasswordForm /> */}
             </div>
           </ProfileDetails>
         </div>
@@ -128,13 +127,14 @@ export const Account = () => {
         className="p-5 text-center bg-black"
         style={{
           // marginTop: "88px",
-          backgroundImage: "url(./img/dark_war.jpg)",
+          backgroundImage: "url(../../../public/img/dark_war.jpg)",
           backgroundSize: "cover",
           // backgroundPosition: "0px",
           height: "260px",
           cursor: "pointer",
         }}
       ></div>
+      {/* <img src={bgBanner} alt="" /> */}
       <UserProfile />
     </>
   );

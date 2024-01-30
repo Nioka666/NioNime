@@ -128,9 +128,9 @@ export const RegisterForm = () => {
                   className="text-silver fw-medium mt-1"
                   style={{ fontSize: "18px" }}
                 >
-                  Lorem ipsum dolor sit amet consectet.
+                  To be a Part of Us and Exploring Further
                   <br />
-                  for exploring further
+                  Please sign up first
                 </p>
               </blockquote>
             </div>

@@ -47,7 +47,7 @@ export const AnimeSlider = ({ page }: any) => {
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
-          {isLoadingRecentAnime && <Loading /> && (
+          {!isLoadingRecentAnime && <Loading /> && (
             <>
               <ContentDummyLoad />
               <ContentDummyLoad />
@@ -58,51 +58,50 @@ export const AnimeSlider = ({ page }: any) => {
               <ContentDummyLoad />
             </>
           )}
-          {!isLoadingRecentAnime &&
-            animeData?.map((anime: any) => (
-              <a href={`anime-detail/${anime.id}`} key={anime.id}>
-                <div
-                  key={anime.id}
-                  className={`item ${
-                    hoveredAnimeId === anime.id ? "hovered" : ""
-                  }`}
-                  data-anime-id={anime.id}
-                  onMouseOver={() => handleMouseOver(anime.id)}
-                >
-                  <img
-                    src={anime.coverImage}
-                    className="card-img-top"
-                    alt={anime.title.romaji}
-                  />
+          {savedRecentAnime?.map((anime: any) => (
+            <a href={`anime-detail/${anime.id}`} key={anime.id}>
+              <div
+                key={anime.id}
+                className={`item ${
+                  hoveredAnimeId === anime.id ? "hovered" : ""
+                }`}
+                data-anime-id={anime.id}
+                onMouseOver={() => handleMouseOver(anime.id)}
+              >
+                <img
+                  src={anime.coverImage}
+                  className="card-img-top"
+                  alt={anime.title.romaji}
+                />
 
-                  {/* Overlay */}
-                  <div className="overlay">
-                    {isLoadingRecentAnime && <Loading />}
-                    {!isLoadingRecentAnime && hoveredAnimeId === anime.id && (
-                      <div className="anime-detail">
-                        <h6 className="text-normal">{anime?.title.romaji}</h6>
-                        <strong>
-                          <p className="text-gray fw-bold">
-                            Genres: {anime?.genres.slice(0, 2).join(", ")}
-                          </p>
-                          <br />
-                        </strong>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(anime?.description),
-                          }}
-                        ></p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="anime-title">
-                    <h6>{anime.title.romaji}</h6>
-                    <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
-                  </div>
+                {/* Overlay */}
+                <div className="overlay">
+                  {isLoadingRecentAnime && <Loading />}
+                  {!isLoadingRecentAnime && hoveredAnimeId === anime.id && (
+                    <div className="anime-detail">
+                      <h6 className="text-normal">{anime?.title.romaji}</h6>
+                      <strong>
+                        <p className="text-gray fw-bold">
+                          Genres: {anime?.genres.slice(0, 2).join(", ")}
+                        </p>
+                        <br />
+                      </strong>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(anime?.description),
+                        }}
+                      ></p>
+                    </div>
+                  )}
                 </div>
-              </a>
-            ))}
+
+                <div className="anime-title">
+                  <h6>{anime.title.romaji}</h6>
+                  <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </>

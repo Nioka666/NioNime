@@ -50,7 +50,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/account");
+      navigate("/account/user-info");
       window.location.reload();
     }
   }, [isLoggedIn, navigate]);
@@ -209,9 +209,9 @@ export const LoginForm = () => {
                   className="text-silver fw-medium mt-1"
                   style={{ fontSize: "18px" }}
                 >
-                  Lorem ipsum dolor sit amet consectet.
+                  For begin the all, an exploring further inside NioNime
                   <br />
-                  for exploring further
+                  please sign in first
                 </p>
               </blockquote>
             </div>

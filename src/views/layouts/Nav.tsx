@@ -169,7 +169,13 @@ export const Nav: React.FC = () => {
           backdropFilter: "blur(10px)",
           height: "73px",
         });
-      } else if (currentPath !== "/account" && currentPath !== "/watch") {
+      } else if (
+        currentPath !== "/account" &&
+        currentPath !== "/account/user-info" &&
+        currentPath !== "/account/change-password" &&
+        currentPath !== "/account/membership-info" &&
+        currentPath !== "/watch"
+      ) {
         setNavStyles({
           backgroundColor: "transparent",
           backdropFilter: "none",
