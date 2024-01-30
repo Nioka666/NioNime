@@ -1,4 +1,4 @@
-import { fetchUserData } from "@utils/anime";
+import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,17 +6,9 @@ import useSWR from "swr";
 
 const InnerNav = () => {
   const navigate = useNavigate();
-  const { data: userData, error: errorUserData } = useSWR(
-    "fetchUserData",
-    () => fetchUserData(),
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
-  if (errorUserData) {
-    console.error(errorUserData);
-  }
+  const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
+    revalidateOnFocus: false,
+  });
 
   const checkLoginStatus = () => {
     if (userData?.username) {
@@ -27,11 +19,10 @@ const InnerNav = () => {
   };
 
   const isUserLoggedIn = checkLoginStatus();
-  // console.log(`status: ${isUserLoggedIn}`);
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/logout", null, {
+      await axios.post(`${serverURL}/api/logout`, null, {
         withCredentials: true,
       });
       console.log("Logout success");
@@ -174,7 +165,8 @@ export const Nav: React.FC = () => {
         currentPath !== "/account/user-info" &&
         currentPath !== "/account/change-password" &&
         currentPath !== "/account/membership-info" &&
-        currentPath !== "/watch"
+        currentPath !== "/watch" &&
+        currentPath !== "/account/order-history"
       ) {
         setNavStyles({
           backgroundColor: "transparent",

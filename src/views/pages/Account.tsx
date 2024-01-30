@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useSWR from "swr";
-import { fetchUserData } from "@utils/anime";
+import { fetchUserData, serverURL } from "@utils/anime";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import avatar from "../../img/gojj.jpg";
-import bgBanner from "../../../public/img/dark_war.jpg";
+import axios from "axios";
 // import { ChangePasswordForm } from "./ChangePassword";
 
 const ProfileDetails = (props: any) => {
@@ -16,17 +16,13 @@ const ProfileDetails = (props: any) => {
 };
 
 const UserProfile = () => {
-  const {
-    data: userData,
-    error: errorUserData,
-    isValidating: isLoadingUserData,
-  } = useSWR("fetchUserData", () => fetchUserData(), {
-    revalidateOnFocus: false,
-  });
-
-  if (errorUserData) {
-    console.error(errorUserData);
-  }
+  const { data: userData, isValidating: isLoadingUserData } = useSWR(
+    "fetchUserData",
+    () => fetchUserData(),
+    {
+      revalidateOnFocus: false,
+    }
+  );
   const navigate = useNavigate();
   const checkLoginStatus = () => {
     if (userData?.username) {
@@ -52,11 +48,30 @@ const UserProfile = () => {
       id: "change-password",
       label: "Change Password",
     },
-    // {
-    //   id: "order_history",
-    //   label: "Order History",
-    // },
   ];
+
+  const bottomMenuItem: any = [
+    {
+      id: "order-history",
+      label: "Order History",
+    },
+    {
+      id: "so",
+    },
+  ];
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${serverURL}/api/logout`, null, {
+        withCredentials: true,
+      });
+      console.log("Logout success");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <>
@@ -99,12 +114,12 @@ const UserProfile = () => {
               <h5 className="mt-5 text-white">Purchase & Credit</h5>
               <ul className="list-group text-gray list-unstyled">
                 <li>
-                  <a href="/account" className="text-gray">
-                    Order History
-                  </a>
+                  <Link to={bottomMenuItem[0].id} className="text-gray">
+                    {bottomMenuItem[0].label}
+                  </Link>
                 </li>
                 <li>
-                  <a href="/account" className="text-danger fw-semibold">
+                  <a className="text-danger fw-semibold" onClick={handleLogout}>
                     Sign Out
                   </a>
                 </li>
@@ -127,14 +142,13 @@ export const Account = () => {
         className="p-5 text-center bg-black"
         style={{
           // marginTop: "88px",
+          // backgroundPosition: "0px",
           backgroundImage: "url(../../../public/img/dark_war.jpg)",
           backgroundSize: "cover",
-          // backgroundPosition: "0px",
           height: "260px",
           cursor: "pointer",
         }}
       ></div>
-      {/* <img src={bgBanner} alt="" /> */}
       <UserProfile />
     </>
   );

@@ -1,3 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const formattedDate = new Date(); // Anda dapat menggantinya dengan nilai tanggal yang ingin Anda set
+const day = formattedDate.getDate().toString().padStart(2, '0');
+const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0'); // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+const year = formattedDate.getFullYear();
+
+const formattedDateString = `${day}/${month}/${year}`;
+
 export const AdminsSeeder = [
     {
         username: "Adhim",
@@ -174,11 +182,11 @@ export const TransactionsSeeder = [
     {
         users_id: "655b27b99bb9954064cd77e4",
         username: "adhimNiokagi",
-        membership_level: "Noble Fan",
+        membership_level: "Noble Fans",
         amount: 50000,
         photo_evidence: 'ev.jpg',
         status: "Unprocessed",
-        date_transaction: new Date()
+        date_transaction: formattedDateString
     },
 ];
 

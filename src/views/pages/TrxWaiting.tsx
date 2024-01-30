@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useSWR from "swr";
 import { useState, useEffect } from "react";
-import { fetchTrxData, fetchUserData } from "@utils/anime";
+import { fetchTrxData, fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
 import logo from "../../../public/img/logo.png";
 import "../../style/print.css";
@@ -15,7 +15,7 @@ export const TrxWaiting = () => {
   console.log(userData);
   const trxID = trxDAT?.[0]?.id;
   const { data: trxList } = useSWR(
-    trxID ? [`http://localhost:3000/api/trans/${trxID}`] : null,
+    trxID ? [`${serverURL}/api/trans/${trxID}`] : null,
     (url: any) =>
       axios.get(`${url}`, { withCredentials: true }).then((res) => res.data),
     {
@@ -25,6 +25,7 @@ export const TrxWaiting = () => {
 
   const trxDetail = trxList;
   const trxStatus = trxList?.status;
+  console.log(trxStatus);
 
   useEffect(() => {
     if (trxStatus === "Success") {
@@ -123,7 +124,7 @@ export const TrxWaiting = () => {
                     <label htmlFor="id">Amount:</label>
                   </td>
                   <td>
-                    <span>{trxDetail?.amount.toLocaleString("ID-id")}</span>
+                    <span>{trxDetail?.amount?.toLocaleString("ID-id")}</span>
                   </td>
                 </tr>
                 <tr>

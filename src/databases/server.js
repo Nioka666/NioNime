@@ -298,7 +298,7 @@ app.get("/api/trans/:trxID", async (req, res) => {
 });
 
 app.post('/api/account/user-edit', async (req, res) => {
-    const { userID, newUsername, newEmail} = req.body;
+    const { userID, newUsername, newEmail } = req.body;
     try {
         const newUserInfo = await UsersModel.findOneAndUpdate(
             { userID },
@@ -390,7 +390,7 @@ app.post("/api/transaction-add", async (req, res) => {
             amount: membershipPrice,
             photo_evidence: fileName,
             status: "Unprocessed",
-            date_transaction: Date()
+            date_transaction: Date("<YYYY-mm-dd>")
         });
 
         if (newTrx) {

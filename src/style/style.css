@@ -956,6 +956,14 @@ button.nionime-button i {
   margin-right: 12px;
 }
 
+/* ACCOUNT MENU */
+div.accountMenu {
+  /* background-color: #202020; */
+  border: 3.5px solid #313131ed;
+  padding: 55px 140px;
+  border-radius: 20px;
+}
+
 /* Form */
 form.changePassword {
   /* background-color: #202020; */
@@ -1273,4 +1281,9 @@ form.changePassword label {
 
 .colllllll {
   color: #2b2b2b;
+}
+
+form div.user-info-form label {
+  transition: all ease-in-out 0.2s;
+  font-size: 17px;
 }

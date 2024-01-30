@@ -29,6 +29,7 @@ import { AlertConfirmDialog } from "@views/components/Modals";
 import { UserInfo } from "@views/pages/UserInfo";
 import { ChangePasswordForm } from "@views/pages/ChangePassword";
 import { MembershipInfo } from "@views/pages/MembershipInfo";
+import { OrderHistory } from "@views/pages/OrderHistory";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -69,6 +70,7 @@ export const App = () => {
                   path="change-password"
                   element={<ChangePasswordForm />}
                 />
+                <Route path="order-history" element={<OrderHistory />} />
               </Route>
               <Route path="about" element={<About />} />
               <Route path="anime-detail/:animeId" element={<AnimeDetail />} />

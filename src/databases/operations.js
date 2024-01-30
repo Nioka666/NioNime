@@ -76,8 +76,8 @@ const runOperation = async (operation, models, key, seeder) => {
 // await runOperation(insertMany, MembershipsModel, MembershipsSeeder);
 // await runOperation(findAndUpdate, UsersModel);
 // await runOperation(insertMany, AdminsModel, AdminsSeeder);
-// await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
-await runOperation(findData, TransactionsModel, "65b4ba03c8ee3694d212fa61");
+await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
+// await runOperation(findData, TransactionsModel, "65b4ba03c8ee3694d212fa61");
 
 
 await mongoose.connection.close();
