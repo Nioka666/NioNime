@@ -459,6 +459,23 @@ app.get("/api/transaction-find/:trxID", async (req, res) => {
     }
 });
 
+// post route
+app.post("/api/transaction-finds", async (req, res) => {
+    const trxID = req.body.trxID;
+
+    try {
+        const resp = await TransactionsModel.findOne({ _id: trxID });
+        if (resp) {
+            res.status(200).json(resp);
+        } else {
+            res.status(404).json({ message: 'Transaction not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 app.post("/api/user-transaction-find", async (req, res) => {
     // const trxID = req.params.trxID;
     // IMPORTANNTTTTT

@@ -960,8 +960,16 @@ button.nionime-button i {
 div.accountMenu {
   /* background-color: #202020; */
   border: 3.5px solid #313131ed;
-  padding: 55px 140px;
+  padding: 55px 54px;
   border-radius: 20px;
+}
+
+/* style={{ textAlign: "left", backgroundColor: "gray", borderRadius: "20px", padding: "40px 40px 20px 40px" }} */
+div.accountMenu div.card-order-history {
+ text-align: left; 
+ background-color: #2c2c2cf1;
+ border-radius: 20px;
+ padding: 40px 40px 15px 40px;
 }
 
 /* Form */
