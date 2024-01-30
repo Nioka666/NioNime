@@ -96,7 +96,7 @@ app.get('/api/user', async (req, res) => {
 });
 
 app.post('/api/user-details', async (req, res) => {
-    const { userIDs } = req.body;
+    const userIDs = req.body.userIDs;
     try {
         const resp = await UsersModel.findOne({ _id: userIDs });
         if (resp) {

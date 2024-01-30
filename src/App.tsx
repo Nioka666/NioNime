@@ -24,12 +24,11 @@ import { TransactionsDetail } from "@views/backend/TransactionsDetail";
 import { CardsRow } from "@views/backend/components/CardsRow";
 import { Memberships } from "@views/backend/Memberships";
 import { UserDetails } from "@views/backend/UserDetail";
-import { Basic } from "@views/pages/Testt";
 import { AdminLoadings } from "@views/backend/components/AdminLoadings";
 import { AlertConfirmDialog } from "@views/components/Modals";
-import path from "path";
 import { UserInfo } from "@views/pages/UserInfo";
 import { ChangePasswordForm } from "@views/pages/ChangePassword";
+import { MembershipInfo } from "@views/pages/MembershipInfo";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -65,7 +64,7 @@ export const App = () => {
               <Route path="account" element={<Account />} />
               <Route path="account/" element={<Account />}>
                 <Route path="user-info" element={<UserInfo />} />
-                <Route path="membership-info" element={<UserInfo />} />
+                <Route path="membership-info" element={<MembershipInfo />} />
                 <Route
                   path="change-password"
                   element={<ChangePasswordForm />}

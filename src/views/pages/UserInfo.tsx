@@ -92,7 +92,6 @@ export const UserInfo = () => {
               {/* <i className="fa-solid fa-exclamation"></i> Changing your
               information will sign change all about you here. */}
               <br />
-              <br />
             </label>
             {/* <button
               type="submit"
