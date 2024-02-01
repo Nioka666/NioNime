@@ -65,7 +65,7 @@ export const Memberships = () => {
                   <i className="fa-solid fa-pen-to-square mt-1 text-gray fs-4"></i>
                 </div>
                 <div className="card-body text-lights">
-                  <h5>IDR {trx?.prices.toLocaleString("ID-id")}</h5>
+                  <h5>IDR {trx?.prices?.toLocaleString("ID-id")}</h5>
                   <ul className="list-unstyled text-gray">
                     {trx?.features.map((feature: any) => (
                       <li>{feature}</li>

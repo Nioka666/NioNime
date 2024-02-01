@@ -7,7 +7,7 @@ import React from "react";
 import { ContentDummyLoad } from "./ContentDummyLoad";
 import DOMPurify from "dompurify";
 
-export const AnimeSlider = ({ page }: any) => {
+export const AnimeSlider = () => {
   const [hoveredAnimeId, setHoveredAnimeId] = React.useState<string | null>(
     null
   );
@@ -20,7 +20,7 @@ export const AnimeSlider = ({ page }: any) => {
     data: animeData,
     error: RecentAnimeError,
     isValidating: isLoadingRecentAnime,
-  } = useSWR("recentAnime", () => fetchRecentAnime("anime", page, 20), {
+  } = useSWR("recentAnime", () => fetchRecentAnime("anime", 2, 20), {
     revalidateOnFocus: false,
   });
 
@@ -47,7 +47,7 @@ export const AnimeSlider = ({ page }: any) => {
           <h6 className="text-lightgray">October 2023 Ongoings</h6>
         </div>
         <div className="sss">
-          {!isLoadingRecentAnime && <Loading /> && (
+          {isLoadingRecentAnime && <Loading /> && (
             <>
               <ContentDummyLoad />
               <ContentDummyLoad />
@@ -58,50 +58,51 @@ export const AnimeSlider = ({ page }: any) => {
               <ContentDummyLoad />
             </>
           )}
-          {savedRecentAnime?.map((anime: any) => (
-            <a href={`anime-detail/${anime.id}`} key={anime.id}>
-              <div
-                key={anime.id}
-                className={`item ${
-                  hoveredAnimeId === anime.id ? "hovered" : ""
-                }`}
-                data-anime-id={anime.id}
-                onMouseOver={() => handleMouseOver(anime.id)}
-              >
-                <img
-                  src={anime.coverImage}
-                  className="card-img-top"
-                  alt={anime.title.romaji}
-                />
+          {!isLoadingRecentAnime &&
+            animeData?.map((anime: any) => (
+              <a href={`anime-detail/${anime.id}`} key={anime.id}>
+                <div
+                  key={anime.id}
+                  className={`item ${
+                    hoveredAnimeId === anime.id ? "hovered" : ""
+                  }`}
+                  data-anime-id={anime.id}
+                  onMouseOver={() => handleMouseOver(anime.id)}
+                >
+                  <img
+                    src={anime.coverImage}
+                    className="card-img-top"
+                    alt={anime.title.romaji}
+                  />
 
-                {/* Overlay */}
-                <div className="overlay">
-                  {isLoadingRecentAnime && <Loading />}
-                  {!isLoadingRecentAnime && hoveredAnimeId === anime.id && (
-                    <div className="anime-detail">
-                      <h6 className="text-normal">{anime?.title.romaji}</h6>
-                      <strong>
-                        <p className="text-gray fw-bold">
-                          Genres: {anime?.genres.slice(0, 2).join(", ")}
-                        </p>
-                        <br />
-                      </strong>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: DOMPurify.sanitize(anime?.description),
-                        }}
-                      ></p>
-                    </div>
-                  )}
-                </div>
+                  {/* Overlay */}
+                  <div className="overlay">
+                    {isLoadingRecentAnime && <Loading />}
+                    {!isLoadingRecentAnime && hoveredAnimeId === anime.id && (
+                      <div className="anime-detail">
+                        <h6 className="text-normal">{anime?.title.romaji}</h6>
+                        <strong>
+                          <p className="text-gray fw-bold">
+                            Genres: {anime?.genres.slice(0, 2).join(", ")}
+                          </p>
+                          <br />
+                        </strong>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(anime?.description),
+                          }}
+                        ></p>
+                      </div>
+                    )}
+                  </div>
 
-                <div className="anime-title">
-                  <h6>{anime.title.romaji}</h6>
-                  <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
+                  <div className="anime-title">
+                    <h6>{anime.title.romaji}</h6>
+                    <h6 className="text-gray">EP. {anime.currentEpisode}</h6>
+                  </div>
                 </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            ))}
         </div>
       </div>
     </>

@@ -139,7 +139,11 @@ export const LoginForm = () => {
                         type="checkbox"
                         value="remember-me"
                         id="flexCheckDefault"
-                        style={{ backgroundColor: "black", cursor: "pointer", border: "2px solid gray" }}
+                        style={{
+                          backgroundColor: "black",
+                          cursor: "pointer",
+                          border: "2px solid gray",
+                        }}
                         checked={rememberMe}
                         onChange={handleCheckboxChange}
                       />
@@ -209,7 +213,7 @@ export const LoginForm = () => {
                   className="text-silver fw-medium mt-1"
                   style={{ fontSize: "18px" }}
                 >
-                  For begin the all, an exploring further inside NioNime
+                  For begin the all, an exploring further
                   <br />
                   please sign in first
                 </p>

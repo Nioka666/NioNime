@@ -202,7 +202,7 @@ export const AnimesSeeder = [
         type: "Sub",
         release_date: "2023"
     }
-]
+];
 
 export const MembershipsSeeder = [
     {
@@ -210,23 +210,20 @@ export const MembershipsSeeder = [
         prices: 0,
         features: ['Streaming for free', 'No ads'],
     },
-    // {
-    //     level: 'basic',
-    //     prices: {
-    //         Monthly: 9.99,
-    //         Yearly: 99.99,
-    //     },
-    //     features: ['Basic feature 1', 'Basic feature 2', 'Premium feature 1', 'Premium feature 2'],
-    // },
     {
-        level: 'Noble Fan',
-        prices: 8.33,
+        level: 'Ordinary Fans',
+        prices: 50000,
         features: ['Basic feature 1', 'Basic feature 2', 'Premium feature 1', 'Premium feature 2'],
     },
-]
+    {
+        level: 'Noble Fans',
+        prices: 100000,
+        features: ['Basic feature 1', 'Basic feature 2', 'Premium feature 1', 'Premium feature 2'],
+    },
+];
 
 export const BookmarksSeeder = [
     {
         created_at: new Date()
     }
-]
+];

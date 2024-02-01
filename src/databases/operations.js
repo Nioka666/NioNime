@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import chalk from "chalk";
 import mongoose from "mongoose";
-import { AdminsModel, AnimesModel, BookmarksModel, MembershipsModel, TransactionsModel, UsersModel } from "./models.js";
+import { AdminsModel, BookmarksModel, MembershipsModel, TransactionsModel, UsersModel } from "./models.js";
 import { Conn } from "./connection.js";
 import { AdminsSeeder, AnimesSeeder, BookmarksSeeder, MembershipsSeeder, TransactionsSeeder, UsersSeeder } from "./seeders.js";
 
@@ -58,6 +58,17 @@ export const findData = async (modelDefined, key) => {
     }
 }
 
+export const findOldest = async (modelDefined) => {
+    try {
+        await Conn();
+        const query = modelDefined.findOne().sort({ date_joined: 1 }); // Sorting berdasarkan created_at (ascending)
+
+        const res = await query.exec();
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
+};
 // block running
 const runOperation = async (operation, models, key, seeder) => {
     try {
@@ -76,8 +87,8 @@ const runOperation = async (operation, models, key, seeder) => {
 // await runOperation(insertMany, MembershipsModel, MembershipsSeeder);
 // await runOperation(findAndUpdate, UsersModel);
 // await runOperation(insertMany, AdminsModel, AdminsSeeder);
-await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
+// await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
 // await runOperation(findData, TransactionsModel, "65b4ba03c8ee3694d212fa61");
-
+await findOldest(UsersModel)
 
 await mongoose.connection.close();

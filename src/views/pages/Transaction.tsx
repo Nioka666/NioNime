@@ -1,28 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  fetchAllUserData,
-  fetchUserData,
-  fetchUserMembershipData,
-  serverURL,
-} from "@utils/anime";
+import { fetchAllUserData, fetchUserData, serverURL } from "@utils/anime";
 import useSWR from "swr";
 import gopayLogo from "../../../public/img/Gopay.svg";
 import danaLogo from "../../../public/img/Dana.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "@views/components/Loading";
 
 export const Transaction = () => {
   const navigate = useNavigate();
+  const getMembershipSlug = useParams();
+  const membershipSlug = getMembershipSlug?.memberLevel;
   const { data: userData } = useSWR("fetchUserData", () => fetchAllUserData());
   const { data: currentUserData } = useSWR("fetchUserData", () =>
     fetchUserData()
   );
-  const { data: membershipData } = useSWR("fetchMembershipData", () =>
-    fetchUserMembershipData()
+  const { data: membershipInfoBySlug } = useSWR("fetchMembership", () =>
+    axios
+      .post(
+        `${serverURL}/api/membership-find-slug`,
+        { membershipSlug },
+        { withCredentials: true }
+      )
+      .then((response) => response.data)
   );
+
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
   const [activePayment, setActivePayment] = useState<string | null>(null);
   const [userID, setUserID] = useState("");
@@ -73,9 +77,9 @@ export const Transaction = () => {
     );
   };
 
-  const membershipLevel = membershipData?.[1]?.level;
+  const membershipName = membershipInfoBySlug?.level;
   const membershipPriceLocale =
-    membershipData?.[1]?.prices.toLocaleString("id-ID");
+    membershipInfoBySlug?.prices.toLocaleString("ID-id");
 
   if (loading) {
     return <Loading />;
@@ -84,7 +88,16 @@ export const Transaction = () => {
   return (
     <>
       <center>
-        <h2 style={{ marginTop: "100px" }}>Last Step to Purchasing</h2>
+        <h1
+          style={{
+            fontSize: "45px",
+            marginTop: "100px",
+            fontWeight: "500",
+            fontVariant: "all-small-caps",
+          }}
+        >
+          Last Step to Purchasing
+        </h1>
       </center>
       <div
         className="container"
@@ -110,13 +123,13 @@ export const Transaction = () => {
             >
               <div
                 className="detail-option d-flex"
-                style={{ width: "100%", gap: "322px" }}
+                style={{ width: "100%", justifyContent: "space-between" }}
               >
                 <h5
                   className="text-lights fw-medium"
                   style={{ margin: "auto 30px" }}
                 >
-                  {membershipLevel}
+                  {membershipName}
                 </h5>
                 <h5
                   className="text-lights fw-medium"
@@ -204,7 +217,9 @@ export const Transaction = () => {
                 </p>
                 <br />
                 <center>
-                  <a href={`/transaction/process/${selectedPayment}`}>
+                  <a
+                    href={`/transaction/process/${membershipSlug}/${selectedPayment}`}
+                  >
                     <button
                       type="button"
                       className="w-75 btn btn-lg btn-warning fw-semibold btn-noblefan"
@@ -268,7 +283,7 @@ export const Transaction = () => {
                     />
                   </button>
                   <p className="text-gray text-center mt-2">
-                    Just Select a One E-Wallet
+                    Just Select a one E-Wallet
                   </p>
                 </div>
               </div>

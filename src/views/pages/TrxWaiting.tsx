@@ -3,17 +3,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useSWR from "swr";
 import { useState, useEffect } from "react";
-import { fetchTrxData, fetchUserData, serverURL } from "@utils/anime";
+import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
 import logo from "../../../public/img/logo.png";
 import "../../style/print.css";
 
 export const TrxWaiting = () => {
   const [isConfirm, setIsConfirm] = useState(false);
-  const { data: trxDAT } = useSWR("fetchTrxDAT", () => fetchTrxData());
   const { data: userData } = useSWR("fetchUserData", () => fetchUserData());
-  console.log(userData);
-  const trxID = trxDAT?.[0]?.id;
+  const userID = userData?.id;
+  const { data: trxDAT } = useSWR("fetchTrxDAT", () =>
+    axios
+      .post(
+        `${serverURL}/api/transaction-latest`,
+        { userID },
+        { withCredentials: true }
+      )
+      .then((response) => response.data)
+  );
+  const trxID = trxDAT?._id;
+  console.log(trxID);
   const { data: trxList } = useSWR(
     trxID ? [`${serverURL}/api/trans/${trxID}`] : null,
     (url: any) =>
@@ -25,7 +34,6 @@ export const TrxWaiting = () => {
 
   const trxDetail = trxList;
   const trxStatus = trxList?.status;
-  console.log(trxStatus);
 
   useEffect(() => {
     if (trxStatus === "Success") {

@@ -271,6 +271,17 @@ app.get("/api/membership-find", async (req, res) => {
     }
 });
 
+app.post("/api/membership-find-slug", async (req, res) => {
+    const membershipSlug = req.body.membershipSlug;
+    try {
+        const membershipList = await MembershipsModel.findOne({ slug: membershipSlug });
+        res.status(200).json(membershipList);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 app.get("/api/users-list", async (req, res) => {
     try {
         const usersList = await UsersModel.find();
@@ -390,7 +401,7 @@ app.post("/api/transaction-add", async (req, res) => {
             amount: membershipPrice,
             photo_evidence: fileName,
             status: "Unprocessed",
-            date_transaction: Date("<YYYY-mm-dd>")
+            date_transaction: new Date()
         });
 
         if (newTrx) {
@@ -523,6 +534,21 @@ app.post("/api/update/transaction-status", async (req, res) => {
         }
     } catch (error) {
         console.log(error);
+    }
+});
+
+app.post("/api/transaction-latest", async (req, res) => {
+    const userID = req.body.userID;
+    try {
+        const latestTRX = await TransactionsModel.findOne({ users_id: userID }).sort({ date_transaction: -1 })
+        if (latestTRX) {
+            res.status(200).json(latestTRX)
+        } else {
+            res.status(401).json({ message: "can't find transaction data" })
+        }
+    } catch (error) {
+        console.log(error)
+
     }
 })
 

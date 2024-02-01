@@ -1,8 +1,10 @@
-import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
+import { fetchUserData, serverURL } from "@utils/anime";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
+import logo from "../../../public/img/logo.png";
+import avatar from "../../../public/img/gojj.jpg";
 
 const InnerNav = () => {
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ const InnerNav = () => {
           >
             {isUserLoggedIn ? (
               <img
-                src={"../../img/gojj.jpg"}
+                src={avatar}
                 alt=""
                 width="36"
                 height="36"
@@ -192,7 +194,7 @@ export const Nav: React.FC = () => {
       >
         <div className="container" style={{ gap: "70px" }}>
           <a className="navbar-brand" href="/">
-            <img src="../../img/logo.png" height="25px" />
+            <img src={logo} height="25px" />
           </a>
           <button
             className="navbar-toggler"

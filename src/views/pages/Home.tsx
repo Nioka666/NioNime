@@ -17,7 +17,7 @@ export const Home = () => {
       {/* <AnimeSlider page={2} /> */}
       {/* <AnimeSlider page={2}/> */}
       <BigAnimeCard />
-      <AnimeSlider page={2}/>
+      <AnimeSlider/>
       <PremiumHero />
     </>
   );

@@ -56,7 +56,7 @@ export const MembershipsModel = mongoose.model("Memberships", {
     id: ObjectID,
     level: {
         type: String,
-        enum: ['Fan', 'Noble Fan'],
+        enum: ['Fans', 'Ordinary Fans', 'Noble Fans'],
         required: true,
     },
     prices: Number,

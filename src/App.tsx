@@ -78,9 +78,9 @@ export const App = () => {
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
               <Route path="testt" element={<AlertConfirmDialog />} />
-              <Route path="transaction" element={<Transaction />} />
+              <Route path="transaction/:memberLevel" element={<Transaction />} />
               <Route
-                path="transaction/process/:method"
+                path="transaction/process/:membershipSlug/:method"
                 element={<TrxProcess />}
               />
               <Route path="transaction/waiting" element={<TrxWaiting />} />
