@@ -5,6 +5,8 @@ import { fetchUserData, serverURL } from "@utils/anime";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import avatar from "../../img/gojj.jpg";
 import axios from "axios";
+import ProgressLoad from "@views/components/ProgressLoad";
+import { useEffect, useState } from "react";
 // import { ChangePasswordForm } from "./ChangePassword";
 
 const ProfileDetails = (props: any) => {
@@ -136,6 +138,23 @@ const UserProfile = () => {
 };
 
 export const Account = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <ProgressLoad />
+      </>
+    );
+  }
   return (
     <>
       <div

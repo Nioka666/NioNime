@@ -3,38 +3,52 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRef, useState } from "react";
-import { fetchAnimeDetail, fetchAnimeStreamLink } from "@utils/anime";
+import {
+  fetchAnimeDetail,
+  fetchAnimeStreamLink,
+  fetchUserData,
+  serverURL,
+} from "@utils/anime";
 import { RecommendSlide } from "@views/components/RecommendSlide";
 import { useParams } from "react-router-dom";
 import Player from "video.js/dist/types/player";
 import useSWR from "swr";
 import DOMPurify from "dompurify";
-import { VideoPlayer } from "@views/components/VideoPlayer";
 import { CommentInfo } from "@views/components/CommentInfo";
 import { ParagraphPlaceholder } from "@views/components/ParagraphPlaceholder";
 import EpisodesPagination from "@views/components/EpisodePagination";
+import { PlayerVid } from "./VideoPlayer";
+import axios from "axios";
 
-export interface CustomVideoJsPlayerOptions {
-  autoplay: boolean;
-  controls: boolean;
-  responsive: boolean;
-  fluid: boolean;
-  sources: {
-    src: string;
-    type: string;
-  }[];
-}
 interface WatchProps {}
 
 export const Watch: React.FC<WatchProps> = () => {
   const { animeId } = useParams();
-  const [selectedEpisode, setSelectedEpisode] = useState(null || "");
+  const { data: currentUser } = useSWR(
+    "fetchCurrentUser",
+    () => fetchUserData(),
+    { revalidateOnFocus: false }
+  );
+  const { data: userDetail } = useSWR(
+    "fetchUserDetail",
+    () =>
+      axios
+        .post(
+          `${serverURL}/api/user-details`,
+          { userIDs: currentUser?.id },
+          { withCredentials: true }
+        )
+        .then((response) => response.data),
+    { revalidateOnFocus: true }
+  );
 
+  const [selectedEpisode, setSelectedEpisode] = useState(null || "");
+  const [selectedQuality, setSelectedQuality] = useState(null || "" || Number);
+  const [selectedSource, setSelectedSource] = useState(null || "");
   const { data: animeWatchDetail, isValidating: isLoadingAnimeWatchDetail } =
     useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId), {
       revalidateOnFocus: false,
     });
-
   const episodeProvider = animeWatchDetail?.episodes.data;
   const providerIndex = episodeProvider?.findIndex(
     (episode: any) => episode.providerId === "gogoanime"
@@ -42,13 +56,10 @@ export const Watch: React.FC<WatchProps> = () => {
 
   const episodesStore =
     animeWatchDetail?.episodes.data[providerIndex]?.episodes;
-  const currentEpisode = episodesStore?.[0]?.number;
   const episodeTitle = episodesStore?.[0]?.title;
-
   const watchID =
     animeWatchDetail?.episodes?.data[providerIndex]?.episodes[0]?.id;
-  console.log(watchID);
-
+  const currentEpisode = episodesStore?.[0]?.number;
   const { data: animeStreamLink } = useSWR(
     "animeStreamLink",
     () => fetchAnimeStreamLink(watchID, currentEpisode, animeId),
@@ -57,22 +68,7 @@ export const Watch: React.FC<WatchProps> = () => {
     }
   );
 
-  const resultLink = animeStreamLink?.sources[3].url;
-  console.log(animeStreamLink?.sources);
   const playerRef = useRef<Player | null>(null);
-
-  const videoJsOptions: CustomVideoJsPlayerOptions = {
-    autoplay: false,
-    controls: true,
-    responsive: true,
-    fluid: false,
-    sources: [
-      {
-        src: resultLink,
-        type: "application/x-mpegURL",
-      },
-    ],
-  };
 
   const handlePlayerReady = (player: Player) => {
     playerRef.current = player;
@@ -87,55 +83,59 @@ export const Watch: React.FC<WatchProps> = () => {
   };
 
   const fetchEpisodeData = async (episodeId: any) => {
-    // Fetch data episode baru berdasarkan episodeId
+    const finalEpisodeID = episodeId + 1;
     const watchID =
       animeWatchDetail?.episodes.data[providerIndex].episodes[episodeId].id;
-    console.log(watchID);
     const newEpisodeData = await fetchAnimeStreamLink(
       watchID,
-      episodeId,
+      finalEpisodeID,
       animeId
     );
-    return newEpisodeData?.sources[3]?.url || null;
+    let allowedQualityIndices = [0, 1, 2, 3];
+
+    if (
+      userDetail?.membership_level !== "Noble Fans" &&
+      userDetail?.membership_level !== "Ordinary Fans"
+    ) {
+      // Jika bukan "Noble Fans" atau "Ordinary Fans," maka batasi hanya ke index 1 (default)
+      allowedQualityIndices = [0, 1, 2];
+    }
+
+    return newEpisodeData?.sources[allowedQualityIndices[2]]?.url;
   };
 
   const handleEpisodeClick = async (episodeId: any) => {
     setSelectedEpisode(episodeId);
-    // console.log(episodeId);
 
     const newEpisodeSrc = await fetchEpisodeData(episodeId);
+    setSelectedSource(newEpisodeSrc);
     // console.log(newEpisodeSrc);
+  };
 
-    const newVideoJsOptions = {
-      ...videoJsOptions,
-      sources: [
-        {
-          src: newEpisodeSrc,
-          type: "application/x-mpegURL",
-        },
-      ],
-    };
+  let allowedQualityIndices = [0, 1, 2, 3];
 
-    if (playerRef.current) {
-      playerRef.current.src(newVideoJsOptions.sources);
+  if (
+    userDetail?.membership_level !== "Noble Fans" &&
+    userDetail?.membership_level !== "Ordinary Fans"
+  ) {
+    allowedQualityIndices = [0, 1, 2];
+  }
 
-      playerRef.current.one("waiting", () => {
-        console.log("player is waiting");
-      });
+  const streamLinks = animeStreamLink?.sources
+    ?.filter((_: any, index: any) => allowedQualityIndices.includes(index))
+    ?.map((links: any) => links);
 
-      playerRef.current.one("canplay", () => {
-        console.log("player can play");
-      });
-    }
+  const handleQualityClick = (qualityIndex: any) => {
+    setSelectedQuality(parseInt(qualityIndex, 10));
+    console.log(streamLinks[qualityIndex]?.quality);
   };
 
   let selectedEP = selectedEpisode + 1;
 
   return (
     <>
-      <div className="container" style={{ marginTop: "55px" }}>
-        <br />
-        <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
+      <div className="container" style={{ marginTop: "90px" }}>
+        <PlayerVid src={selectedSource} onReady={handlePlayerReady} />
       </div>
       <div
         className="container content-wrappers"
@@ -153,6 +153,20 @@ export const Watch: React.FC<WatchProps> = () => {
                 >
                   {animeWatchDetail?.title.romaji}
                 </h3>
+                <select
+                  className="form-control bg-dark border-0 text-light"
+                  name="quality"
+                  id="quality"
+                  onChange={(e) => handleQualityClick(e.target.value)}
+                  value={selectedQuality}
+                >
+                  {streamLinks?.map((oneLink: any, index: number) => (
+                    <option className="form-control" value={index} key={index}>
+                      {oneLink?.quality}
+                    </option>
+                  ))}
+                </select>
+
                 <i
                   className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray"
                   style={{ width: "70px" }}

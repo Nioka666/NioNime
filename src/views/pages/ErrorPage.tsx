@@ -1,4 +1,4 @@
-import { Loading } from "@views/components/Loading";
+import ProgressLoad from "@views/components/ProgressLoad";
 import { useEffect, useState } from "react";
 
 export const ErrorPage = () => {
@@ -14,12 +14,16 @@ export const ErrorPage = () => {
 
   return (
     <>
-      {isLoading ? (<Loading />) : (
+      {isLoading ? (
+        <ProgressLoad />
+      ) : (
         <div className="container error-main">
           <img src="../../img/sus.png" height="388px" alt="sus amogus" />
           <div className="error-msg">
             <h1 className="error-h1 text-gray">Oops..</h1>
-            <h2 className="text-darkgray">We can't seem to find the page you're looking for</h2>
+            <h2 className="text-darkgray">
+              We can't seem to find the page you're looking for
+            </h2>
             <h2 className="text-darkgray fw-bold">Error code : 404</h2>
           </div>
         </div>

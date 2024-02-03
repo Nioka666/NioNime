@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Import dependencies and components
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchSearchAnime } from "@utils/anime";
 import { Loading, SearchLoading } from "@views/components/Loading";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
+import ProgressLoad from "@views/components/ProgressLoad";
 
 interface Anime {
   id: string;
@@ -53,6 +54,20 @@ export const Search = () => {
     e.preventDefault();
     handleSearchButtonClick();
   };
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <ProgressLoad />;
+  }
 
   // Render the Search component
   return (

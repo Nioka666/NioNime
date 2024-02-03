@@ -19,7 +19,8 @@ export const UsersModel = mongoose.model("Users", {
     phone_number: String,
     profile_url: String,
     membership_level: String,
-    date_joined: Date
+    date_joined: Date,
+    membership_expired: Date
 });
 
 // export const AnimesModel = mongoose.model("Animes", {
@@ -41,7 +42,7 @@ export const TransactionsModel = mongoose.model("Transactions", {
     username: String,
     membership_level: {
         type: String,
-        enum: ['Fans', 'Noble Fans']
+        enum: ['Fans', 'Ordinary Fans', 'Noble Fans']
     },
     amount: Number,
     photo_evidence: String,

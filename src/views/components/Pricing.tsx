@@ -256,26 +256,38 @@ export const Pricing = () => {
                       {membershipList?.[2].features[3]}
                     </li>
                   </ul>
-                  {!isOrdinaryFan && (
+                  {!isOrdinaryFan && isLoggedIn && (
                     <a href={`/transaction/${ordinaryFansLevel}`}>
                       <button
                         type="button"
                         className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
-                        value={membershipList?.[1].level}
+                        value={membershipList?.[2].level}
                       >
                         Purchase
                       </button>
                     </a>
                   )}
                   {!isLoggedIn && (
-                    <Link to={"/auth/register"}>
+                    <a href={`/auth/login`}>
                       <button
                         type="button"
-                        className="w-100 btn btn-lg btn-outline-warning rounded-0 fw-medium border-2 btn-fan"
+                        className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
+                        value={membershipList?.[2].level}
                       >
-                        Start be a Fans !
+                        Purchase
                       </button>
-                    </Link>
+                    </a>
+                  )}
+                  {isOrdinaryFan && (
+                    <button
+                      type="button"
+                      className="w-100 btn btn-lg rounded-0 btn-warning fw-semibold btn-noblefan"
+                      value={membershipList?.[2].level}
+                      disabled
+                    >
+                      Purchased
+                      <i className="fa-solid text-success fa-check ms-2"></i>
+                    </button>
                   )}
                 </div>
               </div>

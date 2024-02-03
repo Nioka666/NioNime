@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { useEffect, useState } from "react";
-import { Loading } from "@views/components/Loading";
+import ProgressLoad from "@views/components/ProgressLoad";
 
 export const MainLayout = () => {
   const [loading, setLoading] = useState(true);
@@ -10,13 +10,13 @@ export const MainLayout = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return <ProgressLoad />;
   }
   return (
     <>

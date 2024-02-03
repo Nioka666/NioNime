@@ -4,7 +4,7 @@
 // import useSWR from "swr";
 import { CarouselHeader } from "@components/Carousels";
 import { Pricing } from "@components/Pricing";
-import { Loading } from "@views/components/Loading";
+import ProgressLoad from "@views/components/ProgressLoad";
 import { useEffect, useState } from "react";
 
 const Features = () => {
@@ -95,7 +95,7 @@ export const About = () => {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return <ProgressLoad />;
   }
 
   const handleScroll = (target: string) => {

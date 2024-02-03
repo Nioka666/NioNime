@@ -69,6 +69,17 @@ export const findOldest = async (modelDefined) => {
         console.log(error);
     }
 };
+
+export const findLength = async (modelDefined) => {
+    try {
+        await Conn();
+        const query = modelDefined.countDocuments(); // Sorting berdasarkan created_at (ascending)
+        const res = await query.exec();
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
+};
 // block running
 const runOperation = async (operation, models, key, seeder) => {
     try {
@@ -89,6 +100,6 @@ const runOperation = async (operation, models, key, seeder) => {
 // await runOperation(insertMany, AdminsModel, AdminsSeeder);
 // await runOperation(insertMany, TransactionsModel, TransactionsSeeder);
 // await runOperation(findData, TransactionsModel, "65b4ba03c8ee3694d212fa61");
-await findOldest(UsersModel)
+await runOperation(findLength, UsersModel);
 
 await mongoose.connection.close();

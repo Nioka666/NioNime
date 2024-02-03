@@ -690,6 +690,23 @@ button.search-btn {
   border-radius: 10px;
 }
 
+/*  */
+section.nota-section button {
+  font-size: 17px;
+  transition: all ease-in-out 0.3s;
+}
+
+section.nota-section button i {
+  margin-right: 11px;
+}
+
+section.nota-section button:hover {
+  background-color: #ababab;
+  color: black;
+}
+
+/*  */
+
 .printable {
   display: flex;
   justify-content: center;
@@ -910,7 +927,7 @@ td.register-label a {
   position: relative;
   margin-top: 0px;
   background-size: cover;
-  filter: brightness(38%);
+  filter: blur(3px) brightness(35%);
   height: 550px;
   z-index: -999;
   cursor: pointer;
@@ -966,10 +983,10 @@ div.accountMenu {
 
 /* style={{ textAlign: "left", backgroundColor: "gray", borderRadius: "20px", padding: "40px 40px 20px 40px" }} */
 div.accountMenu div.card-order-history {
- text-align: left; 
- background-color: #2c2c2cf1;
- border-radius: 20px;
- padding: 40px 40px 15px 40px;
+  text-align: left;
+  background-color: #2c2c2cf1;
+  border-radius: 20px;
+  padding: 40px 40px 15px 40px;
 }
 
 /* Form */

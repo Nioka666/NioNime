@@ -25,11 +25,11 @@ import { CardsRow } from "@views/backend/components/CardsRow";
 import { Memberships } from "@views/backend/Memberships";
 import { UserDetails } from "@views/backend/UserDetail";
 import { AdminLoadings } from "@views/backend/components/AdminLoadings";
-import { AlertConfirmDialog } from "@views/components/Modals";
 import { UserInfo } from "@views/pages/UserInfo";
 import { ChangePasswordForm } from "@views/pages/ChangePassword";
 import { MembershipInfo } from "@views/pages/MembershipInfo";
 import { OrderHistory } from "@views/pages/OrderHistory";
+import { PlayerVid } from "@views/pages/VideoPlayer";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -77,8 +77,11 @@ export const App = () => {
               <Route path="watch/:animeId" element={<Watch />} />
               <Route path="watch" element={<Watch />} />
               <Route path="search" element={<Search />} />
-              <Route path="testt" element={<AlertConfirmDialog />} />
-              <Route path="transaction/:memberLevel" element={<Transaction />} />
+              <Route path="testt" element={<PlayerVid />} />
+              <Route
+                path="transaction/:memberLevel"
+                element={<Transaction />}
+              />
               <Route
                 path="transaction/process/:membershipSlug/:method"
                 element={<TrxProcess />}

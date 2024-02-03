@@ -6,7 +6,6 @@ import { fetchAnifyStats } from "@utils/anime";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useEffect } from "react";
-import { Loading } from "@views/components/Loading";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -85,7 +84,6 @@ export const CardsRow = () => {
           </div>
           <div className="card-body" style={{ padding: "20px 25px 15px 25px" }}>
             <div className="d-flex justify-content-between align-items-center p-3">
-              {loadingAnimeStats && <Loading />}
               {!loadingAnimeStats && (
                 <Doughnut
                   data={data}
@@ -118,7 +116,6 @@ export const CardsRow = () => {
               Lorem ipsum, dolor sit amet consectetur <br /> adipisicing elit.
             </h6>
           </div>
-          {loadingAnimeStats && <Loading />}
           {!loadingAnimeStats && (
             <div
               className="card-body text-start"

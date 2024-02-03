@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { } from "module";
+import {} from "module";
 import { Link, useParams } from "react-router-dom";
 import { fetchAnimeDetail } from "../../utils/anime";
 import useSWR from "swr";
@@ -43,6 +43,7 @@ export const AnimeDetail = () => {
         className="p-5 text-center bg-black banner-wrapper"
         style={{
           backgroundImage: bannerImage ? `url(${bannerImage})` : "none",
+          // filter: "blur(10px)",
         }}
       >
         <div
@@ -84,7 +85,10 @@ export const AnimeDetail = () => {
                 gap: "0px",
               }}
             >
-              <h6 className="text-gray" style={{ fontWeight: "bold", marginTop: "3px" }}>
+              <h6
+                className="text-gray"
+                style={{ fontWeight: "bold", marginTop: "3px" }}
+              >
                 {animeDetail?.type} - {animeDetail?.format}
               </h6>
               <h4
@@ -92,11 +96,11 @@ export const AnimeDetail = () => {
                 style={{
                   margin: "0px 0 10px 0px",
                   fontWeight: "500",
-                  fontSize: "42px",
+                  fontSize: "38px",
                   width: "80%",
                 }}
               >
-                {animeDetail?.title.romaji} <br />
+                {animeDetail?.title.romaji.substring(0, 100)} <br />
               </h4>
               <div
                 className="status-badge"
@@ -125,9 +129,15 @@ export const AnimeDetail = () => {
               </div>
 
               <div className="description mt-4" style={{ width: "80%" }}>
-                <p style={{ fontSize: "15px" }}
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(animeDetail?.description.substring(0, 300)) }}>
-                </p>
+                <p
+                  style={{ fontSize: "15px" }}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      DOMPurify.sanitize(
+                        animeDetail?.description.substring(0, 210)
+                      ) + ". . .",
+                  }}
+                ></p>
               </div>
 
               <div className="btn-groups mt-3">
@@ -141,7 +151,7 @@ export const AnimeDetail = () => {
                     padding: "10px 10px",
                     fontSize: "17px",
                     borderRadius: "0px",
-                    zIndex: "999"
+                    zIndex: "999",
                   }}
                 >
                   <i
@@ -164,7 +174,7 @@ export const AnimeDetail = () => {
                       fontSize: "17px",
                       marginLeft: "10px",
                       fontWeight: "500",
-                      borderRadius: "0px"
+                      borderRadius: "0px",
                     }}
                   >
                     <i
@@ -181,7 +191,10 @@ export const AnimeDetail = () => {
             className="anime-detail-wrapper"
             style={{ display: "flex", gap: "47px" }}
           >
-            <div className="more-detail" style={{ width: "730px", zIndex: "-1" }}>
+            <div
+              className="more-detail"
+              style={{ width: "730px", zIndex: "-1" }}
+            >
               <br />
               <br />
               <h3>More details</h3>
@@ -307,7 +320,7 @@ export const AnimeDetail = () => {
                   width={338}
                   // width={"338px"}
                   // height={"170px"}
-                  style={{ backgroundSize: "cover" }}
+                  style={{ backgroundSize: "cover", filter: "brightness(70%)" }}
                 />
               </div>
               <div className="btn-groups mt-4">
@@ -323,7 +336,7 @@ export const AnimeDetail = () => {
                       width: "338px",
                       padding: "10px 10px",
                       fontSize: "17px",
-                      fontWeight: "500"
+                      fontWeight: "500",
                     }}
                   >
                     <i
@@ -338,7 +351,8 @@ export const AnimeDetail = () => {
           </div>
         </div>
       )}
-      <br /><br />
+      <br />
+      <br />
       <RecommendSlide />
     </>
   );

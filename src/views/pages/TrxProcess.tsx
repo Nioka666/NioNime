@@ -79,13 +79,11 @@ export const TrxProcess = () => {
         { withCredentials: true }
       );
 
-      console.log(response);
-
       if (response.status === 200) {
         console.log(response.data.message);
         handleFileUpload();
       } else {
-        console.error("Transaction failed:", response.data.error); // Log error message
+        console.error("Transaction failed:", response.data.error);
       }
     } catch (error) {
       console.error("Error:", error);

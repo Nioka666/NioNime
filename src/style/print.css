@@ -12,19 +12,18 @@
     visibility: visible;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
-    color: white;
+    color: #d6d6d6;
     border-radius: 20px;
     margin: 0 auto !important;
     border: none !important;
   }
 
   .container.printable {
-    margin-top: 70px !important;
+    margin-top: 10px !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
     -webkit-print-color-adjust: exact !important; /* Chrome, Safari 6 – 15.3, Edge */
     print-color-adjust: exact !important;
-    background-image: url("../../public/img/inv.jpg") !important;
   }
 
   .container.printable img {
@@ -69,10 +68,17 @@
   }
 
   .container.printable span {
-    color: white;
+    color: #e0e0e0;
   }
 
   .container.printable button {
     display: none;
   }
+}
+
+.pallete {
+  color: #ffd41236;
+  color: #8080806c;
+  color: #323232;
+  color: #2e2e2ecb;
 }

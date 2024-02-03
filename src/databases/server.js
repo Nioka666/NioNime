@@ -329,6 +329,23 @@ app.post('/api/account/user-edit', async (req, res) => {
     }
 });
 
+// Length Docs
+app.get("/api/collections-length", async (req, res) => {
+    try {
+        const userLength = await UsersModel.countDocuments();
+        const trxLength = await TransactionsModel.countDocuments();
+        const membershipLength = await MembershipsModel.countDocuments();
+
+        if (userLength && trxLength) {
+            res.status(200).json({ userLength, trxLength, membershipLength });
+        } else {
+            res.status(401).json({ msg: "fail find length of user doc" })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+});
+
 app.post("/api/user-delete", async (req, res) => {
     const { userId } = req.body;
     try {
