@@ -23,13 +23,14 @@ import { TransactionEdit } from "@views/backend/TransactionEdit";
 import { TransactionsDetail } from "@views/backend/TransactionsDetail";
 import { CardsRow } from "@views/backend/components/CardsRow";
 import { Memberships } from "@views/backend/Memberships";
-import { UserDetails } from "@views/backend/UserDetail";
+import { UserLists } from "@views/backend/UserLists";
 import { AdminLoadings } from "@views/backend/components/AdminLoadings";
 import { UserInfo } from "@views/pages/UserInfo";
 import { ChangePasswordForm } from "@views/pages/ChangePassword";
 import { MembershipInfo } from "@views/pages/MembershipInfo";
 import { OrderHistory } from "@views/pages/OrderHistory";
 import { PlayerVid } from "@views/pages/VideoPlayer";
+import { UserEdit } from "@views/backend/UserEdit";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -129,8 +130,9 @@ export const App = () => {
                 <Route path="admin/" element={<CardsRow />} />
                 <Route path="dashboard" element={<CardsRow />} />
                 <Route path="transactions" element={<TransactionsDetail />} />
-                <Route path="users" element={<UserDetails />} />
+                <Route path="users" element={<UserLists />} />
                 <Route path="memberships" element={<Memberships />} />
+                <Route path="edit-user/:userIDs" element={<UserEdit />} />
                 <Route
                   path="transaction-edit/:trxID"
                   element={<TransactionEdit />}

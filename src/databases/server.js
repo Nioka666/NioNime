@@ -152,12 +152,18 @@ app.post('/api/logout', (req, res) => {
 });
 
 app.post('/api/account/change-password', async (req, res) => {
-    const { username, password, newPassword } = req.body;
+    const { userID, username, newPassword } = req.body;
+
+    if (newPassword.length < 7) {
+        return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+    }
 
     try {
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
         const userPassword = await UsersModel.findOneAndUpdate(
-            { username, password },
-            { password: newPassword },
+            { _id: userID, username },
+            { password: hashedPassword },
             { new: true }
         );
         if (userPassword) {
@@ -234,6 +240,7 @@ app.post('/api/register', async (req, res) => {
             username: username,
             email: email,
             password: hashedPassword,
+            phone_number: "",
             membership_level: 'Fans',
             date_joined: new Date(),
         });
@@ -310,13 +317,18 @@ app.get("/api/trans/:trxID", async (req, res) => {
 });
 
 app.post('/api/account/user-edit', async (req, res) => {
-    const { userID, newUsername, newEmail } = req.body;
+    const userID = req.body.userID;
+    const newUsername = req.body.newUsername;
+    const newEmail = req.body.newEmail;
+    const newPhoneNumber = req.body.newPhoneNumber;
+
     try {
         const newUserInfo = await UsersModel.findOneAndUpdate(
-            { userID },
+            { _id: userID },
             {
                 username: newUsername,
                 email: newEmail,
+                phone_number: newPhoneNumber
             },
             { new: true }
         );

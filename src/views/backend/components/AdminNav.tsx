@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchAdminData, serverURL } from "@utils/anime";
 import { AlertConfirmDialog } from "@views/components/Modals";
 import axios from "axios";
@@ -31,18 +32,22 @@ const InnerNav = () => {
     setDialogOpen(false);
   };
 
-  const handleConfirmLogout = async () => {
-    try {
-      await axios.post(`${serverURL}/api/logout`, null, {
-        withCredentials: true,
-      });
-      console.log("Logout success");
-      navigate("/");
-      window.location.reload();
-    } catch (error) {
-      console.error("Logout error:", error);
-    } finally {
-      // Close the dialog after handling logout
+  const handleConfirmLogout = async (isConfirmed: any) => {
+    if (isConfirmed) {
+      console.log("OK clicked");
+      try {
+        await axios.post(`${serverURL}/api/logout`, null, {
+          withCredentials: true,
+        });
+        navigate("/auth/admin-portals");
+        window.location.reload();
+      } catch (error) {
+        console.error("Logout error:", error);
+      } finally {
+        handleCloseDialog();
+      }
+    } else {
+      console.log("no");
       handleCloseDialog();
     }
   };
@@ -53,6 +58,8 @@ const InnerNav = () => {
         openDialog={isDialogOpen}
         handleCloseDialog={handleCloseDialog}
         handleConfirm={handleConfirmLogout}
+        headerMessageConfirmDialog={"Confirm for Sign Out ?"}
+        messageConfirmDialog={"By Sign Out as Admin, you have been to sign in agian"}
       />
       <ul
         className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold mt-1"

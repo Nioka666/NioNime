@@ -11,12 +11,13 @@ import { Footer } from "@views/layouts/Footer";
 import ErrorToast from "./Toast";
 import logo from "../../img/logo.png";
 import coverLogin from "../../../public/img/blacks.jpg";
+import { serverURL } from "@utils/anime";
+import toast, { Toaster } from "react-hot-toast";
 
 const saveUserDataToLocal = (userData: any) => {
   const userDataString = JSON.stringify(userData);
   localStorage.setItem("userData", userDataString);
 };
-
 // https://secure.crunchyroll.com/freetrial/checkout
 
 export const LoginForm = () => {
@@ -31,7 +32,7 @@ export const LoginForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/user", {
+        const response = await axios.get(`${serverURL}/api/user`, {
           withCredentials: true,
         });
 
@@ -48,50 +49,86 @@ export const LoginForm = () => {
     }
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/account/user-info");
-      window.location.reload();
-    }
-  }, [isLoggedIn, navigate]);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       setLoadingBtn(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await axios.post(
-        "http://localhost:3000/api/login",
+        `${serverURL}/api/login`,
         { email, password },
         { withCredentials: true }
       );
 
       console.log(response.data.message);
+      if (response?.data.success) {
+        setLoggedIn(true);
+        await toast.promise(
+          new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          }),
+          {
+            loading: "Loading...",
+            success: "Login successful!",
+            error: "Login failed. Please try again.",
+          }
+        );
 
-      setLoggedIn(true);
+        navigate("/account/user-info");
+      } else {
+        setLoggedIn(false);
+        await toast.promise(
+          new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          }),
+          {
+            loading: "Loading...",
+            success: "Your Register is Successfully!",
+            error: "Your Register is FAIL",
+          }
+        );
+
+        window.location.reload();
+      }
       if (rememberMe) {
         saveUserDataToLocal(response.data.userData);
       }
 
-      // Reset login error on successful login
       setLoginError("");
     } catch (error) {
       console.error("Login error:", error);
 
-      // Set login error message on login failure
       setLoginError("Invalid email or password. Please try again.");
     } finally {
       setLoadingBtn(false);
     }
   };
-
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRememberMe(e.target.checked);
   };
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          success: {
+            duration: 2500,
+          },
+          error: {
+            duration: 2500,
+          },
+        }}
+      />
+      <ErrorToast errorMessage={loginError} />
       <div className="container-login" style={{ gap: "80px" }}>
         <div className="login-form">
           <center>
@@ -178,7 +215,6 @@ export const LoginForm = () => {
               </tbody>
             </table>
           </form>
-          <ErrorToast errorMessage={loginError} />
         </div>
         <div className="login-banner">
           <figure style={{ position: "relative" }}>

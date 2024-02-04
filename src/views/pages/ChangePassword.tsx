@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { fetchUserData, serverURL } from "@utils/anime";
 import { LoadingButton } from "@views/components/Loading";
 import axios from "axios";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import useSWR from "swr";
 
 // Change Password Form
@@ -10,6 +12,7 @@ export const ChangePasswordForm = () => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const { data: userData, error: errorUserData } = useSWR(
     "fetchUserData",
@@ -26,25 +29,62 @@ export const ChangePasswordForm = () => {
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     const username = userData?.username;
+    const userID = userData?.id;
 
     try {
       setLoadingBtn(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       const response = await axios.post(
         `${serverURL}/api/account/change-password`,
-        { username, password, newPassword },
+        { userID, username, password, newPassword },
         { withCredentials: true }
       );
-      console.log(response.data.message);
+
+      if (response.status === 200) {
+        setPasswordChanged(true);
+        await toast.promise(
+          new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          }),
+          {
+            loading: "Loading...",
+            success: "Successfully Changed Password!",
+            error: "Failed to Change Password",
+          }
+        );
+        window.location.reload();
+      } else {
+        setPasswordChanged(false);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log(passwordChanged);
+
   return (
     <>
-      <form onSubmit={handleChangePassword} className="d-grid changePassword">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          success: {
+            duration: 2500,
+          },
+          error: {
+            duration: 2500,
+          },
+        }}
+      />
+      <form className="d-grid changePassword">
         <h3>Change Password</h3>
         <h6 className="text-gray mt-1">
           Pick a unique password, keep your account safe
@@ -52,27 +92,27 @@ export const ChangePasswordForm = () => {
         <div className="input-groups d-grid gap-4 mt-5">
           {/* Tambahkan input untuk username */}
           <input
-            type="text"
+            type="password"
             name="currentPassword"
             placeholder="Current password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
-            type="text"
+            type="password"
             name="newPassword"
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <input
-            type="text"
+            type="password"
             name="newConfirmPassword"
             placeholder="Retype New Password"
             value={newConfirmPassword}
             onChange={(e) => setNewConfirmPassword(e.target.value)}
           />
-          <label className="" htmlFor="">
+          <label style={{ margin: "0px auto" }} className="mt-4" htmlFor="">
             <i className="fa-solid fa-exclamation"></i> Changing your password
             will sign you out of your other devices. You’ll need to enter the
             new password.
@@ -81,13 +121,15 @@ export const ChangePasswordForm = () => {
             type="submit"
             style={{
               width: "300px",
-              fontWeight: "500",
+              fontWeight: "600",
               color: "black",
               margin: "10px auto",
               fontSize: "16px",
-              borderRadius: "5px",
+              borderRadius: "12px",
+              padding: "14px 15px",
             }}
-            className="btn-loginPage"
+            onClick={handleChangePassword}
+            className="btn-loginPage mt-3"
             disabled={loadingBtn}
           >
             {loadingBtn ? <LoadingButton /> : "CHANGE PASSWORD"}

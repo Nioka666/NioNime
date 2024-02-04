@@ -1,84 +1,14 @@
 /* CSS untuk Mode Cetak */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-
-  .container.printable,
-  .container.printable * {
-    width: 80% !important;
-    font-size: 11px !important;
-    padding: 0;
-    visibility: visible;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-    color: #d6d6d6;
-    border-radius: 20px;
-    margin: 0 auto !important;
-    border: none !important;
-  }
-
   .container.printable {
-    margin-top: 10px !important;
+    margin: 0px auto !important;
+    padding: 0 90px;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
     -webkit-print-color-adjust: exact !important; /* Chrome, Safari 6 – 15.3, Edge */
     print-color-adjust: exact !important;
   }
-
-  .container.printable img {
-    width: 80px;
-    border-radius: 0 !important;
-  }
-
   .container.printable table {
-    width: 60% !important;
-    border-collapse: collapse;
+    padding: 100px;
   }
-
-  .container.printable td {
-    padding: 4px;
-    border: none !important;
-    text-align: left;
-  }
-
-  .container.printable .heads {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .container.printable .heads img,
-  h6 {
-    position: relative;
-    top: -20px;
-    left: -15px;
-  }
-
-  .container.printable h6 {
-    color: #808080;
-    font-size: 7px;
-    margin-top: 3px;
-  }
-
-  .container.printable label {
-    color: #808080;
-  }
-
-  .container.printable span {
-    color: #e0e0e0;
-  }
-
-  .container.printable button {
-    display: none;
-  }
-}
-
-.pallete {
-  color: #ffd41236;
-  color: #8080806c;
-  color: #323232;
-  color: #2e2e2ecb;
 }

@@ -703,6 +703,18 @@ button.search-btn {
   }
 }
 
+.rotating-waiting-order-history {
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
 
 /*  */
 section.nota-section button {
@@ -769,6 +781,10 @@ button.payment-method:hover {
 
 .text-lightgray {
   color: #aeaeae;
+}
+
+.text-infos {
+  color: #44a2ffc4;
 }
 
 .text-bright {
@@ -1007,13 +1023,13 @@ div.accountMenu div.card-order-history {
 form.changePassword {
   /* background-color: #202020; */
   border: 3.5px solid #313131ed;
-  padding: 55px 140px;
+  padding: 55px 110px;
   border-radius: 20px;
 }
 
 form.changePassword input {
   height: 57px;
-  width: 500px;
+  width: 550px;
   font-size: 18px;
   color: #e2e2e2;
   border-radius: 15px;

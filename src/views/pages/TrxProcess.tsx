@@ -149,7 +149,7 @@ export const TrxProcess = () => {
             <button
               type="button"
               className="w-75 btn btn-lg btn-light fw-semibold"
-              style={{ margin: "75px auto", padding: "10px 10px" }}
+              style={{ margin: "75px auto", padding: "12px 10px", fontSize: "18px", borderRadius: "13px" }}
               onClick={handleSubmit}
               disabled={!file}
             >

@@ -10,7 +10,7 @@ import { AddButtonSM } from "./components/AddButton";
 import { Key, useEffect, useState } from "react";
 import { Loading } from "@views/components/Loading";
 
-export const UserDetails = () => {
+export const UserLists = () => {
   const [loadingPage, setLoadingPage] = useState(true);
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const UserDetails = () => {
   }
   // console.log(import.meta.env.VITE_BASEURL);
   const handleEditUser = (userId: any) => {
-    navigate(`/edit-user/${userId}`);
+    navigate(`/admin/edit-user/${userId}`);
   };
 
   const handleDeleteUser = async (userId: any) => {
@@ -145,13 +145,13 @@ export const UserDetails = () => {
                       <td>{user?.membership_level}</td>
                       <td className="d-flex gap-3">
                         <button
-                          className="button-action"
+                          className="button-action btn-icon-crud"
                           onClick={() => handleEditUser(user?._id)}
                         >
-                          <i className="fa-solid fa-pen text-warning"></i>
+                          <i className="fa-solid fa-info text-infos"></i>
                         </button>
                         <button
-                          className="button-action"
+                          className="button-action btn-icon-crud"
                           onClick={() => handleDeleteUser(user?._id)}
                         >
                           <i className="fa-solid fa-trash text-danger"></i>

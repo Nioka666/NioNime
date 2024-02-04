@@ -19,6 +19,7 @@ const ProfileDetails = (props: any) => {
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const { data: userData, isValidating: isLoadingUserData } = useSWR(
     "fetchUserData",
     () => fetchUserData(),
@@ -26,6 +27,13 @@ const UserProfile = () => {
       revalidateOnFocus: false,
     }
   );
+  useEffect(() => {
+    if (!userData) {
+      setLoggedIn(false);
+      navigate("/auth/login");
+      window.location.reload();
+    }
+  }, [userData, navigate]);
   const userIDs = userData?.id;
   const { data: userDetail } = useSWR("fetchUserDetail", () =>
     axios
@@ -36,21 +44,6 @@ const UserProfile = () => {
       )
       .then((response) => response.data)
   );
-  console.log(userDetail);
-
-  const checkLoginStatus = () => {
-    if (userData?.username) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const isLoggedIn = checkLoginStatus();
-
-  if (!isLoggedIn) {
-    navigate("/auth/login");
-  }
 
   const menuItems: any = [
     {

@@ -28,7 +28,6 @@ export const RegisterForm = () => {
 
     try {
       setLoadingBtn(true);
-
       const response = await axios.post(
         `${serverURL}/api/register`,
         { username, email, password },
@@ -60,7 +59,7 @@ export const RegisterForm = () => {
           }),
           {
             loading: "Loading...",
-            success: "Your Register is Successfully!",
+            success: "Your Register is Failed!",
             error: "Your Register is FAIL",
           }
         );
@@ -95,7 +94,10 @@ export const RegisterForm = () => {
           },
         }}
       />
-      <div className="container-login" style={{ gap: "80px", marginLeft: "100px" }}>
+      <div
+        className="container-login"
+        style={{ gap: "80px", marginLeft: "100px" }}
+      >
         <div className="register-banner">
           <figure style={{ position: "relative" }}>
             <img
@@ -146,7 +148,7 @@ export const RegisterForm = () => {
               Please fill for register your own
             </h5>
           </center>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleRegister} encType="multipart/form-data">
             <table>
               <tbody>
                 <tr>
@@ -195,7 +197,11 @@ export const RegisterForm = () => {
                         type="checkbox"
                         value="remember-me"
                         id="flexCheckDefault"
-                        style={{ backgroundColor: "black", border: "2px solid gray", cursor: "pointer" }}
+                        style={{
+                          backgroundColor: "black",
+                          border: "2px solid gray",
+                          cursor: "pointer",
+                        }}
                         // checked={rememberMe}
                         // onChange={handleCheckboxChange}
                       />

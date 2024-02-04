@@ -1,33 +1,47 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface ErrorToastProps {
-    errorMessage: string | boolean;
+  errorMessage: string | boolean;
 }
 
 const ErrorToast: React.FC<ErrorToastProps> = ({ errorMessage }) => {
-    useEffect(() => {
-        if (errorMessage) {
-            if (typeof errorMessage === 'string') {
-                // Menampilkan toast
-                toast.error(errorMessage);
+  const [loading, setLoading] = useState<boolean>(false);
 
-                // Menunggu sebelum memutuskan untuk reload halaman
-                const timeoutId = setTimeout(() => {
-                    // Toast telah hilang, muat ulang halaman
-                    window.location.reload();
-                }, 3000); // Ganti angka ini dengan timeout yang sesuai
+  useEffect(() => {
+    if (errorMessage) {
+      setLoading(true);
 
-                // Membersihkan timeout setelah komponen di-unmount atau jika errorMessage berubah
-                return () => {
-                    clearTimeout(timeoutId);
-                };
-            }
-        }
-    }, [errorMessage]);
+      if (typeof errorMessage === "string") {
+        const toastId = toast.loading("Loading...", { duration: 1500 });
 
-    return <Toaster />;
+        setTimeout(() => {
+          toast.dismiss(toastId);
+          toast.error(errorMessage);
+          setLoading(false);
+          window.location.reload();
+        }, 1500);
+      }
+    }
+  }, [errorMessage]);
+
+  return (
+    <Toaster
+      position="top-center"
+      reverseOrder={false}
+      gutter={8}
+      toastOptions={{
+        style: {
+          background: "#363636",
+          color: "#fff",
+        },
+        error: {
+          duration: 2500,
+        },
+      }}
+    />
+  );
 };
 
 export default ErrorToast;

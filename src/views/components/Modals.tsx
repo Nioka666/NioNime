@@ -7,7 +7,13 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export const AlertConfirmDialog = ({ openDialog, handleCloseDialog }: any) => {
+export const AlertConfirmDialog = ({
+  openDialog,
+  handleCloseDialog,
+  handleConfirm,
+  headerMessageConfirmDialog,
+  messageConfirmDialog,
+}: any) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -19,6 +25,12 @@ export const AlertConfirmDialog = ({ openDialog, handleCloseDialog }: any) => {
     handleCloseDialog();
   };
 
+  const handleConfirmClick = () => {
+    setOpen(false);
+    handleCloseDialog();
+    handleConfirm(true);
+  };
+
   return (
     <React.Fragment>
       <Dialog
@@ -26,19 +38,34 @@ export const AlertConfirmDialog = ({ openDialog, handleCloseDialog }: any) => {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        style={{ border: "none" }}
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+        <DialogTitle
+          id="alert-dialog-title"
+          style={{
+            backgroundColor: "#212121",
+            color: "white",
+            border: "none",
+            paddingTop: "30px",
+          }}
+        >
+          {headerMessageConfirmDialog}
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+        <DialogContent style={{ backgroundColor: "#212121", border: "none" }}>
+          <DialogContentText
+            id="alert-dialog-description"
+            style={{ color: "gray", padding: "10px 0" }}
+          >
+            {messageConfirmDialog}
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
+        <DialogActions
+          style={{ backgroundColor: "#212121", color: "white", border: "none" }}
+        >
+          <Button className="text-white" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button className="text-white" onClick={handleConfirmClick} autoFocus>
             OK
           </Button>
         </DialogActions>

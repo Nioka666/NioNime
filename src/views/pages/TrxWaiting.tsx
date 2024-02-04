@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import useSWR from "swr";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
 import logo from "../../../public/img/logo.png";
 import "../../style/print.css";
 import ProgressLoad from "@views/components/ProgressLoad";
 import { calculateExpiredDate, formatingDate } from "@utils/utility";
+import { useReactToPrint } from "react-to-print";
 import blobPattern from "../../../public/img/pattern.svg";
 
 export const TrxWaiting = () => {
@@ -53,10 +55,6 @@ export const TrxWaiting = () => {
     }
   }, [trxStatus]);
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -66,6 +64,22 @@ export const TrxWaiting = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const componentRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (componentRef.current) {
+      componentRef.current.focus();
+    }
+  }, [componentRef]); // Make sure to include componentRef as a dependency
+
+  const pageStyle = `{ size: 2.5in 4in }`;
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "NioNime Invoice",
+    onAfterPrint: () => console.log("Printed PDF successfully!"),
+    pageStyle: pageStyle,
+  });
 
   if (loading) {
     return <ProgressLoad />;
@@ -148,6 +162,7 @@ export const TrxWaiting = () => {
                 padding: "100px 20px 100px 20px",
                 borderRadius: "25px",
               }}
+              ref={componentRef}
             >
               <div
                 className="container printable text-lights"
@@ -155,7 +170,7 @@ export const TrxWaiting = () => {
                   marginTop: "100px",
                   backgroundColor: "#1f1f1fe7",
                   backgroundSize: "cover",
-                  padding: "100px 20px 100px 0px",
+                  padding: "100px 20px 70px 0px",
                   borderRadius: "25px",
                   border: "4.2px solid #323232",
                 }}
@@ -248,6 +263,9 @@ export const TrxWaiting = () => {
                       </td>
                     </tr>
                   </tbody>
+                  <h5 className="text-gray" style={{ marginTop: "70px" }}>
+                    Thank You !
+                  </h5>
                 </table>
               </div>
             </section>

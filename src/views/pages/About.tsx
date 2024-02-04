@@ -85,6 +85,7 @@ const Features = () => {
 
 export const About = () => {
   const [loading, setLoading] = useState(true);
+  localStorage.setItem("redirectPath", window.location.pathname);
 
   useEffect(() => {
     const timer = setTimeout(() => {

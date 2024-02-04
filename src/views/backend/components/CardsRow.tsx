@@ -18,9 +18,6 @@ export const CardsRow = () => {
     loadingTimeout: 5000,
   });
 
-  let savedAnimeStats: any = null;
-  const storedAnimeStats = localStorage.getItem("animeStats");
-
   useEffect(() => {
     if (animeStats) {
       const parseJsn = JSON.stringify(animeStats);
@@ -28,14 +25,16 @@ export const CardsRow = () => {
     }
   }, [animeStats]);
 
-  if (storedAnimeStats && !animeStats && !loadingAnimeStats) {
+  const storedAnimeStats = localStorage.getItem("animeStats");
+  let savedAnimeStats: any = null;
+
+  if (storedAnimeStats) {
     try {
       savedAnimeStats = JSON.parse(storedAnimeStats);
     } catch (error) {
       console.error("Error parsing stored animeStats:", error);
     }
   }
-  console.log(savedAnimeStats);
 
   const labels = Object.keys(
     errorAnimeStats ? animeStats || {} : animeStats || {}
@@ -81,6 +80,9 @@ export const CardsRow = () => {
             style={{ padding: "50px 0px 0px 0px" }}
           >
             <h3 className="text-lighs">Content data stats</h3>
+            <h6 className="text-gray fw-light" style={{fontSize: "14px"}}>
+              the statistic of all contents <br /> available on NioNime
+            </h6>
           </div>
           <div className="card-body" style={{ padding: "20px 25px 15px 25px" }}>
             <div className="d-flex justify-content-between align-items-center p-3">

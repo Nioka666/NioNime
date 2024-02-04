@@ -78,9 +78,9 @@ export const OrderHistory = () => {
               <center>
                 <div
                   className="empty-order mt-5"
-                  style={{ padding: "20px 130px" }}
+                  style={{ padding: "20px 150px" }}
                 >
-                  <i className="fa-solid fa-clock-rotate-left text-klawu fs-1"></i>
+                  <i className="fa-solid fa-clock-rotate-left text-klawu fs-1 rotating-waiting-order-history"></i>
                   <h3 className="text-klawu fw-semibold mt-4">
                     Your Order History still <br /> empty right now
                   </h3>
@@ -91,7 +91,10 @@ export const OrderHistory = () => {
         )}
         {isAvailableTrx && (
           <>
-            <div className="card bg-black text-white child-card">
+            <div
+              className="card bg-black text-white child-card"
+              style={{ padding: "0px 20px" }}
+            >
               <div className="card-body"></div>
               <div className="input-groups d-grid gap-4 mt-5 card-order-history">
                 <div className="d-flex justify-content-between">

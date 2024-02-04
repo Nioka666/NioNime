@@ -2,7 +2,7 @@
 // DragDropFiles.tsx
 import { FileUploader } from "react-drag-drop-files";
 
-const fileTypes = ["JPG", "PNG", "GIF"];
+// const fileTypes = ["JPG", "PNG", "GIF", "JPEG"];
 
 interface fileInterface {
   setFile: any;
@@ -18,7 +18,7 @@ export const DragDropFiles = ({ setFile }: fileInterface) => {
       <FileUploader
         handleChange={handleFileUpload}
         name="file"
-        types={fileTypes}
+        // types={fileTypes}
       />
     </>
   );

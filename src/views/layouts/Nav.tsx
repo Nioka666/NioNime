@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { fetchUserData, serverURL } from "@utils/anime";
 import { useEffect, useState } from "react";
@@ -5,9 +6,12 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import logo from "../../../public/img/logo.png";
 import avatar from "../../../public/img/gojj.jpg";
+import { AlertConfirmDialog } from "@views/components/Modals";
+import toast, { Toaster } from "react-hot-toast";
 
 const InnerNav = () => {
   const navigate = useNavigate();
+  const [isDialogOpen, setDialogOpen] = useState(false);
   const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
     revalidateOnFocus: false,
   });
@@ -23,20 +27,68 @@ const InnerNav = () => {
   const isUserLoggedIn = checkLoginStatus();
 
   const handleLogout = async () => {
-    try {
-      await axios.post(`${serverURL}/api/logout`, null, {
-        withCredentials: true,
-      });
-      console.log("Logout success");
-      navigate("/");
-      window.location.reload();
-    } catch (error) {
-      console.error("Logout error:", error);
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleConfirmLogout = async (isConfirmed: any) => {
+    if (isConfirmed) {
+      try {
+        await axios.post(`${serverURL}/api/logout`, null, {
+          withCredentials: true,
+        });
+        await toast.promise(
+          new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          }),
+          {
+            loading: "Loading...",
+            success: "Your Successfully Signed out!",
+            error: "Your Sign out is Failed",
+          }
+        );
+        navigate("/");
+        window.location.reload();
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
+    } else {
+      handleCloseDialog();
     }
   };
 
   return (
     <>
+      <AlertConfirmDialog
+        openDialog={isDialogOpen}
+        handleCloseDialog={handleCloseDialog}
+        handleConfirm={handleConfirmLogout}
+        headerMessageConfirmDialog={"Confirm for deleting this data?"}
+        messageConfirmDialog={
+          "By Confirm deleting this data, you can't reable this data again"
+        }
+      />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          success: {
+            duration: 2500,
+          },
+          error: {
+            duration: 2500,
+          },
+        }}
+      />
       <ul
         className="navbar-nav me-auto mb-2 mb-lg-0 fw-bold"
         style={{ gap: "25px" }}
@@ -102,10 +154,10 @@ const InnerNav = () => {
                     onClick={handleLogout}
                   >
                     <i
-                      className="fa-solid fa-arrow-right-to-bracket"
+                      className="fa-solid fa-arrow-right-to-bracket text-danger"
                       style={{ transform: "rotate(180deg)" }}
                     ></i>
-                    <span className="ml-12" style={{ color: "#cecece" }}>
+                    <span className="ml-12 text-danger fw-semibold">
                       Sign out
                     </span>
                   </a>

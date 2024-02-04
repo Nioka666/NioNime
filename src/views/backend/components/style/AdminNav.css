@@ -179,6 +179,16 @@ div.trx-edit .user-card {
   padding: 0px 0px 20px 0;
 }
 
+button.btn-icon-crud i {
+  transition: all ease-in-out 0.2s;
+}
+
+button.btn-icon-crud i:hover,
+button.btn-icon-crud i:active,
+button.btn-icon-crud i:focus {
+  transform: scale(0.7);
+}
+
 .mtop-60 {
   margin-top: 60px;
 }
