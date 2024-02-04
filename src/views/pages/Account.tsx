@@ -18,6 +18,7 @@ const ProfileDetails = (props: any) => {
 };
 
 const UserProfile = () => {
+  const navigate = useNavigate();
   const { data: userData, isValidating: isLoadingUserData } = useSWR(
     "fetchUserData",
     () => fetchUserData(),
@@ -25,7 +26,18 @@ const UserProfile = () => {
       revalidateOnFocus: false,
     }
   );
-  const navigate = useNavigate();
+  const userIDs = userData?.id;
+  const { data: userDetail } = useSWR("fetchUserDetail", () =>
+    axios
+      .post(
+        `${serverURL}/api/user-details`,
+        { userIDs },
+        { withCredentials: true }
+      )
+      .then((response) => response.data)
+  );
+  console.log(userDetail);
+
   const checkLoginStatus = () => {
     if (userData?.username) {
       return true;
@@ -98,7 +110,7 @@ const UserProfile = () => {
               >
                 {userData?.username} <br />
                 <span style={{ fontSize: "17px", color: "gray" }}>
-                  {userData?.membership_level}
+                  {userDetail?.membership_level}
                 </span>
               </h4>
             )}

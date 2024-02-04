@@ -20,7 +20,7 @@ export const UsersModel = mongoose.model("Users", {
     profile_url: String,
     membership_level: String,
     date_joined: Date,
-    membership_expired: Date
+    membership_expired: String
 });
 
 // export const AnimesModel = mongoose.model("Animes", {
@@ -51,6 +51,7 @@ export const TransactionsModel = mongoose.model("Transactions", {
         enum: ['Unprocessed', 'Process', 'Success', 'Failed']
     },
     date_transaction: Date,
+    membership_expired: Date
 });
 
 export const MembershipsModel = mongoose.model("Memberships", {

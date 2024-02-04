@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   fetchAnimeDetail,
   fetchAnimeStreamLink,
@@ -41,7 +42,6 @@ export const Watch: React.FC<WatchProps> = () => {
         .then((response) => response.data),
     { revalidateOnFocus: true }
   );
-
   const [selectedEpisode, setSelectedEpisode] = useState(null || "");
   const [selectedQuality, setSelectedQuality] = useState(null || "" || Number);
   const [selectedSource, setSelectedSource] = useState(null || "");
@@ -53,7 +53,6 @@ export const Watch: React.FC<WatchProps> = () => {
   const providerIndex = episodeProvider?.findIndex(
     (episode: any) => episode.providerId === "gogoanime"
   );
-
   const episodesStore =
     animeWatchDetail?.episodes.data[providerIndex]?.episodes;
   const episodeTitle = episodesStore?.[0]?.title;
@@ -82,6 +81,15 @@ export const Watch: React.FC<WatchProps> = () => {
     });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const newEpisodeSrc = await fetchEpisodeData(selectedEpisode);
+      setSelectedSource(newEpisodeSrc);
+    };
+
+    fetchData();
+  }, [selectedQuality, selectedEpisode]);
+
   const fetchEpisodeData = async (episodeId: any) => {
     const finalEpisodeID = episodeId + 1;
     const watchID =
@@ -91,17 +99,8 @@ export const Watch: React.FC<WatchProps> = () => {
       finalEpisodeID,
       animeId
     );
-    let allowedQualityIndices = [0, 1, 2, 3];
 
-    if (
-      userDetail?.membership_level !== "Noble Fans" &&
-      userDetail?.membership_level !== "Ordinary Fans"
-    ) {
-      // Jika bukan "Noble Fans" atau "Ordinary Fans," maka batasi hanya ke index 1 (default)
-      allowedQualityIndices = [0, 1, 2];
-    }
-
-    return newEpisodeData?.sources[allowedQualityIndices[2]]?.url;
+    return newEpisodeData?.sources[allowedQualityIndices[selectedQuality]]?.url;
   };
 
   const handleEpisodeClick = async (episodeId: any) => {
@@ -113,7 +112,6 @@ export const Watch: React.FC<WatchProps> = () => {
   };
 
   let allowedQualityIndices = [0, 1, 2, 3];
-
   if (
     userDetail?.membership_level !== "Noble Fans" &&
     userDetail?.membership_level !== "Ordinary Fans"
@@ -145,7 +143,7 @@ export const Watch: React.FC<WatchProps> = () => {
           {isLoadingAnimeWatchDetail && <ParagraphPlaceholder />}
           {!isLoadingAnimeWatchDetail && (
             <>
-              <div className="d-flex">
+              <div className="d-flex watch-header">
                 <h3
                   className="text-light"
                   style={{ width: "3500px" }}
@@ -166,11 +164,7 @@ export const Watch: React.FC<WatchProps> = () => {
                     </option>
                   ))}
                 </select>
-
-                <i
-                  className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray"
-                  style={{ width: "70px" }}
-                ></i>
+                <i className="fa-solid fa-ellipsis-vertical fs-4 mt-2 text-gray"></i>
               </div>
               <h5 className="text-gray" key={episodeTitle}>
                 EP {selectedEP} - {animeWatchDetail?.title.native}
@@ -203,7 +197,7 @@ export const Watch: React.FC<WatchProps> = () => {
                   scope="col"
                   style={{
                     borderBottom: "1px solid gray",
-                    padding: "10px 10px 10px 365px",
+                    padding: "10px 10px 10px 360px",
                     fontSize: "14px",
                     color: "lightgray",
                   }}
@@ -228,7 +222,7 @@ export const Watch: React.FC<WatchProps> = () => {
                 <td
                   style={{
                     borderBottom: "1px solid gray",
-                    padding: "10px 10px 10px 365px",
+                    padding: "10px 10px 10px 360px",
                     fontSize: "14px",
                     color: "lightgray",
                   }}
@@ -248,7 +242,7 @@ export const Watch: React.FC<WatchProps> = () => {
                 </td>
                 <td
                   style={{
-                    padding: "10px 10px 10px 365px",
+                    padding: "10px 10px 10px 360px",
                     fontSize: "14px",
                     color: "lightgray",
                   }}

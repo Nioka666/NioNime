@@ -171,8 +171,8 @@ div.trx-edit .card-body section.photo_evidence {
 div.trx-edit .card-body section.photo_evidence img {
   cursor: pointer;
   height: 300px;
-  max-width: 220px;
-  border-radius: 20px;
+  max-width: 230px;
+  border-radius: 15px;
 }
 
 div.trx-edit .user-card {

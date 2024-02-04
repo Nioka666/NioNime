@@ -5,7 +5,7 @@ import useSWR from "swr";
 
 export const MembershipInfo = () => {
   const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
-    revalidateOnFocus: false,
+    revalidateOnFocus: true,
   });
 
   const userIDs = userData?.id;
@@ -19,10 +19,9 @@ export const MembershipInfo = () => {
           { userIDs },
           { withCredentials: true }
         )
-        .then((response) => response.data)
+        .then((response) => response.data),
+    { revalidateOnFocus: false }
   );
-
-  console.log(userDetail);
 
   const isNobleFans = (() => {
     if (userDetail?.membership_level === "Noble Fans") {
@@ -34,8 +33,6 @@ export const MembershipInfo = () => {
 
   const userMembership = userDetail?.membership_level;
 
-  // const { data: userMembership } = useSWR("fetchUserMembership", () => axios)
-
   return (
     <>
       <form className="d-grid changePassword">
@@ -44,10 +41,17 @@ export const MembershipInfo = () => {
         <div className="input-groups d-grid gap-4 mt-5">
           {loadingMembership && <Loading />}
           {!loadingMembership && isNobleFans && (
-            <h1 className="text-warning fw-bold">{userMembership}</h1>
+            <>
+              <h1 className="text-warning fw-bold">{userMembership}</h1>
+              <h5 className="text-gray">Your Subscription is active untill </h5>
+              <h5 className="text-gray">DATE HERE </h5>
+            </>
           )}
           {!loadingMembership && !isNobleFans && (
-            <h1 className="text-white fw-bold">{userMembership}</h1>
+            <>
+              <h1 className="text-white fw-bold">{userMembership}</h1>
+              <h5 className="text-gray"></h5>
+            </>
           )}
           <label className="" htmlFor="">
             <i className="fa-solid fa-exclamation"></i> Your membership is being

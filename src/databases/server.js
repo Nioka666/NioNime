@@ -193,12 +193,13 @@ app.post('/api/account/change-detail', async (req, res) => {
 // NOTE
 app.post("/api/membership-update", async (req, res) => {
     const userID = req.body.userID;
+    const membershipDateExpired = req.body.membershipDateExpired;
     const isValidNobleFans = req.body.isValidNobleFans;
 
     try {
         const userLevelChange = await UsersModel.findOneAndUpdate(
             { _id: userID },
-            { membership_level: isValidNobleFans },
+            { membership_level: isValidNobleFans, membership_expired: membershipDateExpired },
             { new: true }
         );
 
@@ -409,7 +410,7 @@ app.get("/api/admin-data", async (req, res) => {
 // }
 
 app.post("/api/transaction-add", async (req, res) => {
-    const { userID, username, membershipLevel, membershipPrice, fileName } = req.body;
+    const { userID, username, membershipLevel, membershipPrice, fileName, membershipDateExpired } = req.body;
     try {
         const newTrx = await TransactionsModel.insertMany({
             users_id: userID,
@@ -418,7 +419,8 @@ app.post("/api/transaction-add", async (req, res) => {
             amount: membershipPrice,
             photo_evidence: fileName,
             status: "Unprocessed",
-            date_transaction: new Date()
+            date_transaction: new Date(),
+            membership_expired: membershipDateExpired
         });
 
         if (newTrx) {

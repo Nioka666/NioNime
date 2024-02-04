@@ -51,7 +51,7 @@ nav {
   font-size: 16px;
   color: white;
   transition: 0.5s all ease-in-out;
-  border-radius: 0 0 25px 25px;
+  border-radius: 0 0 20px 20px;
 }
 
 nav#nav {
@@ -672,23 +672,37 @@ button.search-btn {
 
 .trx-proces-container {
   margin-top: 100px;
-  gap: 50px;
+  gap: 15px;
   justify-content: center;
   align-items: center;
-  width: 77%;
+  width: 72%;
   background-color: #292929;
-  padding: 50px 40px;
+  padding: 70px 50px;
   border-radius: 15px;
 }
 
 .evidence-file-sec {
-  margin-top: 25px;
-  padding-left: 37px;
+  margin-top: 20px;
   padding-bottom: 39px;
-  padding: 50px;
+  padding: 40px;
+  height: 270px;
   border-style: dashed;
-  border-radius: 10px;
+  border-radius: 15px;
 }
+
+.rotating-waiting-trx {
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 /*  */
 section.nota-section button {
@@ -1022,14 +1036,63 @@ form.changePassword label {
 }
 
 /* Watch Page */
+div.watch-header select {
+  margin: 0 30px 0 0;
+  border-radius: 20px;
+  text-align: center;
+  width: 550px;
+  cursor: pointer;
+}
+
+div.watch-header select:active,
+div.watch-header select:focus {
+  border: none !important;
+}
+
+/* Gaya untuk opsi pada elemen select */
+.watch-header select option {
+  cursor: pointer;
+  background-color: black;
+  text-align: center;
+  color: #dddddd;
+  border: none !important;
+  padding: 10px;
+}
+
+/* Gaya tambahan jika Anda ingin mengubah warna latar belakang saat opsi dipilih */
+.watch-header select option:checked {
+  background-color: #333;
+}
+
+div.watch-header i {
+  width: 50px;
+  cursor: pointer;
+}
+
 .ep-square {
+  border: none !important;
   text-align: center;
   background-color: #323232;
   padding: 15px 10px;
   transition: 0.2s all ease-in-out;
 }
 
+.ep-square-controls {
+  border: none !important;
+  text-align: center;
+  background-color: #323232;
+  padding: 1px 15px;
+  height: 50px;
+  /* font-size: 15px; */
+  transition: 0.2s all ease-in-out;
+}
+
 .ep-square:hover {
+  border: none !important;
+  background-color: #2d2d2d;
+}
+
+.ep-square-controls:hover {
   border: none !important;
   background-color: #2d2d2d;
 }

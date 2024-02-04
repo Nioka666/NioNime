@@ -13,7 +13,6 @@ export const TransactionsDetail = () => {
   const { data: trxData, error: errorTrxData } = useSWR("fetchTrxData", () =>
     fetchTransList()
   );
-
   if (errorTrxData) {
     console.log(errorTrxData);
   }

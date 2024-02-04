@@ -62,9 +62,23 @@ export const TransactionEdit = () => {
     navigate("/admin/transactions");
   };
 
+  console.log(trxDetail);
+
+  // const selectedLevel = trxDetail?.membership_level;
+  // const checkTimeJump = () => {
+  //   if (selectedLevel === "Noble Fans") {
+  //     return 360;
+  //   } else if (selectedLevel === "Ordinary Fans") {
+  //     return 30;
+  //   }
+  // };
+
+  // const timeJump = checkTimeJump();
+  const membershipDateExpired = trxDetail?.membership_expired;
+
   const userID: string = trxDetail?.users_id;
   const isNotNoble: string = "Fans";
-  const checkIsValidNobleFans = () => {
+  const checkIsValidSubscriptionFans = () => {
     if (newStatus === "Success") {
       return trxDetail?.membership_level;
     } else if (newStatus !== "Success") {
@@ -72,12 +86,12 @@ export const TransactionEdit = () => {
     }
   };
 
-  const isValidNobleFans = checkIsValidNobleFans();
+  const isValidNobleFans = checkIsValidSubscriptionFans();
   const { data: memberStatusUpdate } = useSWR("updatingMemberStatus", () =>
     axios
       .post(
         `${serverURL}/api/membership-update`,
-        { userID, isValidNobleFans },
+        { userID, isValidNobleFans, membershipDateExpired },
         { withCredentials: true }
       )
       .then((response) => response.data)
@@ -127,15 +141,15 @@ export const TransactionEdit = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <label htmlFor="trxId">Transaction ID:</label>
+                      <label htmlFor="trxId">Transaction ID :</label>
                     </td>
                     <td>
-                      <span>{trxDetail._id}</span>
+                      <span>{trxDetail?._id}</span>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="username">Username:</label>
+                      <label htmlFor="username">Username :</label>
                     </td>
                     <td>
                       <span>{trxDetail.username}</span>
@@ -143,7 +157,7 @@ export const TransactionEdit = () => {
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="membership">Membership Lvl:</label>
+                      <label htmlFor="membership">Membership Selected :</label>
                     </td>
                     <td>
                       <span className="fw-bold">
@@ -153,7 +167,7 @@ export const TransactionEdit = () => {
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="status">Trx Status:</label>
+                      <label htmlFor="status">Trx Status :</label>
                     </td>
                     <td>
                       <select
@@ -189,7 +203,7 @@ export const TransactionEdit = () => {
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="amount">Amount:</label>
+                      <label htmlFor="amount">Amount :</label>
                     </td>
                     <td>
                       <span>{trxDetail.amount.toLocaleString("ID-id")}</span>
@@ -197,14 +211,22 @@ export const TransactionEdit = () => {
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="date">Date:</label>
+                      <label htmlFor="date">Date :</label>
                     </td>
                     <td>
                       <span>{trxDetail.date_transaction}</span>
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2} style={{ paddingTop: "50px" }}>
+                    <td>
+                      <label htmlFor="date">Expired Date :</label>
+                    </td>
+                    <td>
+                      <span>{trxDetail.date_transaction}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2} style={{ paddingTop: "70px" }}>
                       <p className="text-gray fs-6 mb-4">
                         * By changing Transaction status is impact to <br />
                         users level for explicit

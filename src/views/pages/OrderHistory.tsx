@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import useSWR from "swr";
 
 export const OrderHistory = () => {
@@ -95,7 +96,9 @@ export const OrderHistory = () => {
               <div className="input-groups d-grid gap-4 mt-5 card-order-history">
                 <div className="d-flex justify-content-between">
                   <h4 className="text-warning fw-bold">{trxType}</h4>
-                  <i className="fa-regular fa-circle-question text-gray mt-2 fs-5"></i>
+                  <Link to={"/transaction/waiting"}>
+                    <i className="fa-regular fa-circle-question text-gray mt-2 fs-5"></i>
+                  </Link>
                 </div>
                 <div style={{ display: "flex", gap: "20px" }}>
                   <div className="gap-4">

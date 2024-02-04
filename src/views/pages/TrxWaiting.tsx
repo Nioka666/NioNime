@@ -7,13 +7,14 @@ import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
 import logo from "../../../public/img/logo.png";
 import "../../style/print.css";
-import { Loading } from "@views/components/Loading";
 import ProgressLoad from "@views/components/ProgressLoad";
 import { calculateExpiredDate, formatingDate } from "@utils/utility";
 import blobPattern from "../../../public/img/pattern.svg";
 
 export const TrxWaiting = () => {
   const [isConfirm, setIsConfirm] = useState(false);
+  const [isFailed, setIsFailed] = useState(false);
+  const [isAvailableTrx, setIsAvailableTrx] = useState(Boolean);
   const { data: userData } = useSWR("fetchUserData", () => fetchUserData());
   const userID = userData?.id;
   const { data: trxDAT, isValidating: trxDATLoading } = useSWR(
@@ -26,10 +27,18 @@ export const TrxWaiting = () => {
           { withCredentials: true }
         )
         .then((response) => response.data),
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: true }
   );
-  const trxID = trxDAT?._id;
-  console.log(trxID);
+
+  useEffect(() => {
+    if (trxDAT) {
+      setIsAvailableTrx(true);
+    } else {
+      setIsAvailableTrx(false);
+    }
+  }, [trxDAT]);
+
+  console.info(isAvailableTrx);
 
   const trxDetail = trxDAT;
   const trxStatus = trxDAT?.status;
@@ -37,6 +46,8 @@ export const TrxWaiting = () => {
   useEffect(() => {
     if (trxStatus === "Success") {
       setIsConfirm(true);
+    } else if (trxStatus === "Failed") {
+      setIsFailed(true);
     } else {
       setIsConfirm(false);
     }
@@ -51,7 +62,7 @@ export const TrxWaiting = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -62,15 +73,15 @@ export const TrxWaiting = () => {
 
   return (
     <>
-      {trxDATLoading && <Loading />}
-      {!isConfirm && !trxDATLoading && (
+      {trxDATLoading && <ProgressLoad />}
+      {!isConfirm && !trxDATLoading && !isFailed && (
         <center>
           <div
             className="container printable d-grid"
             style={{ marginTop: "200px" }}
           >
             <i
-              className="fa-regular fa-hourglass-half text-gray"
+              className="fa-regular fa-clock text-gray rotating-waiting-trx"
               style={{ fontSize: "140px", transform: "rotate(10deg)" }}
             ></i>
             <h4 className="mt-5 text-gray">
@@ -79,7 +90,7 @@ export const TrxWaiting = () => {
           </div>
         </center>
       )}
-      {isConfirm && !trxDATLoading && (
+      {isConfirm && !trxDATLoading && !isFailed && (
         <>
           <div
             className="nota d-flex"
@@ -243,6 +254,41 @@ export const TrxWaiting = () => {
           </div>
         </>
       )}
+      {!isConfirm && !trxDATLoading && isFailed && (
+        <center>
+          <div
+            className="container printable d-grid"
+            style={{ marginTop: "200px" }}
+          >
+            <i
+              className="fa-regular fa-circle-xmark text-danger"
+              style={{ fontSize: "140px" }}
+            ></i>
+            <h4 className="mt-5 text-gray">
+              Sorry Your Transaction Failed, or is being <br />
+              rejected by Administrators
+            </h4>
+          </div>
+        </center>
+      )}
+      {/* {!isAvailableTrx && !trxDATLoading && !isConfirm && loading && (
+        <center>
+          <div
+            className="container printable d-grid"
+            style={{ marginTop: "200px" }}
+          >
+            <i
+              className="fa-brands fa-creative-commons-zero text-danger"
+              style={{ fontSize: "140px" }}
+            ></i>
+            <h4 className="mt-5 text-gray">
+              You have not any Transaction yet
+              <br />
+              Please take a transaction first
+            </h4>
+          </div>
+        </center>
+      )} */}
     </>
   );
 };

@@ -18,11 +18,9 @@ export function formatingDate(dateString: string | null | Date): string {
   }
 
   const trxDate = new Date(dateString);
-
   if (!(trxDate instanceof Date) || isNaN(trxDate.getTime())) {
     return "N/A";
   }
-
   const day = trxDate.getDate().toString().padStart(2, "0");
   const month = (trxDate.getMonth() + 1).toString().padStart(2, "0");
   const year = trxDate.getFullYear();
@@ -31,13 +29,12 @@ export function formatingDate(dateString: string | null | Date): string {
   return `${dayname}, ${day}-${month}-${year}`;
 }
 
-export function calculateExpiredDate(date: string | undefined): string {
+export function calculateExpiredDate(date: string | undefined | Date): string {
   if (!date) {
     return "";
   }
-
   const transactionDate = new Date(date);
   const expiredDate = new Date(transactionDate);
   expiredDate.setDate(expiredDate.getDate() + jumpMonth);
-  return formatingDate(expiredDate); // Corrected the function name here
+  return formatingDate(expiredDate);
 }

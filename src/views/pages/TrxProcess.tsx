@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { DragDropFiles } from "@views/components/DragDropFiles";
@@ -24,6 +25,15 @@ export const TrxProcess = () => {
 
   const membershipLevel = membershipFindBySlug?.level;
   const membershipPrice = membershipFindBySlug?.prices;
+  const checkAndSetDateJump = () => {
+    if (membershipLevel === "Noble Fans") {
+      return 360;
+    } else if (membershipLevel === "Ordinary Fans") {
+      return 30;
+    }
+  };
+  const isDateJump: any = checkAndSetDateJump();
+
   const getMethodLink = () => {
     if (method === "gopay") {
       return gopayQR;
@@ -59,6 +69,8 @@ export const TrxProcess = () => {
   const handleSubmit = async () => {
     try {
       const currentDate = new Date();
+      const expiredDate = new Date();
+      expiredDate.setDate(currentDate.getDate() + isDateJump);
       const formattedDate = currentDate
         .toISOString()
         .slice(0, 10)
@@ -75,6 +87,7 @@ export const TrxProcess = () => {
           membershipLevel,
           membershipPrice,
           fileName: customFileName,
+          membershipDateExpired: expiredDate,
         },
         { withCredentials: true }
       );
@@ -98,16 +111,25 @@ export const TrxProcess = () => {
           style={{ backgroundColor: "#292929", marginTop: "-10px" }}
         >
           <h2 style={{ marginBottom: "10px" }}>Scan QR Code : </h2>
+          <h6 className="text-gray fw-light" style={{ fontSize: "13px" }}>
+            please scan QR code bellow and after finish your payment, please put
+            your transaction evidence
+          </h6>
           {method === "dana" && (
             <img
               src={getMethodLink()}
               width={330}
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "20px" }}
               alt="qr_method"
             />
           )}
           {method === "gopay" && (
-            <img src={getMethodLink()} width={350} alt="qr_method" />
+            <img
+              src={getMethodLink()}
+              className="mt-3"
+              width={350}
+              alt="qr_method"
+            />
           )}
         </section>
         <div className="div d-grid">
@@ -115,25 +137,25 @@ export const TrxProcess = () => {
             <div className="wrapp d-flex gap-4">
               <i
                 className="fa-solid fa-image text-center text-gray"
-                style={{ fontSize: "100px" }}
+                style={{ fontSize: "90px" }}
               ></i>
-              <h3 className="text-gray mt-3">
+              <h4 className="text-gray mt-3">
                 Upload evidence <br /> here
-              </h3>
+              </h4>
             </div>
             <br />
             <br />
             <DragDropFiles setFile={setFile} />
+            <button
+              type="button"
+              className="w-75 btn btn-lg btn-light fw-semibold"
+              style={{ margin: "75px auto", padding: "10px 10px" }}
+              onClick={handleSubmit}
+              disabled={!file}
+            >
+              Submit Transaction
+            </button>
           </section>
-          <button
-            type="button"
-            className="w-75 btn btn-lg btn-light fw-semibold"
-            style={{ margin: "30px auto", padding: "10px 10px" }}
-            onClick={handleSubmit}
-            disabled={!file}
-          >
-            Submit Transaction
-          </button>
         </div>
       </div>
     </>
