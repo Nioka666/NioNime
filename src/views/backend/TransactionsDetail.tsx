@@ -3,7 +3,6 @@ import { fetchTransList, serverURL } from "@utils/anime";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
-import { AddButtonSM } from "./components/AddButton";
 import { Toaster } from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 import { AlertConfirmDialog } from "@views/components/Modals";
