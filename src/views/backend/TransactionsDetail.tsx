@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { AddButtonSM } from "./components/AddButton";
 import { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AlertConfirmDialog } from "@views/components/Modals";
+import { useReactToPrint } from "react-to-print";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const TransactionsDetail = () => {
@@ -64,6 +65,22 @@ export const TransactionsDetail = () => {
     }
   };
 
+  const componentRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (componentRef.current) {
+      componentRef.current.focus();
+    }
+  }, [componentRef]); // Make sure to include componentRef as a dependency
+
+  const pageStyle = `{ size: 2.5in 4in }`;
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "NioNime Invoice",
+    onAfterPrint: () => console.log("Printed PDF successfully!"),
+    pageStyle: pageStyle,
+  });
+
   return (
     <>
       <AlertConfirmDialog
@@ -106,11 +123,26 @@ export const TransactionsDetail = () => {
             style={{ padding: "50px 30px 0px 45px" }}
           >
             <h4 className="text-lighs">Transactions data</h4>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center mt-0">
               <h6 className="card-title text-gray">
                 Special title treatmentless our commits
               </h6>
-              <AddButtonSM jumpTo="/admin/transactions/add" />
+              <button
+                className="btn btn-outline fw-semibold mt-4 text-lights"
+                onClick={handlePrint}
+                style={{
+                  position: "relative",
+                  top: "-50px",
+                  padding: "12px 25px",
+                  border: "2px solid gray",
+                  borderRadius: "12px",
+                  transition: "all ease-in-out 0.2s",
+                }}
+              >
+                <i className="fa-solid fa-floppy-disk fs-5 me-2"></i>
+                Save Invoice
+              </button>
+              {/* <AddButtonSM jumpTo="/admin/transactions/add" /> */}
             </div>
           </div>
           <div className="card-body" style={{ padding: "0 25px 25px 25px" }}>
@@ -118,6 +150,7 @@ export const TransactionsDetail = () => {
             <div
               className="datamaster-table"
               style={{ maxWidth: "100%", overflowX: "auto" }}
+              ref={componentRef}
             >
               <table
                 className="table table-dark bg-black table-borderless table-hover mt-2"

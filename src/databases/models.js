@@ -20,7 +20,7 @@ export const UsersModel = mongoose.model("Users", {
     profile_url: String,
     membership_level: String,
     date_joined: Date,
-    membership_expired: String
+    membership_expired: Date
 });
 
 // export const AnimesModel = mongoose.model("Animes", {

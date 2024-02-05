@@ -40,7 +40,7 @@ export const TrxWaiting = () => {
     }
   }, [trxDAT]);
 
-  console.info(isAvailableTrx);
+  // console.info(isAvailableTrx);
 
   const trxDetail = trxDAT;
   const trxStatus = trxDAT?.status;
@@ -170,7 +170,7 @@ export const TrxWaiting = () => {
                   marginTop: "100px",
                   backgroundColor: "#1f1f1fe7",
                   backgroundSize: "cover",
-                  padding: "100px 20px 70px 0px",
+                  padding: "100px 20px 60px 0px",
                   borderRadius: "25px",
                   border: "4.2px solid #323232",
                 }}
@@ -258,12 +258,15 @@ export const TrxWaiting = () => {
                       </td>
                       <td>
                         <span>
-                          {calculateExpiredDate(trxDetail?.date_transaction)}
+                          {calculateExpiredDate(trxDetail?.membership_expired)}
                         </span>
                       </td>
                     </tr>
                   </tbody>
-                  <h5 className="text-gray" style={{ marginTop: "70px" }}>
+                  <h5
+                    className="text-gray"
+                    style={{ marginTop: "70px", fontSize: "18px" }}
+                  >
                     Thank You !
                   </h5>
                 </table>

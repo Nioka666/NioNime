@@ -19,9 +19,8 @@ export const UserEdit = () => {
       .then((response) => response.data)
   );
 
-  const handleLevelEdit = () => {
-    
-  }
+  const handleLevelEdit = () => {};
+  console.log(userDetail);
 
   return (
     <>
@@ -82,7 +81,16 @@ export const UserEdit = () => {
                       <label htmlFor="membership">Email :</label>
                     </td>
                     <td>
-                      <span className="fw-bold">{userDetail?.email}</span>
+                      <span>{userDetail?.email}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="amount">Phone Number :</label>
+                    </td>
+                    <td>
+                      {/* <span>{trxDetail.amount.toLocaleString("ID-id")}</span> */}
+                      <span>{userDetail?.phone_number}</span>
                     </td>
                   </tr>
                   <tr>
@@ -90,61 +98,26 @@ export const UserEdit = () => {
                       <label htmlFor="status">Membership Level :</label>
                     </td>
                     <td>
-                      <select
-                        id="status"
-                        value={userDetail?.membership_level}
-                        onChange={() => {}}
-                        className="form-control bg-dark border-0 text-white"
-                        style={{
-                          padding: "12px 20px",
-                          borderRadius: "17px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <option value="" disabled>
-                          Select Status
-                        </option>
-                        {["Unprocessed", "Process", "Success", "Failed"].map(
-                          (status, index) => (
-                            <option
-                              key={index}
-                              value={status}
-                              style={{
-                                fontSize: "17px",
-                                padding: "150px 15px",
-                              }}
-                            >
-                              {status}
-                            </option>
-                          )
-                        )}
-                      </select>
+                      <span className="fw-bold">
+                        {userDetail?.membership_level}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <label htmlFor="date">Date Joined :</label>
+                    </td>
+                    <td>
+                      <span>{userDetail?.date_joined}</span>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <label htmlFor="amount">Amount :</label>
+                      <label htmlFor="date">Membership Expired Date :</label>
                     </td>
                     <td>
-                      {/* <span>{trxDetail.amount.toLocaleString("ID-id")}</span> */}
-                      <span>iii</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label htmlFor="date">Date :</label>
-                    </td>
-                    <td>
-                      {/* <span>{trxDetail.date_transaction}</span> */}
-                      <span>ooo</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label htmlFor="date">Expired Date :</label>
-                    </td>
-                    <td>
-                      <span>uu</span>
+                      <span>{userDetail?.membership_expired}</span>
                     </td>
                   </tr>
                   <tr>

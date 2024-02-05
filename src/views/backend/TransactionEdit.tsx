@@ -222,7 +222,7 @@ export const TransactionEdit = () => {
                       <label htmlFor="date">Expired Date :</label>
                     </td>
                     <td>
-                      <span>{trxDetail.date_transaction}</span>
+                      <span>{trxDetail.membership_expired}</span>
                     </td>
                   </tr>
                   <tr>
