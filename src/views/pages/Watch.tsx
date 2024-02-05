@@ -51,7 +51,7 @@ export const Watch: React.FC<WatchProps> = () => {
     });
   const episodeProvider = animeWatchDetail?.episodes.data;
   const providerIndex = episodeProvider?.findIndex(
-    (episode: any) => episode.providerId === "gogoanime"
+    (episode: any) => episode.providerId === "zoro"
   );
   const episodesStore =
     animeWatchDetail?.episodes.data[providerIndex]?.episodes;

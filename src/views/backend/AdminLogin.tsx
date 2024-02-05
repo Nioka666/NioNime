@@ -1,42 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { LoginFailModal } from "./Modals";
 import { ChangeEvent } from "react";
 import { Footer } from "@views/layouts/Footer";
 import logo from "../../img/logo.png";
 import coverLogin from "../../../public/img/dark_war.jpg";
-import { useAuth } from "@views/components/AuthContext";
 import ErrorToast from "@views/components/Toast";
 import { LoadingButton } from "@views/components/Loading";
 import { serverURL } from "@utils/anime";
+import toast, { Toaster } from "react-hot-toast";
+import useSWR from "swr";
 
 // https://secure.crunchyroll.com/freetrial/checkout
-
 export const AdminLoginForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [loadingBtn, setLoadingBtn] = useState(false);
-  const { isLoggedIn, setLoggedIn } = useAuth();
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState<string | boolean>("");
-  const navigate = useNavigate();
-
+  const { data: currentAdmin } = useSWR("fetchCurrentAdmin", () =>
+    axios
+      .get(`${serverURL}/api/admin-data`, { withCredentials: true })
+      .then((response) => response.data)
+  );
+  
   useEffect(() => {
-    if (isLoggedIn) {
-      console.log(isLoggedIn);
+    if (currentAdmin) {
+      setLoggedIn(true);
+      navigate("/admin/dashboard");
+    } else {
+      setLoggedIn(false);
     }
-  }, [isLoggedIn]);
+  });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       setLoadingBtn(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await axios.post(
         `${serverURL}/api/auth/admin-sign-in`,
         { email, password },
@@ -46,11 +53,21 @@ export const AdminLoginForm = () => {
       if (response?.status === 200) {
         setLoggedIn(true);
         setLoginError("");
+        await toast.promise(
+          new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          }),
+          {
+            loading: "Loading . .",
+            success: "Sign in successfully !",
+            error: "Sign in error, please try again",
+          }
+        );
         navigate("/admin/dashboard");
         window.location.reload();
       }
     } catch (error) {
-      console.error("Login error:", error);
+      setLoggedIn(false);
       setLoginError("Invalid email or password. Please try again.");
     } finally {
       setLoadingBtn(false);
@@ -63,6 +80,24 @@ export const AdminLoginForm = () => {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          success: {
+            duration: 2500,
+          },
+          error: {
+            duration: 2500,
+          },
+        }}
+      />
       <div
         className="container-login d-grid"
         style={{ gap: "80px", width: "75%", backgroundSize: "cover" }}
@@ -81,12 +116,19 @@ export const AdminLoginForm = () => {
             />
           </figure>
         </div>
-        <div className="login-form" style={{ marginTop: "-300px", backdropFilter: "none", zIndex: "666" }}>
+        <div
+          className="login-form"
+          style={{ marginTop: "-300px", backdropFilter: "none", zIndex: "666" }}
+        >
           <center>
             <img src={logo} width={130} />
             <h5
               className="text-gray"
-              style={{ fontSize: "18px", marginTop: "20px", lineHeight: "30px" }}
+              style={{
+                fontSize: "18px",
+                marginTop: "20px",
+                lineHeight: "30px",
+              }}
             >
               Please Login here's, if yours a admin <br /> for NioNime sites
             </h5>
@@ -126,7 +168,11 @@ export const AdminLoginForm = () => {
                           type="checkbox"
                           value="remember-me"
                           id="flexCheckDefault"
-                          style={{ backgroundColor: "black", cursor: "pointer", border: "2px solid gray" }}
+                          style={{
+                            backgroundColor: "black",
+                            cursor: "pointer",
+                            border: "2px solid gray",
+                          }}
                           checked={rememberMe}
                           onChange={handleCheckboxChange}
                         />

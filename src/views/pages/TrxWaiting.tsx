@@ -40,7 +40,7 @@ export const TrxWaiting = () => {
     }
   }, [trxDAT]);
 
-  // console.info(isAvailableTrx);
+  console.info(isAvailableTrx);
 
   const trxDetail = trxDAT;
   const trxStatus = trxDAT?.status;
@@ -71,7 +71,7 @@ export const TrxWaiting = () => {
     if (componentRef.current) {
       componentRef.current.focus();
     }
-  }, [componentRef]); // Make sure to include componentRef as a dependency
+  }, [componentRef]);
 
   const pageStyle = `{ size: 2.5in 4in }`;
   const handlePrint = useReactToPrint({
@@ -88,7 +88,7 @@ export const TrxWaiting = () => {
   return (
     <>
       {trxDATLoading && <ProgressLoad />}
-      {!isConfirm && !trxDATLoading && !isFailed && (
+      {!isConfirm && !trxDATLoading && !isFailed && isAvailableTrx &&(
         <center>
           <div
             className="container printable d-grid"
@@ -104,7 +104,7 @@ export const TrxWaiting = () => {
           </div>
         </center>
       )}
-      {isConfirm && !trxDATLoading && !isFailed && (
+      {isAvailableTrx && isConfirm && !trxDATLoading && !isFailed && (
         <>
           <div
             className="nota d-flex"

@@ -38,12 +38,14 @@ export const App = () => {
   // });
 
   const { data: adminData } = useSWR("fetchAdminData", () => fetchAdminData(), {
-    revalidateOnFocus: false,
+    revalidateOnFocus: true,
   });
 
   const adminCheck = () => {
-    if (adminData?.username) {
+    if (adminData) {
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -106,19 +108,11 @@ export const App = () => {
                 element={<Register />}
                 errorElement={<ErrorPage />}
               />
-              {!isAdminLoggedIn ? (
-                <Route
-                  path="admin-portals"
-                  element={<AdminLoginForm />}
-                  errorElement={<AdminLoadings />}
-                />
-              ) : (
-                <Route
-                  path="admin-portals"
-                  element={<Dashboard />}
-                  errorElement={<AdminLoadings />}
-                />
-              )}
+              <Route
+                path="admin-portals"
+                element={<AdminLoginForm />}
+                errorElement={<AdminLoadings />}
+              />
             </Route>
             {/* admin path */}
             {isAdminLoggedIn === true && (
