@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
@@ -10,5 +11,3 @@ ReactDOM.createRoot(rootElement).render(
     <App />
   </React.StrictMode>
 );
-
-/* eslint-disable @typescript-eslint/no-explicit-any */

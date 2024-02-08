@@ -5,8 +5,6 @@ import ProgressLoad from "@views/components/ProgressLoad";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-// import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
 import useSWR from "swr";
 
 export const UserInfo = () => {

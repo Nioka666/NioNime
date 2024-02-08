@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const formattedDate = new Date(); // Anda dapat menggantinya dengan nilai tanggal yang ingin Anda set
+const formattedDate = new Date();
 const day = formattedDate.getDate().toString().padStart(2, '0');
-const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0'); // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
 const year = formattedDate.getFullYear();
 
 const formattedDateString = `${day}/${month}/${year}`;

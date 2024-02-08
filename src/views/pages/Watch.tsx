@@ -24,6 +24,10 @@ import axios from "axios";
 interface WatchProps {}
 
 export const Watch: React.FC<WatchProps> = () => {
+  const [selectedEpisode, setSelectedEpisode] = useState(null || "");
+  const [selectedQuality, setSelectedQuality] = useState(null || "" || Number);
+  const [selectedSource, setSelectedSource] = useState(null || "");
+  const playerRef = useRef<Player | null>(null);
   const { animeId } = useParams();
   const { data: currentUser } = useSWR(
     "fetchCurrentUser",
@@ -42,9 +46,6 @@ export const Watch: React.FC<WatchProps> = () => {
         .then((response) => response.data),
     { revalidateOnFocus: true }
   );
-  const [selectedEpisode, setSelectedEpisode] = useState(null || "");
-  const [selectedQuality, setSelectedQuality] = useState(null || "" || Number);
-  const [selectedSource, setSelectedSource] = useState(null || "");
   const { data: animeWatchDetail, isValidating: isLoadingAnimeWatchDetail } =
     useSWR("animeWatchDetail", () => fetchAnimeDetail(animeId), {
       revalidateOnFocus: false,
@@ -66,8 +67,6 @@ export const Watch: React.FC<WatchProps> = () => {
       revalidateOnFocus: false,
     }
   );
-
-  const playerRef = useRef<Player | null>(null);
 
   const handlePlayerReady = (player: Player) => {
     playerRef.current = player;
@@ -116,7 +115,7 @@ export const Watch: React.FC<WatchProps> = () => {
     userDetail?.membership_level !== "Noble Fans" &&
     userDetail?.membership_level !== "Ordinary Fans"
   ) {
-    allowedQualityIndices = [ 1, 2];
+    allowedQualityIndices = [1, 2];
   }
 
   const streamLinks = animeStreamLink?.sources
@@ -125,9 +124,8 @@ export const Watch: React.FC<WatchProps> = () => {
 
   const handleQualityClick = (qualityIndex: any) => {
     setSelectedQuality(parseInt(qualityIndex, 10));
-    console.log(streamLinks[qualityIndex]?.quality);
+    // console.log(streamLinks[qualityIndex]?.quality);
   };
-
   let selectedEP = selectedEpisode + 1;
 
   return (

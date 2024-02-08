@@ -34,14 +34,9 @@ import { UserEdit } from "@views/backend/UserEdit";
 import { MembershipEdit } from "@views/backend/MembershipEdit";
 
 export const App = () => {
-  // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
-  //   revalidateOnFocus: false,
-  // });
-
   const { data: adminData } = useSWR("fetchAdminData", () => fetchAdminData(), {
     revalidateOnFocus: true,
   });
-
   const adminCheck = () => {
     if (adminData) {
       return true;
@@ -49,14 +44,6 @@ export const App = () => {
       return false;
     }
   };
-
-  // const userCheck = () => {
-  //   if (userData?.username) {
-  //     return true;
-  //   }
-  // };
-
-  // const isUserLoggedIn = userCheck();
   const isAdminLoggedIn = adminCheck();
 
   return (

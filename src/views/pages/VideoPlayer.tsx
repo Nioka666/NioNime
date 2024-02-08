@@ -25,7 +25,6 @@ import {
 
 export const PlayerVid = ({ src }: any) => {
   let player: any = useRef<MediaPlayerInstance>(null);
-
   // useEffect(() => {
   //   return player.current!.subscribe(({ paused, viewType }: any) => {
   //     console.log("is paused?", "->", paused);

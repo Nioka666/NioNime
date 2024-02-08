@@ -4,7 +4,6 @@ import axios, { AxiosInstance } from "axios";
 
 // ROUTES URL / ENVIRONMENT
 export const serverURL = import.meta.env.VITE_SERVER_URL;
-// 
 const seasonalAnime =
   "/api/seasonal/anime?fields=[id,title,coverImage,genres,description]";
 const recentAnime = "/api/recent?type={type}&page={page}&perPage={perPage}";
