@@ -1,4 +1,3 @@
-/* CSS untuk Mode Cetak */
 @media print {
   .container.printable {
     margin: 0px auto !important;
