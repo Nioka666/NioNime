@@ -4,7 +4,7 @@
 import { useRef } from "react";
 import "@vidstack/react/player/styles/default/theme.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
-import poster from "../../../public/img/stream_poster.jpg";
+import poster from "/img/stream_poster.jpg";
 
 import {
   isHLSProvider,

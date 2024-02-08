@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { DragDropFiles } from "@views/components/DragDropFiles";
-import gopayQR from "../../../public/img/gopay_qr.png";
-import danaQR from "../../../public/img/dana_qr.png";
+import gopayQR from "/src/img/gopay_qr.png";
+import danaQR from "/src/img/dana_qr.png";
 import { useParams } from "react-router-dom";
 import { fetchUserData, serverURL } from "@utils/anime";
 import useSWR from "swr";

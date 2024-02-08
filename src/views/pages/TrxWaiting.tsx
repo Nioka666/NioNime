@@ -6,12 +6,12 @@ import useSWR from "swr";
 import { useState, useEffect, useRef } from "react";
 import { fetchUserData, serverURL } from "@utils/anime";
 import axios from "axios";
-import logo from "../../../public/img/logo.png";
+import logo from "/src/img/logo.png";
 import "../../style/print.css";
 import ProgressLoad from "@views/components/ProgressLoad";
 import { formatingDate } from "@utils/utility";
 import { useReactToPrint } from "react-to-print";
-import blobPattern from "../../../public/img/pattern.svg";
+import blobPattern from "/src/img/pattern.svg";
 
 export const TrxWaiting = () => {
   const [isConfirm, setIsConfirm] = useState(false);

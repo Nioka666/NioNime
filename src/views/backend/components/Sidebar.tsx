@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
 import "./style/AdminNav.css";
-import logo from "../../../../public/img/logo.png";
+import logo from "/src/img/logo.png";
 
 export const Sidebar = () => {
   const menuItems = [

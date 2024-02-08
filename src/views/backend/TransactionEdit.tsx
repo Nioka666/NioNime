@@ -17,7 +17,7 @@ export const TransactionEdit = () => {
     { revalidateOnFocus: false }
   );
 
-  const photoEvidence = `../../../public/img/evidence/${trxDetail?.photo_evidence}`;
+  const photoEvidence = `/src/img/evidence/${trxDetail?.photo_evidence}`;
 
   const [newStatus, setNewStatus] = useState(trxDetail?.status);
   const [isSubmitting, setIsSubmitting] = useState(false);

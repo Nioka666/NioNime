@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "./Loading";
 import { Footer } from "@views/layouts/Footer";
-import logo from "../../img/logo.png";
-import coverLogin from "../../../public/img/blacks.jpg";
+import logo from "/src/img/logo.png";
+import coverLogin from "/src/img/blacks.jpg";
 import { serverURL } from "@utils/anime";
 import toast, { Toaster } from "react-hot-toast";
 

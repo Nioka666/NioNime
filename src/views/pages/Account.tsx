@@ -3,7 +3,7 @@
 import useSWR from "swr";
 import { fetchUserData, serverURL } from "@utils/anime";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import avatar from "../../img/gojj.jpg";
+import avatar from "/src/img/gojj.jpg";
 import axios from "axios";
 import ProgressLoad from "@views/components/ProgressLoad";
 import { useEffect, useState } from "react";

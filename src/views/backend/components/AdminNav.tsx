@@ -22,7 +22,7 @@ const InnerNav = () => {
   };
 
   const isLoggedIn = checkLoginStatus();
-  const avatarUrl = "../../../../public/img/blacks.jpg";
+  const avatarUrl = "/src/public/img/blacks.jpg";
 
   const handleLogout = async () => {
     setDialogOpen(true);

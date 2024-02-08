@@ -4,8 +4,8 @@ import { fetchUserData, serverURL } from "@utils/anime";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
-import logo from "../../../public/img/logo.png";
-import avatar from "../../../public/img/gojj.jpg";
+import logo from "/src/img/logo.png";
+import avatar from "/src/img/gojj.jpg";
 import { AlertConfirmDialog } from "@views/components/Modals";
 import toast, { Toaster } from "react-hot-toast";
 

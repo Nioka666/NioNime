@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchAllUserData, fetchUserData, serverURL } from "@utils/anime";
 import useSWR from "swr";
-import gopayLogo from "../../../public/img/Gopay.svg";
-import danaLogo from "../../../public/img/Dana.svg";
+import gopayLogo from "/src/img/Gopay.svg";
+import danaLogo from "/src/img/Dana.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";

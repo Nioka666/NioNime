@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, 'public/img/evidence');
+        callback(null, 'src/img/evidence');
     },
     filename: function (req, file, callback) {
         const currentDate = new Date().toISOString().slice(0, 10);
