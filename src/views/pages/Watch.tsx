@@ -116,7 +116,7 @@ export const Watch: React.FC<WatchProps> = () => {
     userDetail?.membership_level !== "Noble Fans" &&
     userDetail?.membership_level !== "Ordinary Fans"
   ) {
-    allowedQualityIndices = [0, 1, 2];
+    allowedQualityIndices = [ 1, 2];
   }
 
   const streamLinks = animeStreamLink?.sources
@@ -132,7 +132,7 @@ export const Watch: React.FC<WatchProps> = () => {
 
   return (
     <>
-      <div className="container" style={{ marginTop: "90px" }}>
+      <div className="container" style={{ marginTop: "80px" }}>
         <PlayerVid src={selectedSource} onReady={handlePlayerReady} />
       </div>
       <div

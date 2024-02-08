@@ -18,6 +18,8 @@ export const Login = () => {
     { revalidateOnFocus: false }
   );
 
+  console.log(isLoggedIn);
+
   useEffect(() => {
     if (currentUser) {
       setLoggedIn(true);

@@ -809,6 +809,10 @@ button.payment-method:hover {
   color: #686868;
 }
 
+.text-darkness-gray {
+  color: #444444;
+}
+
 .color-darkgray {
   color: #4c4c4c;
 }

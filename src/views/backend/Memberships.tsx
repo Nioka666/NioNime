@@ -62,7 +62,9 @@ export const Memberships = () => {
               >
                 <div className="card-header border-0 d-flex justify-content-between">
                   <h4 className="text-lighs">{trx?.level.toUpperCase()} </h4>
-                  <i className="fa-solid fa-pen-to-square mt-1 text-gray fs-4"></i>
+                  <a href={`/admin/memberships/edit/${trx?.slug}`}>
+                    <i className="fa-solid fa-pen-to-square mt-1 text-gray fs-4"></i>
+                  </a>
                 </div>
                 <div className="card-body text-lights">
                   <h5>IDR {trx?.prices?.toLocaleString("ID-id")}</h5>

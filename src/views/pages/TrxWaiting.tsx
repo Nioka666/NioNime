@@ -9,7 +9,7 @@ import axios from "axios";
 import logo from "../../../public/img/logo.png";
 import "../../style/print.css";
 import ProgressLoad from "@views/components/ProgressLoad";
-import { calculateExpiredDate, formatingDate } from "@utils/utility";
+import { formatingDate } from "@utils/utility";
 import { useReactToPrint } from "react-to-print";
 import blobPattern from "../../../public/img/pattern.svg";
 
@@ -88,7 +88,7 @@ export const TrxWaiting = () => {
   return (
     <>
       {trxDATLoading && <ProgressLoad />}
-      {!isConfirm && !trxDATLoading && !isFailed && isAvailableTrx &&(
+      {!isConfirm && !trxDATLoading && !isFailed && (
         <center>
           <div
             className="container printable d-grid"
@@ -104,7 +104,7 @@ export const TrxWaiting = () => {
           </div>
         </center>
       )}
-      {isAvailableTrx && isConfirm && !trxDATLoading && !isFailed && (
+      {isConfirm && !trxDATLoading && !isFailed && (
         <>
           <div
             className="nota d-flex"
@@ -257,9 +257,7 @@ export const TrxWaiting = () => {
                         <label htmlFor="id">Date Expired:</label>
                       </td>
                       <td>
-                        <span>
-                          {calculateExpiredDate(trxDetail?.membership_expired)}
-                        </span>
+                        <span>{trxDetail?.membership_expired}</span>
                       </td>
                     </tr>
                   </tbody>

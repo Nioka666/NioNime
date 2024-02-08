@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import { Conn } from './connection.js';
 import { AdminsModel, MembershipsModel, TransactionsModel, UsersModel } from './models.js';
 import cors from 'cors';
-import path from 'path';
+import path, { resolve } from 'path';
 import session from 'express-session';
 import multer from "multer";
 import validator from 'validator';
@@ -201,7 +201,6 @@ app.post("/api/membership-update", async (req, res) => {
     const userID = req.body.userID;
     const membershipDateExpired = req.body.membershipDateExpired;
     const isValidNobleFans = req.body.isValidNobleFans;
-
     try {
         const userLevelChange = await UsersModel.findOneAndUpdate(
             { _id: userID },
@@ -217,6 +216,27 @@ app.post("/api/membership-update", async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.post('/api/membership-update-details/:slug', async (req, res) => {
+    const slug = req.params.slug;
+    const newLevelName = req.body.newLevelName;
+    const newPrice = req.body.newPrice;
+
+    try {
+        const resp = await MembershipsModel.findByIdAndUpdate(
+            { slug: slug },
+            { level: newLevelName, prices: newPrice }
+        );
+        if (resp) {
+            res.status(200).json(resp);
+        } else {
+            res.status(401).json({ msg: "can't find membership data" })
+        }
+    } catch (error) {
+        console.log(error)
+
     }
 });
 

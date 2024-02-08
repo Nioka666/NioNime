@@ -58,10 +58,12 @@ export const PlayerVid = ({ src }: any) => {
         onProviderChange={onProviderChange}
         onCanPlay={onCanPlay}
         ref={player}
-        aspectRatio="16/6.5"
+        aspectRatio="16/6.9"
+        typeof="application/x-mpegURL"
+        itemType="application/x-mpegURL"
       >
         <MediaProvider>
-          <Poster className="vds-poster" src={poster} alt=""/>
+          <Poster className="vds-poster" src={poster} alt="" />
         </MediaProvider>
 
         <DefaultAudioLayout icons={defaultLayoutIcons} />

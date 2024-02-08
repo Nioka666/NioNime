@@ -62,8 +62,6 @@ export const TransactionEdit = () => {
     navigate("/admin/transactions");
   };
 
-  console.log(trxDetail);
-
   // const selectedLevel = trxDetail?.membership_level;
   // const checkTimeJump = () => {
   //   if (selectedLevel === "Noble Fans") {
@@ -96,6 +94,8 @@ export const TransactionEdit = () => {
       )
       .then((response) => response.data)
   );
+
+  console.log(memberStatusUpdate);
 
   if (!trxDetail) {
     return <Loading />;

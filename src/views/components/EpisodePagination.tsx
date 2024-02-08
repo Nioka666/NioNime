@@ -50,7 +50,7 @@ const EpisodesPagination: React.FC<EpisodesPaginationProps> = ({
 
   const renderPagination = () => {
     const pageNumbers = [];
-    const maxIndicators = 3;
+    const maxIndicators = 1;
 
     let startPage = Math.max(currentPage - Math.floor(maxIndicators / 2), 1);
     let endPage = Math.min(startPage + maxIndicators - 1, totalPages);

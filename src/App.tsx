@@ -31,6 +31,7 @@ import { MembershipInfo } from "@views/pages/MembershipInfo";
 import { OrderHistory } from "@views/pages/OrderHistory";
 import { PlayerVid } from "@views/pages/VideoPlayer";
 import { UserEdit } from "@views/backend/UserEdit";
+import { MembershipEdit } from "@views/backend/MembershipEdit";
 
 export const App = () => {
   // const { data: userData } = useSWR("fetchUserData", () => fetchUserData(), {
@@ -90,6 +91,7 @@ export const App = () => {
                 element={<TrxProcess />}
               />
               <Route path="transaction/waiting" element={<TrxWaiting />} />
+              {/* <Route path="transaction/invoice" element={<InvoicePage />} /> */}
               <Route
                 path="/*"
                 element={<ErrorPage />}
@@ -126,6 +128,10 @@ export const App = () => {
                 <Route path="transactions" element={<TransactionsDetail />} />
                 <Route path="users" element={<UserLists />} />
                 <Route path="memberships" element={<Memberships />} />
+                <Route
+                  path="memberships/edit/:membershipSlug"
+                  element={<MembershipEdit />}
+                />
                 <Route path="edit-user/:userIDs" element={<UserEdit />} />
                 <Route
                   path="transaction-edit/:trxID"
