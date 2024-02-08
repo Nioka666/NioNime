@@ -27,6 +27,7 @@ export const CardsRow = () => {
 
   const storedAnimeStats = localStorage.getItem("animeStats");
   let savedAnimeStats: any = null;
+  console.log(savedAnimeStats);
 
   if (storedAnimeStats) {
     try {
@@ -80,7 +81,7 @@ export const CardsRow = () => {
             style={{ padding: "50px 0px 0px 0px" }}
           >
             <h3 className="text-lighs">Content data stats</h3>
-            <h6 className="text-gray fw-light" style={{fontSize: "14px"}}>
+            <h6 className="text-gray fw-light" style={{ fontSize: "14px" }}>
               the statistic of all contents <br /> available on NioNime
             </h6>
           </div>

@@ -28,7 +28,7 @@ export const AdminLoginForm = () => {
       .get(`${serverURL}/api/admin-data`, { withCredentials: true })
       .then((response) => response.data)
   );
-  
+
   useEffect(() => {
     if (currentAdmin) {
       setLoggedIn(true);
@@ -77,6 +77,8 @@ export const AdminLoginForm = () => {
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRememberMe(e.target.checked);
   };
+
+  console.log(isLoggedIn);
 
   return (
     <>

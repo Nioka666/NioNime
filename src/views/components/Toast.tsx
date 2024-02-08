@@ -9,6 +9,7 @@ interface ErrorToastProps {
 const ErrorToast: React.FC<ErrorToastProps> = ({ errorMessage }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
+  console.log(loading);
   useEffect(() => {
     if (errorMessage) {
       setLoading(true);

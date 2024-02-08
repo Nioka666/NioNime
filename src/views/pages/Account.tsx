@@ -27,6 +27,8 @@ const UserProfile = () => {
       revalidateOnFocus: false,
     }
   );
+  console.log(isLoggedIn);
+  
   useEffect(() => {
     if (!userData) {
       setLoggedIn(false);

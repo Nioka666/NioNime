@@ -30,6 +30,7 @@ export const AnimeSlider = () => {
 
   let savedRecentAnime: any = null;
   const storedTopAnime = localStorage.getItem("recentAnimeData");
+  console.log(savedRecentAnime);
 
   if (storedTopAnime) {
     try {

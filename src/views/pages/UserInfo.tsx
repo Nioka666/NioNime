@@ -34,6 +34,7 @@ export const UserInfo = () => {
     allDataUser?.phone_number
   );
   // end of state
+  console.log(isUserChanged);
   const userID = allDataUser?._id;
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

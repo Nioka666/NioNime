@@ -34,6 +34,7 @@ export const TransactionsDetail = () => {
   const handlePageChange = (page: any) => {
     setCurrentPage(page);
   };
+  console.log(currentItems);
 
   const handleDelete = async (trxID: any) => {
     setDialogOpen(true);
@@ -70,7 +71,7 @@ export const TransactionsDetail = () => {
     if (componentRef.current) {
       componentRef.current.focus();
     }
-  }, [componentRef]); // Make sure to include componentRef as a dependency
+  }, [componentRef]);
 
   const pageStyle = `{ size: 2.5in 4in }`;
   const handlePrint = useReactToPrint({
