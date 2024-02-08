@@ -1,24 +1,22 @@
-# React + TypeScript + Vite
-# NioNime
+# NioNime - Anime Streaming Website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![NioNime Logo](link_to_logo) # Replace "link_to_logo" with the actual URL of your logo
 
-## Expanding the ESLint configuration
+NioNime is a cutting-edge anime streaming platform developed using Node.js, TypeScript, React, and Vite.js. MongoDB Atlas serves as the robust database solution to securely store user information and manage membership transactions.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Getting Started
 
-- Configure the top-level `parserOptions` property like this:
+### Requirements
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Ensure the following tools are installed on your system before setting up NioNime:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- [Node.js](https://nodejs.org/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [Vite.js](https://vitejs.dev/)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-username/NioNime.git
