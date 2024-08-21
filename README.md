@@ -44,8 +44,8 @@ Ensure the following tools are installed on your system before setting up NioNim
    npm run db
    ```
 
-### Refference & Resource
+### References & Resources
 
-#### API Provider :
+#### API Provider : [Anify.tv](https://api.anify.tv)
 
-[anify.tv](https://api.anify.tv)
+#### Design web reference : [Crunchyroll](https://www.crunchyroll.com/)
